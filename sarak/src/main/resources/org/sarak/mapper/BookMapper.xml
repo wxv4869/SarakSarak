@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.sarak.mapper.BookMapper">    <!-- BookMapper interface의 메서드들에 대한 SQL 매핑 -->
+
+	<!-- 전체 도서 목록 가져오기 -->
+	<select id="allBookList" resultType="org.sarak.domain.BookVO">
+		<![CDATA[
+			select * from tbl_book order by bid
+		]]>
+	</select>
+	
+	<!-- 전체 도서 목록을 비동기로 가져오기 -->
+	<select id="allBookListAjax" resultType="org.sarak.domain.BookVO">
+		select * from tbl_book order by bid
+	</select>
+	
+	<!-- 페이징 처리된 도서 목록 가져오기 -->
+	<select id="bookListWithPaging" resultType="org.sarak.domain.BookVO">
+		<![CDATA[
+			select bid, bname, bprice, isbn, pubdate, publisher, authorid
+			from
+				(
+				select /*+INDEX_ASC(tbl_book pk_book)*/
+					rownum rn, bid, bname, bprice, isbn, pubdate, publisher, authorid
+				from
+					tbl_book
+				where rownum <= #{pageNum} * #{amount}
+				)
+			where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 페이징을 위한 전체 도서의 수 가져오기 -->
+	<select id="getTotalCount" resultType="int">
+		select count(*) from tbl_book where bid > 0
+	</select>
+	
+	<!-- 도서 추가 (관리자) -->
+	<insert id="insert">
+		insert into tbl_book (bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents)
+		values (seq_book.nextval, #{bname}, #{bprice}, #{isbn}, #{pubdate}, #{publisher}, #{authorid}, #{summary}, #{contents})
+	</insert>
+	
+	<!-- 도서 추가 (자동 생성된 키 반환) -->
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bid" order="BEFORE" resultType="int">
+			select seq_book.nextval from dual
+		</selectKey>
+		
+		insert into tbl_book (bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents)
+		values (#{bid}, #{bname}, #{bprice}, #{isbn}, #{pubdate}, #{publisher}, #{authorid}, #{summary}, #{contents})
+	</insert>
+	
+	<!-- 도서 조회 -->
+	<select id="read" resultType="org.sarak.domain.BookVO">
+		select * from tbl_book where bid = #{bid}
+	</select>
+	
+	<!-- 도서 삭제 (관리자) -->
+	<delete id="delete">
+		delete from tbl_book where bid = #{bid}
+	</delete>
+	
+	<!-- 도서 정보 수정 (관리자) -->
+	<update id="update">
+		update tbl_book set bname = #{bname},
+							bprice = #{bprice},
+							isbn = #{isbn},
+							pubdate = #{pubdate},
+							publisher = #{publisher},
+							authorid = #{authorid},
+							summary = #{summary},
+							contents = #{contents}
+						where bid = #{bid}
+	</update>
+	
+</mapper>
