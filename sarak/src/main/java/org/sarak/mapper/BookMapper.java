@@ -26,5 +26,5 @@ public interface BookMapper {    // 데이터베이스에 접근하는 메서드
 	public List<BookVO> bookListWithPaging(Criteria cri);    // 페이징된 도서 목록 가져오기
 	
 	public int getTotalCount(Criteria cri);    // 전체 도서 수 가져오기 (페이징)
-
+	
 }

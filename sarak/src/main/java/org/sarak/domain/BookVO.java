@@ -1,6 +1,6 @@
 package org.sarak.domain;
 
-import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +20,10 @@ public class BookVO {
 	private int authorid;
 	private String summary;
 	private String contents;
+	
+	private String mainimg;
+	private String detailimg;
+	
+	private List<BookAttachVO> attachList;
 	
 }

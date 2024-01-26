@@ -2,13 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="cpath" value="${pageContext.request.contextPath}"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -17,32 +16,21 @@
     <!-- Bootstrap Core CSS -->
     <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="/resources/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-    <!-- DataTables CSS -->
-    <link href="/resources/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="/resources/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="/resources/dist/css/sb-admin-2.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../../resources/css/allBook.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/6.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    
     <script type="text/javascript">
 
 		function loadJson() {    // 도서 목록 비동기
 			$.ajax({
-				url:"${cpath}/allBookListAjax",
-				type:"get",
-				dataType:"json",
-				success:ajaxHtml,
-				error:function() {alert("error");}
+				url: '<c:url value="/allBookListAjax"/>',
+				type: 'get',
+				dataType: 'json',
+				success: ajaxHtml,
+				error:function() {alert('error');}
 			});
 		}
 		 	
@@ -53,10 +41,10 @@
 			html += "<td>번호</td>";
 			html += "<td>제목</td>";
 			html += "<td>가격</td>";
-			html += "<td>ISBN</td>";
 			html += "<td>출간일</td>";
 			html += "<td>출판사</td>";
 			html += "<td>작가번호</td>";
+			html += "<td>줄거리</td>";
 			html += "</tr>";
 			
 			$.each(data, (index, obj) => {
@@ -65,10 +53,10 @@
 		   		html += "<td>" + obj.bid + "</td>";
 		   		html += "<td>" + obj.bname + "</td>";
 		   		html += "<td>" + obj.bprice + "</td>";
-		   		html += "<td>" + obj.isbn + "</td>";
 		   		html += "<td>" + obj.pubdate + "</td>";
 		   		html += "<td>" + obj.publisher + "</td>";
 		   		html += "<td>" + obj.authorid + "</td>";
+		   		html += "<td>" + obj.summary + "</td>";
 		   		html += "</tr>";
 		   		
 			});
@@ -79,10 +67,23 @@
 			
 		}
 		 
-		$(document).ready(function() {    // 페이징, 페이지 이동 처리
+		$(document).ready(function() {
+			
+			(function() {
+				
+				var bid = '<c:out value = "${attach.bid}" />';
+				
+				$.getJSON("/sarak/getAttachList", {bid: bid}, function(arr) {
+					
+					console.log(arr);
+					
+				});
+				
+			})();
 			
 			var actionForm = $("#actionForm");
 			
+			// 페이징, 페이지 이동 처리
 			$(".paginate_button a").on("click", function(e) {
 				
 				e.preventDefault();
@@ -94,6 +95,7 @@
 				actionForm.submit();
 				
 			});
+			
 		});
 	</script>
     
@@ -105,50 +107,7 @@
 		<!-- 전체 페이지 영역 시작 -->
 		<div class="sarakMainWrapper">
 			<!-- 헤더 영역 시작 -->
-			<div id="sarakHeaderArea">
-				<div class="sarakHeaderWrap">
-					<!-- 헤더 Top 영역 시작 -->
-					<div class="sarakHeaderTop">
-						<!-- 유틸 메뉴 (로그인, 회원가입, 고객센터) 시작 -->
-						<ul>
-							<li id="loginText">
-								<em class="txt">로그인</em>
-							</li>
-							<li id="registerText">
-								<em class="txt">회원가입</em>
-							</li>
-							<li id="serviceText">
-								<em class="txt">고객센터</em>
-							</li>
-						</ul>
-					</div>
-					<!-- 헤더 Top 영역 끝 -->
-					
-					<!-- 헤더 Mid 영역 시작 -->
-					<div class="sarakHeaderMid">
-						<div class="sarakSearch">
-						
-						</div>
-					</div>
-					<!-- 헤더 Mid 영역 끝 -->
-					
-					<!-- 헤더 Nav 메뉴 영역 시작 -->
-					<div class="sarakHeaderNav">
-						<dl>
-							<dd>
-								<ul>
-									<li>전체도서</li>
-									<li>베스트도서</li>
-									<li>신간도서</li>
-									<li>공지사항</li>
-								</ul>
-							</dd>
-						</dl>
-					</div>
-					<!-- 헤더 Nav 메뉴 영역 끝 -->
-					
-				</div>
-			</div>
+			<%@ include file="includes/header.jsp" %>
 			<!-- 헤더 영역 끝 -->
 			
 			<!-- 미들 영역 시작 -->
@@ -158,27 +117,103 @@
 					<div class="allbook_wrap">
 					<h2 class="title_heading">전체도서</h2>
 						<div class="allbook_prod">
-							<table class="table table-hover table-bordered">
+						
+							<style>
+								.title_heading {
+									text-align: center;
+									margin-top: 20px;
+								}
+								
+								.allbook_prod table {
+									width: 100%;
+								}
+								
+								.allbook_prod td {
+									text-align: center;
+									vertical-align: middle;
+								}
+								
+								.mainimage img {
+									max-width: 100px;
+									max-height: 150px;
+									width: auto;
+									height: auto;
+								}
+								
+								.summary {
+									margin-top: 10px;
+								}
+								
+								.separator {
+									background-color: #ddd;
+									height: 1px;
+								}
+							</style>
+						
+							<table>
 								<tr>
 									<td>번호</td>
+									<td>표지</td>
 									<td>제목</td>
 									<td>가격</td>
-									<td>ISBN</td>
 									<td>출간일</td>
 									<td>출판사</td>
 									<td>작가번호</td>
 								</tr>
+								
 								<c:forEach var="vo" items="${allBookList}">
 									<tr>
 										<td>${vo.bid}</td>
-										<td>${vo.bname}</td>
+										<td class="mainimage">
+											<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${vo.attachList[0].uploadpath}/${vo.attachList[0].filename}'/>" alt="표지 이미지"/>
+										</td>
+										<td>
+											<div style="display: flex; align-items: center;">
+												<div style="flex: 1;">
+													<strong>${vo.bname}</strong>
+												</div>
+											</div>
+										</td>
 										<td>${vo.bprice}</td>
 										<td>${vo.isbn}</td>
 										<td>${vo.pubdate}</td>
 										<td>${vo.publisher}</td>
 										<td>${vo.authorid}</td>
 									</tr>
+									
+									<!-- 줄거리 -->
+									<tr>
+										<td></td>
+										<td colspan="7">
+											<div class="summary">
+												<strong>줄거리:</strong>
+												${fn:substring(vo.summary, 0, 30)}${fn:length(vo.summary) > 30 ? '...' : ''}
+											</div>
+										</td>
+									</tr>
+									
+									<!-- 회색 선 -->
+									<tr>
+										<td colspan="8" class="separator"></td>
+									</tr>
 								</c:forEach>
+								
+								<%-- <c:forEach var="vo" items="${allBookList}">
+									<tr>
+										<td>${vo.bid}</td>
+										<td class="mainimage">
+											<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${vo.attachList[0].uploadpath}/${vo.attachList[0].filename}'/>"
+													style="max-width: 100px; max-height: 150px; width: auto; height: auto;"/>
+										</td>
+										<td>${vo.bname}</td>
+										<td>${vo.bprice}</td>
+										<td>${vo.pubdate}</td>
+										<td>${vo.publisher}</td>
+										<td>${vo.authorid}</td>
+									</tr>
+								</c:forEach> --%>
+								
+								
 							</table>
 							
 							<!-- 페이징 영역 시작 -->
@@ -212,14 +247,7 @@
 			<!-- 미들 영역 끝 -->
 			
 			<!-- footer 영역 시작 -->
-			<div class="sarakFooterArea">
-								
-				<!-- 기업 정보 영역 -->
-				<div class="sarakInfoArea">
-				
-				</div>
-				
-			</div>
+			<%@ include file="includes/footer.jsp" %>
 			<!-- footer 영역 끝 -->
 			
 		</div>
