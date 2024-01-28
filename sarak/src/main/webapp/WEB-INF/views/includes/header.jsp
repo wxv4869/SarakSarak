@@ -14,20 +14,12 @@
     <meta name="author" content="">
 
     <title>사락사락 관리자 계정</title>
-	<title>빛바랜</title>
 
     <!-- Custom CSS -->
     <link href="/resources/dist/css/main.css" type="text/css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 
@@ -69,7 +61,7 @@
 		<nav>
 			<div class="menubar">
 				<ul>
-					<li><a href="#">전체도서</a></li>
+					<li><a href="/sarak/allBookList">전체도서</a></li>
 					<li><a href="#" id="current">베스트도서</a></li>
 					<li><a href="#" id="com">신간도서</a></li>
 					<li><a href="#">공지사항</a></li>

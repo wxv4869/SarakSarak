@@ -22,6 +22,98 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     
+    <style>
+		@charset "UTF-8";
+		
+		*{
+			margin: 0;
+			padding:0;
+		}
+		
+		
+		.title_heading {
+			text-align: center;
+			margin-top: 80px;
+			margin-bottom: 80px;
+			font-size: 26px;
+			font-style: inherit;
+		}
+		
+		.detail div {
+			margin-left: 40px;
+		}
+		
+		.mainimage img {
+			width: 140px;
+			height: 210px;
+			margin-top: 40px;
+			margin-bottom: 40px;
+		}
+		
+		.separator {
+			background-color: #bbb;
+			height: 1px;
+		}
+		
+		.num .bid {
+			vertical-align: top;
+			text-align: left;
+			margin: 20px;
+		}
+		
+		.detail {
+			padding-right: 40px;
+		}
+		
+		.detail .bname strong {
+			text-decoration: none;
+			color: #000;
+			font-size: 18px;
+		}
+		
+		.detail .etc {
+			color: #787878;
+			font-size: 16px;
+			margin-top: 5px;
+		}
+		
+		.detail .summary {
+			color: #787878;
+			font-size: 16px
+		}
+		
+		.btn-group {
+			 display: block;
+    		 white-space: nowrap;
+			 margin-top: 75px;
+			 margin-right: 30px;
+		}
+		
+		.cartbtn input {
+			width: 120px;
+			height: 60px;
+			background-color: #8e8e8e;
+			border: none;
+			font-size: 16px;
+			font-weight: bold;
+			color: white;
+			margin-bottom: 15px;
+			border-radius: 15px;
+		}
+		
+		.buynowbtn input {
+			width: 120px;
+			height: 60px;
+			background-color: #8ee6db;
+			border: none;
+			font-size: 16px;
+			font-weight: bold;
+			color: white;
+			border-radius: 15px;
+		}
+		
+	</style>
+    
     <script type="text/javascript">
 
 		function loadJson() {    // 도서 목록 비동기
@@ -32,54 +124,23 @@
 				success: ajaxHtml,
 				error:function() {alert('error');}
 			});
-		}
-		 	
-		function ajaxHtml(data) {    // 도서 목록 html 형식으로 출력
-			
-			var html = "<table class='table'>";
-			html += "<tr>";
-			html += "<td>번호</td>";
-			html += "<td>제목</td>";
-			html += "<td>가격</td>";
-			html += "<td>출간일</td>";
-			html += "<td>출판사</td>";
-			html += "<td>작가번호</td>";
-			html += "<td>줄거리</td>";
-			html += "</tr>";
-			
-			$.each(data, (index, obj) => {
-				
-				html += "<tr>";
-		   		html += "<td>" + obj.bid + "</td>";
-		   		html += "<td>" + obj.bname + "</td>";
-		   		html += "<td>" + obj.bprice + "</td>";
-		   		html += "<td>" + obj.pubdate + "</td>";
-		   		html += "<td>" + obj.publisher + "</td>";
-		   		html += "<td>" + obj.authorid + "</td>";
-		   		html += "<td>" + obj.summary + "</td>";
-		   		html += "</tr>";
-		   		
+		
+			$.ajax({
+				url: 'sarak/getAttachList',
+				type: 'get',
+				dataType: 'json',
+				data: { keyword: 'mainimg' },
+				success: function(mainimgList) {
+					console.log(mainimgList);
+				},
+				error: function() {
+					alert('error');
+				}
 			});
-			
-			html += "</table>";
-			
-			$("#ajaxAllBookList").html(html);
 			
 		}
 		 
 		$(document).ready(function() {
-			
-			(function() {
-				
-				var bid = '<c:out value = "${attach.bid}" />';
-				
-				$.getJSON("/sarak/getAttachList", {bid: bid}, function(arr) {
-					
-					console.log(arr);
-					
-				});
-				
-			})();
 			
 			var actionForm = $("#actionForm");
 			
@@ -93,6 +154,20 @@
 				actionForm.find("input[name = 'pageNum']").val($(this).attr("href"));
 				
 				actionForm.submit();
+				
+			});
+			
+			$(".move").on("click", function(e) {
+				
+				e.preventDefault();
+				
+				actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
+				
+				actionForm.attr("action", "/sarak/bookDetail");
+				
+				actionForm.submit();
+				
+				history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
 				
 			});
 			
@@ -117,103 +192,48 @@
 					<div class="allbook_wrap">
 					<h2 class="title_heading">전체도서</h2>
 						<div class="allbook_prod">
-						
-							<style>
-								.title_heading {
-									text-align: center;
-									margin-top: 20px;
-								}
-								
-								.allbook_prod table {
-									width: 100%;
-								}
-								
-								.allbook_prod td {
-									text-align: center;
-									vertical-align: middle;
-								}
-								
-								.mainimage img {
-									max-width: 100px;
-									max-height: 150px;
-									width: auto;
-									height: auto;
-								}
-								
-								.summary {
-									margin-top: 10px;
-								}
-								
-								.separator {
-									background-color: #ddd;
-									height: 1px;
-								}
-							</style>
-						
 							<table>
-								<tr>
-									<td>번호</td>
-									<td>표지</td>
-									<td>제목</td>
-									<td>가격</td>
-									<td>출간일</td>
-									<td>출판사</td>
-									<td>작가번호</td>
-								</tr>
-								
 								<c:forEach var="vo" items="${allBookList}">
 									<tr>
-										<td>${vo.bid}</td>
+										<td class="num">
+											<div class="bid">${vo.bid}</div>
+										</td>
 										<td class="mainimage">
-											<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${vo.attachList[0].uploadpath}/${vo.attachList[0].filename}'/>" alt="표지 이미지"/>
+											<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(vo.attachList[0].filename, '.')), 'mainimg')}">
+												<a href="#"><img src="<c:url value='/sarak/display'/>?filename=<c:out value='${vo.attachList[0].uploadpath}/${vo.attachList[0].filename}'/>" alt="표지 이미지"/></a>
+											</c:if>
 										</td>
-										<td>
-											<div style="display: flex; align-items: center;">
-												<div style="flex: 1;">
-													<strong>${vo.bname}</strong>
-												</div>
+										<td class="detail">
+											<div class="bname">
+												<a class='move' href='<c:out value="${vo.bid}"/>'>
+													<strong><c:out value="${vo.bname}"/></strong>
+												</a>
 											</div>
-										</td>
-										<td>${vo.bprice}</td>
-										<td>${vo.isbn}</td>
-										<td>${vo.pubdate}</td>
-										<td>${vo.publisher}</td>
-										<td>${vo.authorid}</td>
-									</tr>
-									
-									<!-- 줄거리 -->
-									<tr>
-										<td></td>
-										<td colspan="7">
+											<div class="etc">
+												${vo.authorname} 지음 | ${vo.publisher} | <fmt:formatDate value="${vo.pubdate}" pattern="yyyy.MM.dd"/>
+											</div><br>
+											<div class="bprice">
+												<strong><fmt:formatNumber value="${vo.bprice}" pattern="#,###원"/></strong>
+											</div><br>
 											<div class="summary">
-												<strong>줄거리:</strong>
-												${fn:substring(vo.summary, 0, 30)}${fn:length(vo.summary) > 30 ? '...' : ''}
+												${fn:replace(fn:substring(vo.summary, 0, 100), '\\n', ' ')}${fn:length(vo.summary) > 100 ? '...' : ''}
+											</div>
+										</td>
+										<td class="btn-group">
+											<div class="cartbtn">
+												<input type="button" class="cart" name="btn" value="장바구니"></button>
+											</div>
+											<div class="buynowbtn">
+												<input type="button" class="buynow" name="btn" value="바로구매"></button>
 											</div>
 										</td>
 									</tr>
 									
-									<!-- 회색 선 -->
+									<!-- 구분 선 -->
 									<tr>
 										<td colspan="8" class="separator"></td>
 									</tr>
 								</c:forEach>
-								
-								<%-- <c:forEach var="vo" items="${allBookList}">
-									<tr>
-										<td>${vo.bid}</td>
-										<td class="mainimage">
-											<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${vo.attachList[0].uploadpath}/${vo.attachList[0].filename}'/>"
-													style="max-width: 100px; max-height: 150px; width: auto; height: auto;"/>
-										</td>
-										<td>${vo.bname}</td>
-										<td>${vo.bprice}</td>
-										<td>${vo.pubdate}</td>
-										<td>${vo.publisher}</td>
-										<td>${vo.authorid}</td>
-									</tr>
-								</c:forEach> --%>
-								
-								
 							</table>
 							
 							<!-- 페이징 영역 시작 -->

@@ -103,4 +103,5 @@ public class BookMapperTests {
 		bookList.forEach(book -> log.info(book.getBid()));
 		
 	}
+
 }

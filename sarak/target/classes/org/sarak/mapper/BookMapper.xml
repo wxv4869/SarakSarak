@@ -16,25 +16,50 @@
 		select * from tbl_book order by bid
 	</select>
 	
+	<!-- book + author resultmap -->
+	<resultMap id="bookResultMap" type="org.sarak.domain.BookVO">
+		<id property="bid" column="bid"/>
+		<result property="bname" column="bname"/>
+		<result property="bprice" column="bprice"/>
+		<result property="isbn" column="isbn"/>
+		<result property="pubdate" column="pubdate"/>
+		<result property="publisher" column="publisher"/>
+		<result property="authorid" column="authorid"/>
+		<result property="authorname" column="authorname"/>
+		<result property="summary" column="summary"/>
+		<result property="contents" column="contents"/>
+	</resultMap>
+	
+	<!-- 작가 이름 가져오기 -->
+	<select id="getAuthornameById" resultType="String">
+		select authorname from tbl_author where authorid = #{authorid}
+	</select>
+	
 	<!-- 페이징 처리된 도서 목록 가져오기 -->
 	<select id="bookListWithPaging" resultType="org.sarak.domain.BookVO">
 		<![CDATA[
-			select bid, bname, bprice, isbn, pubdate, publisher, authorid
+			select b.bid, b.bname, b.bprice, b.isbn, b.pubdate, b.publisher, b.authorid, b.summary, b.contents, a.authorname
 			from
 				(
 				select /*+INDEX_ASC(tbl_book pk_book)*/
-					rownum rn, bid, bname, bprice, isbn, pubdate, publisher, authorid
+					rownum rn, bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents
 				from
 					tbl_book
 				where rownum <= #{pageNum} * #{amount}
-				)
-			where rn > (#{pageNum} - 1) * #{amount}
+				) b
+			join tbl_author a on b.authorid = a.authorid
+			where b.rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
 	
 	<!-- 페이징을 위한 전체 도서의 수 가져오기 -->
 	<select id="getTotalCount" resultType="int">
 		select count(*) from tbl_book where bid > 0
+	</select>
+	
+	<!-- filename에 "mainimg"가 포함된 데이터만 가져오기 -->
+	<select id="getMainImgAttachList" resultType="org.sarak.domain.BookAttachVO">
+		select * from tbl_book_img where bid = #{bid} and filename like '%mainimg%'
 	</select>
 	
 	<!-- 도서 추가 (관리자) -->
