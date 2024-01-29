@@ -20,7 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,9 +40,59 @@ public class BookController {
 	
 	// 메인 페이지
 	@GetMapping("/main")
-	public void main() {
+	public void main(Criteria cri, Model model) {
 		
 		log.info("###### 메인 페이지 진입 ######");
+		model.addAttribute("bestBookList", bookService.bestBookList(cri));
+		model.addAttribute("newBookList", bookService.newBookList(cri));
+		
+		log.info("newBookList" + bookService.newBookList(cri));
+		
+		int total = bookService.getTotal(cri);
+		
+		log.info("total: " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+	}
+	
+	// 베스트 도서 페이지
+	@GetMapping("/bestBookList")
+	public String bestBook(Criteria cri, Model model) {
+		
+		log.info("###### 베스트 페이지 진입 ######");
+		
+		model.addAttribute("bestBookList", bookService.bestBookList(cri));
+		
+		int total = bookService.getBestTotal(cri);	
+		
+		log.info("bestBookList: " + cri);
+		
+		log.info("total: " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		return "sarak/bestBookList";
+		
+	}
+	
+	// 신간 도서 페이지
+	@GetMapping("/newBookList")
+	public String newBook(Criteria cri, Model model) {
+		
+		log.info("###### 신간 페이지 진입 ######");
+		
+		model.addAttribute("newBookList", bookService.newBookList(cri));
+		
+		int total = bookService.getNewTotal(cri);	
+		
+		log.info("newBookList: " + cri);
+		
+		log.info("total: " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		return "sarak/newBookList";
 		
 	}
 	
@@ -93,7 +142,7 @@ public class BookController {
 		
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
-		return "allBookList";
+		return "sarak/allBookList";
 		
 	}
 
@@ -102,15 +151,15 @@ public class BookController {
 		
 		log.info("###### 도서 상세 페이지 진입 ######");
 		
-		BookVO book = bookService.get(bid);
+		BookVO bookVO = bookService.getMap(bid);
 		
 		List<BookAttachVO> attachList = bookService.getAttachList(bid);
 		
+		model.addAttribute("bookVO", bookVO);
+		
 		model.addAttribute("attachList", attachList);
 		
-		model.addAttribute("book", book);
-		
-		return "bookDetail";
+		return "sarak/bookDetail";
 		
 	}
 	

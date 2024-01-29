@@ -12,6 +12,14 @@ public interface BookService {    // 비즈니스 로직
 	
 	public BookVO get(int bid);    // 도서 조회
 	
+	public BookVO getMap(int bid); // map을 이용한 도서 조회
+	
+	public List<BookVO> allBookListMap(Criteria cri);
+	
+	public List<BookVO> bestBookList(Criteria cri);
+	
+	public List<BookVO> newBookList(Criteria cri);
+	
 	public boolean modify(BookVO book);    // 도서 수정
 	
 	public boolean remove(int bid);    // 도서 삭제
@@ -19,6 +27,10 @@ public interface BookService {    // 비즈니스 로직
 	public List<BookVO> allBookList(Criteria cri);    // 전체 도서 목록
 	
 	public int getTotal(Criteria cri);    // 전체 도서 수
+	
+	public int getBestTotal(Criteria cri);    // 베스트 전체 도서 수
+	
+	public int getNewTotal(Criteria cri);    // 신간 전체 도서 수
 	
 	public List<BookAttachVO> getAttachList(int bid);
 	

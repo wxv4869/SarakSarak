@@ -22,13 +22,13 @@ public class BookMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private BookMapper bookMapper;
 	
-	// 도서 목록 조회 테스트
-	@Test
-	public void testGetList() {
-		
-		bookMapper.allBookList().forEach(book -> log.info(book));
-		
-	}
+//	// 도서 목록 조회 테스트
+//	@Test
+//	public void testGetList() {
+//		
+//		bookMapper.allBookList().forEach(book -> log.info(book));
+//		
+//	}
 	
 	// 도서 추가 테스트 (관리자)
 //	@Test
@@ -88,20 +88,46 @@ public class BookMapperTests {
 //		
 //	}
 	
-	// 목록 페이징 테스트
-	@Test
-	public void testPaging() {
-		
-		Criteria cri = new Criteria();
-		
-		cri.setPageNum(1);
-		
-		cri.setAmount(10);
-		
-		List<BookVO> bookList = bookMapper.bookListWithPaging(cri);
-		
-		bookList.forEach(book -> log.info(book.getBid()));
-		
-	}
+//	// 목록 페이징 테스트
+//	@Test
+//	public void testPaging() {
+//		
+//		Criteria cri = new Criteria();
+//		
+//		cri.setPageNum(1);
+//		
+//		cri.setAmount(10);
+//		
+//		List<BookVO> bookList = bookMapper.bookListWithPaging(cri);
+//		
+//		List<BookVO> bestBookList = bookMapper.bestBookListWithPaging(cri);
+//		List<BookVO> newBookList = bookMapper.newBookListWithPaging(cri);
+//		bestBookList.forEach(book -> log.info(book.getBid()));
+//		
+//		bookList.forEach(book -> log.info(book.getBid()));
+//		newBookList.forEach(book -> log.info(book.getBid()));
+//		
+//	}
+	
+//	@Test
+//	public void testReadMap() {
+//		BookVO vo = bookMapper.readmap(1);
+//		log.info(vo);
+//	}
+	
+//	@Test
+//	public void testBestBookList() {
+//		List<BookVO> list = bookMapper.bestBookList();
+//		log.info("testBestBookList()....");
+//		list.forEach(book -> log.info(book));
+//	}
 
+	
+//	@Test
+//	public void testNewBookList() {
+//		List<BookVO> list = bookMapper.newBookList();
+//		log.info("testNewBookList()....");
+//		list.forEach(book -> log.info(book));
+//	}
+	
 }

@@ -4,6 +4,93 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sarak.mapper.BookMapper">    <!-- BookMapper interface의 메서드들에 대한 SQL 매핑 -->
 
+	<resultMap type="org.sarak.domain.BookVO" id="bookMap">
+		<id property="bid" column="bid"/>
+		<result property="bid" column="bid"/>
+		<result property="bname" column="bname"/>
+		<result property="bprice" column="bprice"/>
+		<result property="isbn" column="isbn"/>
+		<result property="pubdate" column="pubdate"/>
+		<result property="publisher" column="publisher"/>
+		<result property="authorid" column="authorid"/>
+		<result property="authorname" column="authorname"/>
+		<result property="authordesc" column="authordesc"/>
+		<result property="summary" column="summary"/>
+		<result property="contents" column="contents"/>
+		<association property="sales" resultMap="salseMap">
+		</association>
+		<collection property="attachList" resultMap="attachMap">
+		</collection>
+	</resultMap>
+	
+	<!-- 작가 이름 가져오기 -->
+	<select id="getAuthornameById" resultType="String">
+		select authorname from tbl_author where authorid = #{authorid}
+	</select>
+	
+	<resultMap type="org.sarak.domain.BookAttachVO" id="attachMap">
+		<result property="bid" column="bid"/>
+		<result property="filename" column="filename"/>
+		<result property="uploadpath" column="uploadpath"/>
+	</resultMap>
+	
+	<resultMap type="org.sarak.domain.BookSalesVO" id="salseMap">
+		<id property="bid" column="bid"/>
+		<result property="sales" column="sales"/>
+	</resultMap>
+	
+	<select id="readmap" resultMap="bookMap">
+		 SELECT 
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, book.summary, book.contents, img.filename, img.uploadpath, sales.sales, a.authorname, a.authordesc
+		    FROM
+		        tbl_book book
+		        JOIN tbl_book_img img on book.bid = img.bid
+		        JOIN tbl_book_sales sales on book.bid = sales.bid
+		        JOIN tbl_author a on book.authorid = a.authorid
+		WHERE
+			book.bid = #{bid}
+	</select>
+	
+	<select id="readAllBookList" resultMap="bookMap">
+			 SELECT 
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+		    FROM
+		        tbl_book book
+		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
+		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+	</select>
+	
+	<select id="bestBookList" resultMap="bookMap">
+	<![CDATA[
+		SELECT * FROM (
+		    SELECT 
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+		    FROM
+		        tbl_book book
+		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
+		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+		    ORDER BY sales DESC
+		) WHERE ROWNUM <= 20
+		]]>
+	</select>
+	
+	<select id="newBookList" resultMap="bookMap">
+	<![CDATA[
+		SELECT * FROM (
+		     SELECT 
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+		    FROM
+		        tbl_book book
+		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
+		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+		    WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
+		)
+		]]>
+	</select>
+
 	<!-- 전체 도서 목록 가져오기 -->
 	<select id="allBookList" resultType="org.sarak.domain.BookVO">
 		<![CDATA[
@@ -14,25 +101,6 @@
 	<!-- 전체 도서 목록을 비동기로 가져오기 -->
 	<select id="allBookListAjax" resultType="org.sarak.domain.BookVO">
 		select * from tbl_book order by bid
-	</select>
-	
-	<!-- book + author resultmap -->
-	<resultMap id="bookResultMap" type="org.sarak.domain.BookVO">
-		<id property="bid" column="bid"/>
-		<result property="bname" column="bname"/>
-		<result property="bprice" column="bprice"/>
-		<result property="isbn" column="isbn"/>
-		<result property="pubdate" column="pubdate"/>
-		<result property="publisher" column="publisher"/>
-		<result property="authorid" column="authorid"/>
-		<result property="authorname" column="authorname"/>
-		<result property="summary" column="summary"/>
-		<result property="contents" column="contents"/>
-	</resultMap>
-	
-	<!-- 작가 이름 가져오기 -->
-	<select id="getAuthornameById" resultType="String">
-		select authorname from tbl_author where authorid = #{authorid}
 	</select>
 	
 	<!-- 페이징 처리된 도서 목록 가져오기 -->
@@ -57,9 +125,80 @@
 		select count(*) from tbl_book where bid > 0
 	</select>
 	
-	<!-- filename에 "mainimg"가 포함된 데이터만 가져오기 -->
-	<select id="getMainImgAttachList" resultType="org.sarak.domain.BookAttachVO">
-		select * from tbl_book_img where bid = #{bid} and filename like '%mainimg%'
+		<!-- 페이징 처리된 도서 목록 가져오기 -->
+	<select id="bestBookListWithPaging" resultMap="bookMap">
+	    <![CDATA[
+	        SELECT *
+	        FROM (
+	            SELECT
+	                rownum rn, book.bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents, filename, uploadpath, sales, authorname
+	            FROM (
+	                 SELECT 
+				        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+				     FROM
+				        tbl_book book
+				        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
+				        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+				        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+	                ORDER BY sales DESC
+	            ) book
+	            WHERE rownum <= #{pageNum} * #{amount}
+	        )
+	        WHERE rn > (#{pageNum} - 1) * #{amount}
+	    ]]>
+	</select>
+	
+	<select id="getBestTotalCount" resultType="int">
+    <![CDATA[
+        SELECT COUNT(*)
+        FROM (
+            SELECT 
+                book.bid
+            FROM
+                tbl_book book
+                LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+            ORDER BY sales DESC
+        ) 
+        WHERE ROWNUM <= 20
+    ]]>
+    
+	</select>
+
+		<!-- 페이징 처리된 도서 목록 가져오기 -->
+	<select id="newBookListWithPaging" resultMap="bookMap">
+	    <![CDATA[
+	        SELECT *
+	        FROM (
+		        SELECT
+	                rownum rn, book.bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents, filename, uploadpath, sales, authorname
+	            FROM (
+	                 SELECT 
+				        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+				     FROM
+				        tbl_book book
+				        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
+				        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+				        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+			    	WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
+	            ) book
+	            WHERE rownum <= #{pageNum} * #{amount}
+	        )
+	        WHERE rn > (#{pageNum} - 1) * #{amount}
+	    ]]>
+	</select>
+	
+			<!-- 페이징 처리된 도서 목록 가져오기 -->
+	<select id="getNewTotalCount" resultType="int">
+	    <![CDATA[
+	    SELECT COUNT(*)
+        FROM (
+            SELECT 
+                book.bid
+            FROM
+                tbl_book book
+            WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
+        )  
+	    ]]>
 	</select>
 	
 	<!-- 도서 추가 (관리자) -->

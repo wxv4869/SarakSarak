@@ -1,0 +1,223 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding:0;
+}
+
+*{
+	margin: 0;
+	padding:0;
+}
+
+.sarakMiddleArea {
+	margin: 0px 0px 150px 0px;
+}
+
+.bname {
+	text-align: center;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.book-info {
+	float: right;
+	margin-right: 120px;
+	width: 350px;
+}
+
+.book-allinfo {
+	overflow: hidden;
+}
+
+.bprice {
+	padding: 20px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.select-box {
+	border-top: 1px solid #d8d8d8;
+	padding: 20px 20px 20px 20px;
+}
+
+.tbl-select-box {
+	font-size: 15px;
+	font-weight: bold;
+	padding: 20px 20px 5px 20px;
+}
+
+.tbl-select-box th {
+	line-height: 40px;
+	text-align: left;
+}
+
+.tbl-select-box td {
+	line-height: 40px;
+	text-align: right;
+}
+
+.quanbox {
+	display: flex;
+	width: 130px;
+	height: 50px;
+	align-items: center;
+	border: solid;
+	border-width: 1px;
+	border-color: #a4a4a4;
+	border-radius: 8px;
+	padding-left: 3px;
+}
+
+.quanbox button {
+	width: 40px;
+	height: 40px;
+	font-size: 15px;
+	font-weight: bold;
+	background-color: white;
+	cursor: pointer;
+	text-align: center;
+	border: none;
+}
+
+.quantity {
+	font-size: 14px;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	border: none;
+}
+
+.authorname {
+	border-top: 1px solid #d8d8d8;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 20px 20px 5px 20px;    /* 순서 : 상 우 하 좌 */
+}
+
+.publisher {
+	font-size: 15px;
+	color: #6e6e6e;
+	padding: 5px 20px 20px 20px;
+	
+}
+
+.mainimg img {
+	width: 310px;
+	height: auto;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+	float: left;
+	margin-left: 120px;
+	margin-right: 80px;
+}
+
+.detailimg img {
+	margin: auto;
+	display: block;
+	width: 700px;
+	height: auto;
+}
+
+.subheading {
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0px 40px 50px 40px;
+}
+
+.summary {
+	margin: 0px 40px 50px 40px;
+	font-size: 16px;
+	color: #6e6e6e;
+}
+
+.contents {
+	margin: 0px 40px 50px 40px;
+	font-size: 16px;
+	color: #6e6e6e;
+}
+
+.book-info-detail-basic {
+	margin: 0px 40px 50px 40px;
+	display: block;
+	padding: 20px 0px 20px 10px;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.tbl-info th {
+	padding: 12px 10px;
+	width: 200px;
+	line-height: 35px;
+	text-align: left;
+	font-size: 16px;
+	font-weight: 500;
+	color: #000;
+	vertical-align: top;
+}
+
+.tbl-info td {
+	padding: 12px 10px;
+	line-height: 35px;
+	text-align: left;
+	font-size: 16px;
+	font-weight: 400;
+	color: #767676;
+	vertical-align: top;
+}
+
+.separator {
+	border-top: 1px solid #d9d9d9;
+			margin: 50px 0px 50px 0px;
+}
+
+.authorinfo {
+	margin: 0px 40px 15px 40px;
+	border: solid;
+	border-width: 1px;
+	border-color: #d9d9d9;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.authorinfo-name {
+	font-size: 16px;
+	font-weight: bold;
+	color: #000;
+	margin-bottom: 10px;
+}
+
+.authorinfo-desc {
+	font-size: 16px;
+	color: #6e6e6e;
+}
+
+.btn-group {
+	margin-top: 75px;
+	display: flex;
+	align-items: center;
+}
+
+.cartbtn input {
+	width: 120px;
+	height: 60px;
+	background-color: #8e8e8e;
+	border: none;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	margin-right: 10px;
+	border-radius: 15px;
+}
+
+.buynowbtn input {
+	width: 120px;
+	height: 60px;
+	background-color: #8ee6db;
+	border: none;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	border-radius: 15px;
+}

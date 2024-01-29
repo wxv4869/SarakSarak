@@ -32,8 +32,11 @@ public class BookServiceImpl implements BookService {    // BookService 인터�
 		BookVO book = bookMapper.read(bid);
 
 	    if (book != null) {
-	        String authorname = bookMapper.getAuthornameById(book.getAuthorid());
-	        book.setAuthorname(authorname);
+	    	
+	    	String authorname = bookMapper.getAuthornameById(book.getAuthorid());
+	        
+	    	book.setAuthorname(authorname);
+	        
 	    }
 
 	    return book;
@@ -66,9 +69,9 @@ public class BookServiceImpl implements BookService {    // BookService 인터�
 		for (BookVO book : bookList) {
 			
 			String authorname = bookMapper.getAuthornameById(book.getAuthorid());
-			
+
 			log.info("작가 이름 : " + book.getBid() + authorname);
-			
+
 			book.setAuthorname(authorname);
 			
 		}
@@ -100,6 +103,64 @@ public class BookServiceImpl implements BookService {    // BookService 인터�
 	public List<BookAttachVO> getMainImgAttachList(int bid) {
 		
 		return bookMapper.getMainImgAttachList(bid);
+		
+	}
+	
+	@Override
+	public BookVO getMap(int bid) {
+		
+		log.info("getMap...");
+		
+		BookVO bookVO = bookMapper.readmap(bid);
+		
+		return bookVO;
+		
+	}
+	
+	@Override
+	public List<BookVO> allBookListMap(Criteria cri) {
+		
+		return null;
+		
+	}
+	
+	@Override
+	public List<BookVO> bestBookList(Criteria cri) {
+		
+		log.info("###### best book list with criteria ######" + cri);	
+		
+		// 페이징 조건을 이용하여 베스트 전체 도서 목록 가져옴
+		return bookMapper.bestBookListWithPaging(cri);
+	
+	}
+	
+	@Override
+	public List<BookVO> newBookList(Criteria cri) {
+		
+		log.info("###### new book list with criteria ######" + cri);	
+		
+		// 페이징 조건을 이용하여 베스트 전체 도서 목록 가져옴
+		return bookMapper.newBookListWithPaging(cri);
+	
+	}
+	
+	@Override
+	public int getBestTotal(Criteria cri) {
+		
+		log.info("get best total count");
+		
+		// 베스트 전체 도서 수 가져옴 (페이징)
+		return bookMapper.getBestTotalCount(cri);
+		
+	}
+
+	@Override
+	public int getNewTotal(Criteria cri) {
+		
+		log.info("get new total count");
+		
+		// 베스트 전체 도서 수 가져옴 (페이징)
+		return bookMapper.getNewTotalCount(cri);
 		
 	}
 

@@ -23,6 +23,7 @@ public class BookVO {
 	private String publisher;
 	private int authorid;
 	private String authorname;
+	private String authordesc;
 	private String summary;
 	private String contents;
 	
@@ -31,12 +32,6 @@ public class BookVO {
 	
 	private List<BookAttachVO> attachList;
 	
-	public String getAuthorname() {
-		return authorname;
-	}
-	
-	public void setAuthorname(String authorname) {
-		this.authorname = authorname;
-	}
+	private BookSalesVO sales;
 	
 }

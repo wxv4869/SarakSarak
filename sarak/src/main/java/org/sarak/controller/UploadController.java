@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -20,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.sarak.domain.AttachFileDTO;
 import org.sarak.domain.BookAttachVO;
-import org.sarak.domain.BookVO;
 import org.sarak.mapper.BookAttachMapper;
 
 import lombok.Setter;
@@ -69,6 +69,8 @@ public class UploadController {
 		
 	}
 	
+	@Secured({"ROLE_ADMIN"})
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/uploadAjax")
 	public void uploadAjax() {
 		
@@ -101,6 +103,8 @@ public class UploadController {
 		
 	}
 	
+	@Secured({"ROLE_ADMIN"})
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction")
 	@ResponseBody
 	public ResponseEntity<List<BookAttachVO>> uploadAjaxPost(@RequestParam("bid") int bid, MultipartFile[] bookimg, BookAttachVO bookAttachVO) {
@@ -164,6 +168,8 @@ public class UploadController {
 		
 	}
 	
+	@Secured({"ROLE_ADMIN"})
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/saveToDatabase")
     @ResponseBody
     public ResponseEntity<String> saveToDatabase(@RequestBody Map<String, Object> requestMap) {

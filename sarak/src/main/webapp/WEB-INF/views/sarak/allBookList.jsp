@@ -15,6 +15,9 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../resources/dist/css/allBook.css">
+	<link rel="stylesheet" href="../../resources/dist/css/allBookList.css">
 
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -22,97 +25,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     
-    <style>
-		@charset "UTF-8";
-		
-		*{
-			margin: 0;
-			padding:0;
-		}
-		
-		
-		.title_heading {
-			text-align: center;
-			margin-top: 80px;
-			margin-bottom: 80px;
-			font-size: 26px;
-			font-style: inherit;
-		}
-		
-		.detail div {
-			margin-left: 40px;
-		}
-		
-		.mainimage img {
-			width: 140px;
-			height: 210px;
-			margin-top: 40px;
-			margin-bottom: 40px;
-		}
-		
-		.separator {
-			background-color: #bbb;
-			height: 1px;
-		}
-		
-		.num .bid {
-			vertical-align: top;
-			text-align: left;
-			margin: 20px;
-		}
-		
-		.detail {
-			padding-right: 40px;
-		}
-		
-		.detail .bname strong {
-			text-decoration: none;
-			color: #000;
-			font-size: 18px;
-		}
-		
-		.detail .etc {
-			color: #787878;
-			font-size: 16px;
-			margin-top: 5px;
-		}
-		
-		.detail .summary {
-			color: #787878;
-			font-size: 16px
-		}
-		
-		.btn-group {
-			 display: block;
-    		 white-space: nowrap;
-			 margin-top: 75px;
-			 margin-right: 30px;
-		}
-		
-		.cartbtn input {
-			width: 120px;
-			height: 60px;
-			background-color: #8e8e8e;
-			border: none;
-			font-size: 16px;
-			font-weight: bold;
-			color: white;
-			margin-bottom: 15px;
-			border-radius: 15px;
-		}
-		
-		.buynowbtn input {
-			width: 120px;
-			height: 60px;
-			background-color: #8ee6db;
-			border: none;
-			font-size: 16px;
-			font-weight: bold;
-			color: white;
-			border-radius: 15px;
-		}
-		
-	</style>
+    
     
     <script type="text/javascript">
 
@@ -182,7 +95,7 @@
 		<!-- 전체 페이지 영역 시작 -->
 		<div class="sarakMainWrapper">
 			<!-- 헤더 영역 시작 -->
-			<%@ include file="includes/header.jsp" %>
+			<%@ include file="../includes/header.jsp" %>
 			<!-- 헤더 영역 끝 -->
 			
 			<!-- 미들 영역 시작 -->
@@ -267,7 +180,7 @@
 			<!-- 미들 영역 끝 -->
 			
 			<!-- footer 영역 시작 -->
-			<%@ include file="includes/footer.jsp" %>
+			<%@ include file="../includes/footer.jsp" %>
 			<!-- footer 영역 끝 -->
 			
 		</div>

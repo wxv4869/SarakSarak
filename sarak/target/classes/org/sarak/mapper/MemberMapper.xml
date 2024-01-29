@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.sarak.mapper.MemberMapper">
+
+	<resultMap type="org.sarak.domain.MemberVO" id="memberMap">
+		<id property="mid" column="mid"/>
+		<result property="mid" column="mid"/>
+		<result property="mpw" column="mpw"/>
+		<result property="mname" column="mname"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="postcode" column="postcode"/>
+		<result property="address" column="address"/>
+		<result property="mregdate" column="mregdate"/>
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="org.sarak.domain.AuthVO" id="authMap">
+		<result property="mid" column="mid"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+		
+	
+	<select id="read" resultMap="memberMap">
+		SELECT 
+			mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+		FROM
+			tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mid = auth.mid
+		WHERE
+			mem.mid = #{mid}
+	</select>
+	
+	<insert id="register">
+		insert into tbl_member(mid, mpw, mname, phone, email, postcode, address)
+		values(#{mid}, #{mpw}, #{mname}, #{phone}, #{email}, #{postcode}, #{address})
+	</insert>
+	
+	<insert id="insertAuth">
+		insert into tbl_member_auth (mid, auth)
+		values (#{mid}, #{auth})
+	</insert>
+	  
+	<select id="getList" resultMap="memberMap">
+		SELECT 
+			mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+		FROM
+			tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mid = auth.mid
+	</select>
+	  
+	<delete id="delete">
+		delete from tbl_member where mid = #{mid}
+	</delete>
+   
+	<delete id="deleteAuth">
+   		delete from tbl_member_auth where mid = #{mid}
+	</delete>
+   
+	<!-- 회원정보 수정은 아직 안 됨. 권한 수정만 가능 mpw = #{mpw}, -->
+	<update id="update">
+		update tbl_member
+		set 
+			mname = #{mname}, 
+			phone = #{phone}, 
+			email = #{email}, 
+			postcode = #{postcode}, 
+			address = #{address}
+		where mid = #{mid, jdbcType=VARCHAR}
+	</update>
+   
+	<update id="updateAuth">
+		update tbl_member_auth
+		set auth = #{auth, jdbcType=VARCHAR}
+		where mid = #{mid, jdbcType=VARCHAR}
+	</update>
+
+    <select id = "getListWithPaging" resultMap="memberMap">
+    	<![CDATA[
+    	 	SELECT 
+				mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+			FROM
+			(
+				select /*+INDEX_DESC(tbl_member pk_member) */
+					rownum rn, mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+				from 
+					tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mid = auth.mid
+				where rownum <= 20
+			)
+			where rn > 10
+    	]]>
+    </select>
+</mapper>

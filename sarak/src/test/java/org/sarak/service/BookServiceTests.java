@@ -25,5 +25,19 @@ public class BookServiceTests {
 //		
 //	}
 	
+//	@Test
+//	public void testBestBookList() {
+//		
+//		bookService.bestBookList(new Criteria(2, 10)).forEach(book -> log.info(book));
+//		
+//	}
+	
+	@Test
+	public void testNewBookList() {
+		
+		bookService.newBookList(new Criteria(2, 10)).forEach(book -> log.info(book));
+		
+	}
+	
 
 }
