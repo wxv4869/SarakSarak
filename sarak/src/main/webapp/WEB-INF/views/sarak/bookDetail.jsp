@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -21,7 +22,6 @@
 
     <!-- Custom Fonts -->
     <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../resources/css/allBook.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     
@@ -83,6 +83,33 @@
 			$(".quantity").on("input", function() {
 				
 				updateTotalPrice();
+				
+			});
+			
+			// 장바구니 담기 버튼
+			$(".cart").on("click", function(e) {
+
+				<sec:authorize access="isFullyAuthenticated()">
+					var bookId = ${bookVO.bid};
+			        var quantity = $(".quantity").val();
+	
+			        // AJAX를 사용하여 서버로 데이터 전송
+			        $.ajax({
+			            type: "POST",
+			            url: "/cart/add",
+			            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
+			            success: function(response) {
+			                alert("해당 상품이 장바구니에 추가되었습니다.");
+			            },
+			            error: function() {
+			                alert("상품을 장바구니에 추가하는데 실패했습니다.")
+			            }
+			        });
+		        </sec:authorize>
+					
+				<sec:authorize access="isAnonymous()">
+		            alert("로그인이 필요합니다.");
+		        </sec:authorize>
 				
 			});
 			
@@ -174,10 +201,10 @@
 									
 									<div class="btn-group">
 										<div class="cartbtn">
-											<input type="button" class="cart" name="btn" value="장바구니"></button>
+											<input type="button" class="cart" name="btn" value="장바구니">
 										</div>
 										<div class="buynowbtn">
-											<input type="button" class="buynow" name="btn" value="바로구매"></button>
+											<input type="button" class="buynow" name="btn" value="바로구매">
 										</div>
 									</div>
 								</div>
@@ -271,7 +298,6 @@
 						</div>
 					</div>
 				</c:if>
-				
 			</div>
 			<!-- 미들 영역 끝 -->
 			

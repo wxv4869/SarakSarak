@@ -1,0 +1,208 @@
+@charset "UTF-8";
+		
+*{
+	margin: 0;
+	padding:0;
+}
+
+
+.title_heading {
+	text-align: center;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	font-size: 26px;
+	font-weight: bold;
+	color: #000;
+}
+
+.detail {
+	padding-right: 20px;
+}
+
+.detail .bname a {
+	font-size: 14px;
+	text-decoration: none;
+	color: #000;
+	cursor: pointer;
+}
+
+.detail .bprice {
+	font-size: 14px;
+	font-weight: bold;
+	margin: 12px 0px;
+}
+
+.detail .quan {
+	font-size: 14px;
+	color: #8e8e8e;
+}
+
+.mainimage img {
+	width: 80px;
+	height: auto;
+	margin: 20px;
+}
+
+.separator {
+	background-color: #bbb;
+	height: 1px;
+}
+
+.cart-list .empty-cart {
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	color: #9e9e9e;
+	margin-top: 150px;
+	margin-bottom: 150px;
+}
+
+.cart-list .empty-cart img {
+	width: 25px;
+	height: auto;
+	margin-bottom: 30px;
+}
+
+.tbl-cartlist {
+	float: left;
+	width: 510px;
+	margin-bottom: 100px;
+	margin-left: 40px;
+}
+
+.btn {
+	display: block;
+	white-space: nowrap;
+}
+
+.btn-delete {
+	width: 22px;
+	height: auto;
+	margin-right: 10px;
+}
+
+.btn-delete Button {
+	width: 22px;
+	height: auto;
+	background-color: #fff;
+	border: none;
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	border-radius: 10px;
+	margin: 10px;
+}
+
+Button img {
+	width: 22px;
+	height: auto;
+}
+
+.change-quan {
+	width: 46px;
+	height: auto;
+}
+
+.change-quan-div{
+	position: relative;
+    width: 46px;
+    height: 25px;
+    text-align: left;
+    margin: 5px auto;		
+}
+
+.quantity-input{
+	position: absolute;
+	width: 30px;
+    height: 25px;
+    text-align: center;
+    border: 1px solid #c6c6c6;
+    border-right: 0px;
+    font-size: 13px;
+    color: #4c4848;	
+    left: 0;
+}
+
+.quantity-btn{
+	position: absolute;
+    border: 1px solid #aaa;
+    color: #3a60df;
+    width: 16px;
+    height: 13px;
+    background-color: #fff;
+    font-size: 9px;
+    vertical-align: middle;	
+}
+
+.plus-btn{
+	top: 0;
+	right: 0;
+}
+
+.minus-btn{
+	bottom: 0;
+	right: 0;
+}
+
+.quantity-modify-btn {
+	border: 1px solid #d0d0d0;
+    width: 46px;
+    height: 16px;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    font-size: 10px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 3px;
+    padding-top: 1px;
+    cursor: pointer;
+}
+
+.cart-info {
+	float: right;
+	width: 350px;
+	padding: 20px;
+	border: solid;
+	border-width: 1px;
+	border-color: #a4a4a4;
+	border-radius: 10px;
+	margin-right: 40px;
+	margin-bottom: 100px;
+	
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tbl-cart-info th {
+	text-align: left;
+	line-height: 50px;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+.tbl-cart-info td {
+	text-align: right;
+	line-height: 50px;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+.info-separator {
+	border-top: 1px solid #a4a4a4;
+}
+
+.btn-order input {
+	text-align: center;
+	width: 280px;
+	height: 50px;
+	background-color: #8ee6db;
+	border: none;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	margin-top: 30px;
+	border-radius: 10px;
+}

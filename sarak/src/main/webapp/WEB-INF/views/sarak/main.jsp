@@ -221,14 +221,14 @@
 		section.container {
 		    position: relative;
 		    width: 100%;
-		    height: 520px;
+		    height: 313px;
 		    margin: 0 auto;
 		    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 		}
 		section ul.banner_mask {
 		    position: absolute;
-		    width: 100%;
-		    height: 520px;
+		    width: 100;
+		    height: 313px;
 		    overflow: hidden;
 		}
 		section ul.banner_mask li {
@@ -241,7 +241,8 @@
 		
 		
 		section ul.banner_mask li img{
-		
+			width: 100%;
+			height: 313px;
 		}
 		
 		section.container label{
@@ -475,7 +476,7 @@
 
         <ul class="banner_mask">
             <li>
-                <a href="#"><img src="" alt="중고장터 광고1"></a>
+                <a href="#"><img src="../../resources/img/banner.png" alt="중고장터 광고1"></a>
             </li>
             <li>
                 <a href="#"><img src="" alt="중고장터 광고2"></a>

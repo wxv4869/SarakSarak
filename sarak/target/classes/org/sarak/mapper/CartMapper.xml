@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.sarak.mapper.CartMapper">
+
+	<!-- 1. 장바구니 추가 -->
+	<insert id="insertCart">
+		insert into tbl_cart (cartid, mid, bid, cartquan, cartdate)
+		values (seq_cart.nextval, #{mid}, #{bid}, #{cartquan}, sysdate)
+	</insert>
+	
+	<!-- 2. 장바구니 목록 -->
+	<select id="listCart" resultType="org.sarak.domain.CartDTO">
+		select c.cartid, c.mid, c.bid, c.cartquan, c.cartdate, b.bname, b.bprice, img.filename, img.uploadpath
+		from tbl_cart c
+		left outer join tbl_book b on c.bid = b.bid
+		left outer join tbl_book_img img on c.bid = img.bid
+		where mid = #{mid} and img.filename like '%mainimg%'
+		order by c.cartid
+	</select>
+	
+	<!-- 3. 장바구니 삭제 -->
+	<delete id="deleteCart">
+		delete from tbl_cart where cartid = #{cartid}
+	</delete>
+	
+	<!-- 4. 장바구니에 동일한 상품이 있는지 확인 -->
+	<select id="checkCart" resultType="org.sarak.domain.CartDTO">
+		select * from tbl_cart 
+		where mid = #{mid} and bid = #{bid}
+	</select>
+	
+	<!-- 5. 장바구니에 동일한 상품이 있다면 수정 -->
+	<update id="updateCart">
+		update tbl_cart set cartquan = #{cartquan} where cartid = #{cartid}
+	</update>
+
+</mapper>

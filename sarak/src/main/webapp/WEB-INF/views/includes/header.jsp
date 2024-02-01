@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <!DOCTYPE html>
@@ -10,6 +9,24 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
+	    
+	    <script type="text/javascript">
+		    $(document).ready(function(e) {
+		    	
+		    	$(".btn-mycart").on("click", function() {
+		    		
+					<sec:authorize access="isFullyAuthenticated()">
+						window.location.href = "/cart/cartList";	
+					</sec:authorize>	
+					            
+					<sec:authorize access="isAnonymous()">
+						alert("로그인이 필요합니다.");
+					</sec:authorize>
+		    		
+		    	});
+		    	
+		    });
+	    </script>
 	
 	    <title>사락사락 관리자 계정</title>
 	
@@ -33,8 +50,8 @@
 			</div>
 				
 			<div class="headerNav">
-				<a href="#" class="mainHeder">
-					<img src="img/logo.jpg">
+				<a href="/sarak/main" class="mainHeder">
+					<img id="logoimg" src="../../resources/img/logo.jpg">
 				</a>
 				
 				<div class="Search">
@@ -47,7 +64,7 @@
 				</div>
 				
 				<div class="userNav">
-					<button>
+					<button class="btn-mycart">
 						<?xml version="1.0" encoding="UTF-8"?>
 						<svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
 							<path d="M21,6H18A6,6,0,0,0,6,6H3A3,3,0,0,0,0,9V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V9A3,3,0,0,0,21,6ZM12,2a4,4,0,0,1,4,4H8A4,4,0,0,1,12,2ZM22,19a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3V9A1,1,0,0,1,3,8H6v2a1,1,0,0,0,2,0V8h8v2a1,1,0,0,0,2,0V8h3a1,1,0,0,1,1,1Z"></path>

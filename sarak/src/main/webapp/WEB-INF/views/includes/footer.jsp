@@ -13,7 +13,7 @@
 			<div class="info">
 				<div class="infoNav">
 					<a href="#" class="mainFooter">
-						<img src="img/logo.jpg">
+						<img id="logoimg" src="../../resources/img/logo.jpg">
 					</a>
 					<div class="sns">
 						<ul>

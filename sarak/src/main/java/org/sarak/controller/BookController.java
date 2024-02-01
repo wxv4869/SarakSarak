@@ -8,6 +8,7 @@ import java.util.List;
 import org.sarak.domain.BookAttachVO;
 import org.sarak.domain.BookVO;
 import org.sarak.domain.Criteria;
+import org.sarak.domain.MemberVO;
 import org.sarak.domain.PageDTO;
 import org.sarak.mapper.BookMapper;
 import org.sarak.service.BookService;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -216,5 +219,21 @@ public class BookController {
 		return result;
 		
 	}
+	
+	@GetMapping("/checkLogin")
+    @ResponseBody
+    public String checkLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+        	
+            return "authenticated";
+            
+        } else {
+        	
+            return "unauthenticated";
+            
+        }
+    }
 
 }
