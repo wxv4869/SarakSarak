@@ -19,5 +19,7 @@ public interface CartMapper {
 	public CartDTO checkCart(CartDTO cartDTO);
 	
 	public int updateCart(CartDTO cartDTO);
+	
+	public void deleteOrderCart(CartDTO dto);
 
 }

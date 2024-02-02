@@ -35,5 +35,10 @@
 	<update id="updateCart">
 		update tbl_cart set cartquan = #{cartquan} where cartid = #{cartid}
 	</update>
+	
+	<!-- 6. 장바구니 상품 주문 결제 이후 DB 삭제 -->
+	<delete id="deleteOrderCart">
+		delete from tbl_cart where mid = #{mid} and bid = #{bid}
+	</delete>
 
 </mapper>

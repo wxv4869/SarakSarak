@@ -491,7 +491,7 @@
 		<div class="bestProductWapper">
 			<div class="ProductNav">
 				<div class="title">실시간 베스트셀러</div>
-				<div class="more">더보기</div>
+				<div class="more"><a href="/sarak/bestBookList">더보기</a></div>
 			</div>
 			
 			<ul class="productItem">
@@ -513,7 +513,7 @@
 	<div class="newProductWapper">
 		<div class="ProductNav">
 			<div class="title">이번 달 신간 도서</div>
-			<div class="more">더보기</div>
+			<div class="more"><a href="/sarak/newBookList">더보기</a></div>
 		</div>
 		
 		<ul class="productItem">

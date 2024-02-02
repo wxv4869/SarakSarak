@@ -17,8 +17,8 @@
 		<result property="authordesc" column="authordesc"/>
 		<result property="summary" column="summary"/>
 		<result property="contents" column="contents"/>
-		<association property="sales" resultMap="salseMap">
-		</association>
+		<result property="stock" column="stock"/>
+		<result property="sales" column="sales"/>
 		<collection property="attachList" resultMap="attachMap">
 		</collection>
 	</resultMap>
@@ -41,36 +41,39 @@
 	
 	<select id="readmap" resultMap="bookMap">
 		 SELECT 
-		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, book.summary, book.contents, img.filename, img.uploadpath, sales.sales, a.authorname, a.authordesc
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, book.summary, book.contents, img.filename, img.uploadpath, sales.sales, a.authorname, a.authordesc, stock.stock
 		    FROM
 		        tbl_book book
-		        JOIN tbl_book_img img on book.bid = img.bid
-		        JOIN tbl_book_sales sales on book.bid = sales.bid
-		        JOIN tbl_author a on book.authorid = a.authorid
+		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
+		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+		        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
 		WHERE
 			book.bid = #{bid}
 	</select>
 	
 	<select id="readAllBookList" resultMap="bookMap">
 			 SELECT 
-		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
 		    FROM
 		        tbl_book book
 		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
 		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
 		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+		        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
 	</select>
 	
 	<select id="bestBookList" resultMap="bookMap">
 	<![CDATA[
 		SELECT * FROM (
 		    SELECT 
-		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
 		    FROM
 		        tbl_book book
 		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
 		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
 		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+		        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
 		    ORDER BY sales DESC
 		) WHERE ROWNUM <= 20
 		]]>
@@ -80,12 +83,13 @@
 	<![CDATA[
 		SELECT * FROM (
 		     SELECT 
-		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
 		    FROM
 		        tbl_book book
 		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
 		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
 		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+		        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
 		    WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
 		)
 		]]>
@@ -131,15 +135,16 @@
 	        SELECT *
 	        FROM (
 	            SELECT
-	                rownum rn, book.bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents, filename, uploadpath, sales, authorname
+	                rownum rn, book.bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents, filename, uploadpath, sales, authorname, stock
 	            FROM (
 	                 SELECT 
-				        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+				        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
 				     FROM
 				        tbl_book book
 				        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
 				        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
 				        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+				        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
 	                ORDER BY sales DESC
 	            ) book
 	            WHERE rownum <= #{pageNum} * #{amount}
@@ -170,15 +175,16 @@
 	        SELECT *
 	        FROM (
 		        SELECT
-	                rownum rn, book.bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents, filename, uploadpath, sales, authorname
+	                rownum rn, book.bid, bname, bprice, isbn, pubdate, publisher, authorid, summary, contents, filename, uploadpath, sales, authorname, stock
 	            FROM (
 	                 SELECT 
-				        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname
+				        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
 				     FROM
 				        tbl_book book
 				        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
 				        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
 				        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+				        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
 			    	WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
 	            ) book
 	            WHERE rownum <= #{pageNum} * #{amount}

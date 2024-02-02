@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.sarak.mapper.OrderMapper">    <!-- OrderMapper interface의 메서드들에 대한 SQL 매핑 -->
+
+	<!-- 주문 상품 정보 -->
+	<select id="getBooksInfo" resultType="org.sarak.domain.OrderPageItemDTO">
+		select bid, bname, bprice
+		from tbl_book where bid = #{bid}
+	</select>
+	
+	<select id="getOrderInfo" resultType="org.sarak.domain.OrderDetailDTO">
+	
+		select bid, bprice AS odetailprice
+		from tbl_book where bid = #{bid}
+		
+	</select>
+	
+		<!-- 주문 테이블 등록 -->
+	<insert id="enrollOrder">
+	
+		insert into tbl_order(orderid, ordername, mid, orderphone, orderpostcode, orderaddress, orderstate, totalprice)
+    	values(#{orderid}, #{ordername}, #{mid}, #{orderphone}, #{orderpostcode}, #{orderaddress}, '배송준비중', #{totalprice})
+	
+	</insert>
+	
+	<!-- 주문 도서 테이블 등록 -->
+	<insert id="enrollOrderDetail">
+		insert into tbl_orderdetail(orderid, bid, odetailquan, odetailprice, doreview )
+		values(#{orderid}, #{bid}, #{odetailquan}, #{odetailprice}, 'N')
+	
+	</insert>
+	
+	<!-- 주문 재고 차감 -->
+	<update id="deductStock">
+		update tbl_book_stock set stock = #{stock, jdbcType=DOUBLE} where bid = #{bid, jdbcType=DOUBLE}
+	</update>
+	
+	<!-- 판매량 누적 -->
+	<update id="inductSales">
+		update tbl_book_sales set sales = #{sales, jdbcType=DOUBLE} where bid = #{bid, jdbcType=DOUBLE}
+	</update>
+	
+	
+	<resultMap type="org.sarak.domain.OrderDTO" id="orderMap">
+		<id property="orderid" column="orderid"/>
+		<result property="ordername" column="ordername"/>
+		<result property="mid" column="mid"/>
+		<result property="orderphone" column="orderphone"/>
+		<result property="orderpostcode" column="orderpostcode"/>
+		<result property="orderaddress" column="orderaddress"/>
+		<result property="orderstate" column="orderstate"/>
+		<result property="orderdate" column="orderdate"/>
+		<result property="totalprice" column="totalprice"/>
+		<collection property="orders" resultMap="detailMap">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="org.sarak.domain.OrderDetailDTO" id="detailMap">
+		<result property="orderid" column="orderid"/>
+		<result property="bid" column="bid"/>
+		<result property="bname" column="bname"/>
+		<result property="odetailquan" column="odetailquan"/>
+		<result property="odetailprice" column="odetailprice"/>
+		<result property="doreview" column="doreview"/>
+	</resultMap>
+	
+	
+	<select id="getOrderCompleteInfo" resultMap="orderMap">
+	    SELECT
+	        o.orderid, o.ordername, o.mid, o.orderphone, o.orderpostcode, o.orderaddress, o.orderstate, o.orderdate, o.totalprice, d.bid, d.odetailquan, d.odetailprice, d.doreview, b.bname
+	    FROM
+	        tbl_order o
+	        LEFT OUTER JOIN tbl_orderdetail d on o.orderid = d.orderid
+	        LEFT OUTER JOIN tbl_book b on d.bid = b.bid
+	    WHERE
+	        o.orderid = #{orderid}
+	</select>
+	
+</mapper>

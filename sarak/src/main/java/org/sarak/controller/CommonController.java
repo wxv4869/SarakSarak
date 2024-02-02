@@ -1,5 +1,9 @@
 package org.sarak.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.sarak.domain.AuthVO;
 import org.sarak.domain.MemberVO;
 import org.sarak.service.MemberService;
@@ -9,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -62,11 +67,31 @@ public class CommonController {
 	}
 	
 	@GetMapping("/customLogin")
-	public void loginInput(String error, String logout, Model model) {
+	public void loginInput(String error, String logout, Model model, HttpServletRequest request) {
 		
 		log.info("error : " + error);
 		
 		log.info("logout : " + logout);
+		
+		/* 로그인 성공 시 이전 페이지로 이동 */
+		String uri = request.getHeader("Referer");
+
+		// 이전 uri가 null이다 -> 배포 서버에서 나타나는 오류?
+		if (uri==null) {
+			
+			// null일시 이전 페이지에서 addFlashAttribute로 보내준 uri을 저장
+			Map<String, ?> paramMap = RequestContextUtils.getInputFlashMap(request);
+			uri = (String) paramMap.get("referer");
+
+			// 이전 url 정보 담기
+			request.getSession().setAttribute("prevPage", uri);
+
+		} else {
+			
+			// 이전 url 정보 담기
+			request.getSession().setAttribute("prevPage", uri);
+			
+		}
 		
 		if(error != null) {
 			

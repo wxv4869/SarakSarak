@@ -9,13 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 
+	private final RequestCache requestCache = new HttpSessionRequestCache();
+	
+	private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+	   
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
@@ -41,9 +49,12 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 		}
 
 		if (roleNames.contains("ROLE_USER")) {
-
-			response.sendRedirect("/index/member");
 			
+	    	// 이전 url로 redirect
+	    	String prevPage = (String) request.getSession().getAttribute("prevPage");
+
+	    	redirectStrategy.sendRedirect(request, response, prevPage);
+//			response.sendRedirect("/sarak/main");
 			return;
 			
 		}

@@ -149,6 +149,35 @@
 				
 			});
 			
+			// 주문하기 버튼
+			$(".btn-order").on("click", function(){
+			    	
+		        var orderForm = $("<form action='/sarak/order/' method='get' class='order_form'></form>");
+
+		        var orderNumber = 0;
+		        
+		        var mid = $(".individual_memberId_input").val();
+
+		        $(".td-hidden-cart-info").each(function () {
+		        	
+		            var bid = $(this).find(".individual_bookId_input").val();
+		            var bookCount = $(this).find(".individual_cartquan_input").val();
+		            
+		            orderForm.append("<input type='hidden' name='orders[" + orderNumber + "].bid' value='" + bid + "'>");
+		            orderForm.append("<input type='hidden' name='orders[" + orderNumber + "].bookCount' value='" + bookCount + "'>");
+
+		            orderNumber += 1;
+			        
+			    });
+		        
+		        orderForm.append("<input type='hidden' name='mid' value='" + mid + "'>");
+		        
+		        $("body").append(orderForm);
+		        
+		        orderForm.submit();
+				
+			});
+			
 		});
 	</script>
     
@@ -184,6 +213,9 @@
 												<input type="hidden" class="individual_bprice_input" value="${cart.bprice}">
 												<input type="hidden" class="individual_cartquan_input" value="${cart.cartquan}">
 												<input type="hidden" class="individual_totalPrice_input" value="${cart.bprice * cart.cartquan}">
+												<input type="hidden" class="individual_cartId_input" value="${cart.cartid}">
+												<input type="hidden" class="individual_bookId_input" value="${cart.bid}">
+												<input type="hidden" class="individual_memberId_input" value="${cart.mid}">
 											</td>
 											<td class="mainimage">
 												<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${cart.uploadpath}/${cart.filename}'/>" alt="표지 이미지"/>
@@ -250,6 +282,7 @@
 									<div class="btn-order">
 										<input type="button" class="btn-order" name="btn" value="주문하기">
 									</div>
+										
 								</div>
 							</c:if>
 						</div>

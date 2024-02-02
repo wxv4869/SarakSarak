@@ -100,6 +100,8 @@
 			            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
 			            success: function(response) {
 			                alert("해당 상품이 장바구니에 추가되었습니다.");
+			                
+			                window.location.href = "/cart/cartList";
 			            },
 			            error: function() {
 			                alert("상품을 장바구니에 추가하는데 실패했습니다.")
@@ -111,6 +113,17 @@
 		            alert("로그인이 필요합니다.");
 		        </sec:authorize>
 				
+			});
+			
+			// 바로 구매 버튼
+			$(".buynow").on("click", function(){
+				
+				let bookCount = $(".quantity").val();
+				
+				$(".order_form").find("input[name='orders[0].bookCount']").val(bookCount);
+				
+				$(".order_form").submit();
+			
 			});
 			
 		});
@@ -209,6 +222,13 @@
 									</div>
 								</div>
 							</div>
+							
+							<!-- 주문 form -->
+							<form action="/sarak/order/" method="get" class="order_form">
+								<input type="hidden" name="mid" value="${principal.member.mid }">
+								<input type="hidden" name="orders[0].bid" value="${bookVO.bid }">
+								<input type="hidden" name="orders[0].bookCount" value="">
+							</form>
 							
 							<div class="separator"></div>
 							
