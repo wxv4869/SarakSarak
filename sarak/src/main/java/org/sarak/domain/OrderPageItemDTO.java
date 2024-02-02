@@ -29,12 +29,16 @@ public class OrderPageItemDTO {
 	private List<BookAttachVO> attachList;
 	
 	public int initSaleTotal() {
+		
 		this.totalPrice = this.bprice * this.bookCount;
+		
 		return totalPrice;
+		
 	}
 	
 	@Override
 	public String toString() {
+		
 		return "OrderPageItemDTO [bid=" + bid + ", bookCount=" + bookCount + ", bname=" + bname + ", bprice=" + bprice + ", totalPrice=" + totalPrice + "]";
 		
 	}

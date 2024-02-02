@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
-
 	
 	private final RequestCache requestCache = new HttpSessionRequestCache();
+	
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
@@ -28,5 +28,7 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
     	String prevPage = (String) request.getSession().getAttribute("prevPage");
     	
     	redirectStrategy.sendRedirect(request, response, prevPage);
+    	
     }
+    
 }

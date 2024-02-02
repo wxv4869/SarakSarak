@@ -5,147 +5,131 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 	<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="../../resources/dist/css/allBook.css">
-	<link rel="stylesheet" href="../../resources/dist/css/allBookList.css">
-
-    <!-- Custom Fonts -->
-    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    
-    
-    
-    <script type="text/javascript">
-
-		function loadJson() {    // 도서 목록 비동기
-			$.ajax({
-				url: '<c:url value="/allBookListAjax"/>',
-				type: 'get',
-				dataType: 'json',
-				success: ajaxHtml,
-				error:function() {alert('error');}
-			});
-		
-			$.ajax({
-				url: 'sarak/getAttachList',
-				type: 'get',
-				dataType: 'json',
-				data: { keyword: 'mainimg' },
-				success: function(mainimgList) {
-					console.log(mainimgList);
-				},
-				error: function() {
-					alert('error');
-				}
-			});
+		<link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
+	
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	    
+	    <script type="text/javascript">
+	
+			function loadJson() {    // 도서 목록 비동기
+				$.ajax({
+					url: '<c:url value="/allBookListAjax"/>',
+					type: 'get',
+					dataType: 'json',
+					success: ajaxHtml,
+					error:function() {alert('error');}
+				});
 			
-		}
-		
-		function addToCart(bookId) {
+				$.ajax({
+					url: 'sarak/getAttachList',
+					type: 'get',
+					dataType: 'json',
+					data: { keyword: 'mainimg' },
+					success: function(mainimgList) {
+						console.log(mainimgList);
+					},
+					error: function() {
+						alert('error');
+					}
+				});
+				
+			}
 			
-		    var quantity = 1;    // 목록 페이지에서 장바구니 처리 요청은 quantity를 1로 고정
-
-		    <sec:authorize access="isFullyAuthenticated()">
-		        $.ajax({
-		            type: "POST",
-		            url: "/cart/add",
-		            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
-		            success: function(response) {
-		                alert("해당 상품이 장바구니에 추가되었습니다.");
-		            },
-		            error: function() {
-		                alert("상품을 장바구니에 추가하는데 실패했습니다.");
-		            }
-		        });
-		    </sec:authorize>
-
-		    <sec:authorize access="isAnonymous()">
-		        alert("로그인이 필요합니다.");
-		    </sec:authorize>
-		}
-		 
-		$(document).ready(function() {
-			
-			var actionForm = $("#actionForm");
-			
-			$(".paginate_button a").on("click", function(e) {
+			function addToCart(bookId) {
 				
-				e.preventDefault();
+			    var quantity = 1;    // 목록 페이지에서 장바구니 처리 요청은 quantity를 1로 고정
+	
+			    <sec:authorize access="isFullyAuthenticated()">
+			        $.ajax({
+			            type: "POST",
+			            url: "/cart/add",
+			            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
+			            success: function(response) {
+			                alert("해당 상품이 장바구니에 추가되었습니다.");
+			            },
+			            error: function() {
+			                alert("상품을 장바구니에 추가하는데 실패했습니다.");
+			            }
+			        });
+			    </sec:authorize>
+	
+			    <sec:authorize access="isAnonymous()">
+			        alert("로그인이 필요합니다.");
+			    </sec:authorize>
+			}
+			 
+			$(document).ready(function() {
 				
-				console.log('click');
+				var actionForm = $("#actionForm");
 				
-				actionForm.find("input[name = 'pageNum']").val($(this).attr("href"));
+				$(".paginate_button a").on("click", function(e) {
+					
+					e.preventDefault();
+					
+					console.log('click');
+					
+					actionForm.find("input[name = 'pageNum']").val($(this).attr("href"));
+					
+					actionForm.submit();
+					
+				});
 				
-				actionForm.submit();
+				$(".move").on("click", function(e) {
+					
+					e.preventDefault();
+					
+					actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
+					
+					actionForm.attr("action", "/sarak/bookDetail");
+					
+					actionForm.submit();
+					
+					history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
+					
+				});
 				
-			});
-			
-			$(".move").on("click", function(e) {
+				$(".cart").on("click", function(e) {
+					
+			        var bookId = $(this).closest("tr").find(".bid").text();
+			        
+			        addToCart(bookId);
+			        
+			        window.location.href = "/cart/cartList";
+			        
+			    });
 				
-				e.preventDefault();
+				$(".buynow").on("click", function(){
+					
+					let bid = 0;
+					bid = parseInt($(".buynowBid").val());
+					console.log(bid); 
+					
+					let bookCount = 1;
+					console.log(bookCount);
+					
+					/* 상품정보 */
+					let form_contents = ''; 
+					
+					let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bid + "'>";
+					form_contents += bookId_input;
+					
+					let bookCount_input = "<input name='orders[0].bookCount' type='hidden' value='" + bookCount + "'>";
+					form_contents += bookCount_input;
+					
+					$(".order_form").append(form_contents);	
+					
+					$(".order_form").submit();
+					
+				});
 				
-				actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
 				
-				actionForm.attr("action", "/sarak/bookDetail");
-				
-				actionForm.submit();
-				
-				history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
-				
-			});
-			
-			$(".cart").on("click", function(e) {
-				
-		        var bookId = $(this).closest("tr").find(".bid").text();
-		        
-		        addToCart(bookId);
-		        
-		        window.location.href = "/cart/cartList";
-		        
-		    });
-			
-			$(".buynow").on("click", function(){
-				
-				let bid = 0;
-				bid = parseInt($(".buynowBid").val());
-				console.log(bid); 
-				
-				let bookCount = 1;
-				console.log(bookCount);
-				
-				/* 상품정보 */
-				let form_contents = ''; 
-				
-				let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bid + "'>";
-				form_contents += bookId_input;
-				
-				let bookCount_input = "<input name='orders[0].bookCount' type='hidden' value='" + bookCount + "'>";
-				form_contents += bookCount_input;
-				
-				$(".order_form").append(form_contents);	
-				
-				$(".order_form").submit();
 				
 			});
-			
-			
-			
-		});
-	</script>
-    
-	<title>사락사락 전체 도서 페이지</title>
+		</script>
+	    
+		<title>사락사락 전체 도서 페이지</title>
 	
 	</head>
 	

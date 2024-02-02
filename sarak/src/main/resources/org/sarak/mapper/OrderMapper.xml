@@ -11,25 +11,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getOrderInfo" resultType="org.sarak.domain.OrderDetailDTO">
-	
 		select bid, bprice AS odetailprice
 		from tbl_book where bid = #{bid}
-		
 	</select>
 	
 		<!-- 주문 테이블 등록 -->
 	<insert id="enrollOrder">
-	
 		insert into tbl_order(orderid, ordername, mid, orderphone, orderpostcode, orderaddress, orderstate, totalprice)
     	values(#{orderid}, #{ordername}, #{mid}, #{orderphone}, #{orderpostcode}, #{orderaddress}, '배송준비중', #{totalprice})
-	
 	</insert>
 	
 	<!-- 주문 도서 테이블 등록 -->
 	<insert id="enrollOrderDetail">
 		insert into tbl_orderdetail(orderid, bid, odetailquan, odetailprice, doreview )
 		values(#{orderid}, #{bid}, #{odetailquan}, #{odetailprice}, 'N')
-	
 	</insert>
 	
 	<!-- 주문 재고 차감 -->
@@ -41,7 +36,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="inductSales">
 		update tbl_book_sales set sales = #{sales, jdbcType=DOUBLE} where bid = #{bid, jdbcType=DOUBLE}
 	</update>
-	
 	
 	<resultMap type="org.sarak.domain.OrderDTO" id="orderMap">
 		<id property="orderid" column="orderid"/>
@@ -65,7 +59,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="odetailprice" column="odetailprice"/>
 		<result property="doreview" column="doreview"/>
 	</resultMap>
-	
 	
 	<select id="getOrderCompleteInfo" resultMap="orderMap">
 	    SELECT

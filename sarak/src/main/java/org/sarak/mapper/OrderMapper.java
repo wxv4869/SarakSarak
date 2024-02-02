@@ -29,5 +29,4 @@ public interface OrderMapper {
 	
 	public OrderDTO getOrderCompleteInfo(String orderid);
 	
-
 }

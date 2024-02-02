@@ -47,15 +47,23 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public List<OrderPageItemDTO> getBooksInfo(List<OrderPageItemDTO> orders) {
+		
 		List<OrderPageItemDTO> result = new ArrayList<OrderPageItemDTO>();
 
 		for(OrderPageItemDTO ord : orders) {
+			
 			OrderPageItemDTO booksInfo = orderMapper.getBooksInfo(ord.getBid());
+			
 			booksInfo.setBookCount(ord.getBookCount());
+			
 			booksInfo.setTotalPrice(booksInfo.initSaleTotal());
+			
 //			booksInfo.initSaleTotal();
+			
 			List<BookAttachVO> attachList = attachMapper.findByBid(booksInfo.getBid());
+			
 			booksInfo.setAttachList(attachList);
+			
 			result.add(booksInfo);
 		}
 
@@ -65,21 +73,25 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	@Transactional
 	public void order(OrderDTO ord) {
+		
 		/* 사용할 데이터 가져오기 */
 		/* 회원 정보*/
 		MemberVO member = memberMapper.read(ord.getMid());
 
 		/* 주문 정보 */
 		List<OrderDetailDTO> ords = new ArrayList<>();
+		
 		for(OrderDetailDTO odd : ord.getOrders()) {
+		
 			OrderDetailDTO orderDetail = orderMapper.getOrderInfo(odd.getBid());
-
 			orderDetail.setOdetailquan(odd.getOdetailquan());
 			orderDetail.initSaleTotal();
 			ords.add(orderDetail);
+			
 		}
 
 		ord.setOrders(ords);
+		
 		ord.getOrderPriceInfo();
 
 		/* orderId만들기 및 OrderDTO객체 orderId에 저장 */
@@ -91,12 +103,15 @@ public class OrderServiceImpl implements OrderService{
 		/* DB 주문, 주문 상품, 배송 정보 넣기 */ 
 		orderMapper.enrollOrder(ord);
 		for(OrderDetailDTO odd : ord.getOrders()) {
+			
 			odd.setOrderid(orderId);
 			orderMapper.enrollOrderDetail(odd);
+			
 		}
 
 		/* 재고, 판매량 변동 적용 */
 		for(OrderDetailDTO odd : ord.getOrders()) {
+			
 			BookVO book = bookMapper.readmap(odd.getBid());
 			int bid = book.getBid();
 			BookStockVO stockvo = new BookStockVO();
@@ -112,6 +127,7 @@ public class OrderServiceImpl implements OrderService{
 
 			orderMapper.deductStock(stockvo);
 			orderMapper.inductSales(salesvo);
+			
 		}
 		
 		/* 장바구니 DB 제거 */
@@ -129,11 +145,16 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public OrderDTO orderComplete(String orderid) {
+		
 		log.info("get order complete item");
+		
 		OrderDTO od = orderMapper.getOrderCompleteInfo(orderid);
+		
 		for(OrderDetailDTO odd : od.getOrders()) {
+			
 			List<BookAttachVO> attachList = attachMapper.findByBid(odd.getBid());
-			odd.setAttachList(attachList);			
+			odd.setAttachList(attachList);
+			
 		}
 
 		return od;

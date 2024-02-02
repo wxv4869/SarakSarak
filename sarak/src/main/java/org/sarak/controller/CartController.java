@@ -40,8 +40,11 @@ public class CartController {
 		String username = principal.getName();
 		
 		CartDTO cartDTO = new CartDTO();
+		
 		cartDTO.setMid(username);
+		
 		cartDTO.setBid(bookId);
+		
 		cartDTO.setCartquan(quantity);
 		
 		int result = cartService.insertCart(cartDTO);

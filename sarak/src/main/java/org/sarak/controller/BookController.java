@@ -46,7 +46,9 @@ public class BookController {
 	public void main(Criteria cri, Model model) {
 		
 		log.info("###### 메인 페이지 진입 ######");
+		
 		model.addAttribute("bestBookList", bookService.bestBookList(cri));
+		
 		model.addAttribute("newBookList", bookService.newBookList(cri));
 		
 		log.info("newBookList" + bookService.newBookList(cri));

@@ -21,7 +21,6 @@
 		<result property="auth" column="auth"/>
 	</resultMap>
 		
-	
 	<select id="read" resultMap="memberMap">
 		SELECT 
 			mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
@@ -89,4 +88,5 @@
 			where rn > 10
     	]]>
     </select>
+    
 </mapper>

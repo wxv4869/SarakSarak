@@ -13,6 +13,7 @@ import org.sarak.domain.MemberVO;
 
 @Getter
 public class CustomUser extends User{
+	
 	private static final long serialVersionUID = 1L;
 	
 	private MemberVO member;

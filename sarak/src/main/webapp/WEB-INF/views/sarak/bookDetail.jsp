@@ -5,131 +5,122 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 	<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
     
-    <!-- Bootstrap Core CSS -->
-    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    	<link rel="stylesheet" href="../resources/dist/css/bookDetail.css">
+    	
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
-    <link rel="stylesheet" href="../resources/dist/css/allBook.css">
-    <link rel="stylesheet" href="../resources/dist/css/bookDetail.css">
-
-    <!-- Custom Fonts -->
-    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    
-    <script type="text/javascript">
-		$(document).ready(function() {
-			
-			// 수량 선택 : 증감에 따른 총 상품 가격 변동 함수
-			function updateTotalPrice() {
+	    <script type="text/javascript">
+			$(document).ready(function() {
 				
-				var bprice = ${bookVO.bprice};
-				var quan = $(".quantity").val();
-				var totalPrice = bprice * quan;
-				
-				$(".total-price").text(totalPrice.toLocaleString() + "원");
-				
-			}
-			
-			// 수량 선택 : 플러스 버튼 클릭 함수
-			$(".plus").click(function() {
-				
-				var quan = $(".quantity").val();
-				var plusQuan = Number(quan) + 1;
-				
-				if (plusQuan >= 10) {
+				// 수량 선택 : 증감에 따른 총 상품 가격 변동 함수
+				function updateTotalPrice() {
 					
-					$(".quantity").val(quan);
+					var bprice = ${bookVO.bprice};
+					var quan = $(".quantity").val();
+					var totalPrice = bprice * quan;
 					
-				} else {
-					
-					$(".quantity").val(plusQuan);
-					
-					updateTotalPrice();
+					$(".total-price").text(totalPrice.toLocaleString() + "원");
 					
 				}
 				
-			});
-			
-			// 수량 선택 : 마이너스 버튼 클릭 함수
-			$(".minus").click(function() {
+				// 수량 선택 : 플러스 버튼 클릭 함수
+				$(".plus").click(function() {
+					
+					var quan = $(".quantity").val();
+					var plusQuan = Number(quan) + 1;
+					
+					if (plusQuan >= 10) {
+						
+						$(".quantity").val(quan);
+						
+					} else {
+						
+						$(".quantity").val(plusQuan);
+						
+						updateTotalPrice();
+						
+					}
+					
+				});
 				
-				var quan = $(".quantity").val();
-				var minusQuan = Number(quan) - 1;
+				// 수량 선택 : 마이너스 버튼 클릭 함수
+				$(".minus").click(function() {
+					
+					var quan = $(".quantity").val();
+					var minusQuan = Number(quan) - 1;
+					
+					if (minusQuan <= 0) {
+						
+						$(".quantity").val(quan);
+						
+					} else {
+						
+						$(".quantity").val(minusQuan);
+						
+						updateTotalPrice();
+						
+					}
+					
+				});
 				
-				if (minusQuan <= 0) {
-					
-					$(".quantity").val(quan);
-					
-				} else {
-					
-					$(".quantity").val(minusQuan);
+				// 수량이 변경될 때마다 updateTotalPrice() 함수 호출
+				$(".quantity").on("input", function() {
 					
 					updateTotalPrice();
 					
-				}
+				});
 				
-			});
-			
-			// 수량이 변경될 때마다 updateTotalPrice() 함수 호출
-			$(".quantity").on("input", function() {
-				
-				updateTotalPrice();
-				
-			});
-			
-			// 장바구니 담기 버튼
-			$(".cart").on("click", function(e) {
-
-				<sec:authorize access="isFullyAuthenticated()">
-					var bookId = ${bookVO.bid};
-			        var quantity = $(".quantity").val();
+				// 장바구니 담기 버튼
+				$(".cart").on("click", function(e) {
 	
-			        // AJAX를 사용하여 서버로 데이터 전송
-			        $.ajax({
-			            type: "POST",
-			            url: "/cart/add",
-			            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
-			            success: function(response) {
-			                alert("해당 상품이 장바구니에 추가되었습니다.");
-			                
-			                window.location.href = "/cart/cartList";
-			            },
-			            error: function() {
-			                alert("상품을 장바구니에 추가하는데 실패했습니다.")
-			            }
-			        });
-		        </sec:authorize>
+					<sec:authorize access="isFullyAuthenticated()">
+						var bookId = ${bookVO.bid};
+				        var quantity = $(".quantity").val();
+		
+				        // AJAX를 사용하여 서버로 데이터 전송
+				        $.ajax({
+				            type: "POST",
+				            url: "/cart/add",
+				            data: { bookId: bookId, quantity: quantity, ${_csrf.parameterName}: '${_csrf.token}' },
+				            success: function(response) {
+				                alert("해당 상품이 장바구니에 추가되었습니다.");
+				                
+				                window.location.href = "/cart/cartList";
+				            },
+				            error: function() {
+				                alert("상품을 장바구니에 추가하는데 실패했습니다.")
+				            }
+				        });
+			        </sec:authorize>
+						
+					<sec:authorize access="isAnonymous()">
+			            alert("로그인이 필요합니다.");
+			        </sec:authorize>
 					
-				<sec:authorize access="isAnonymous()">
-		            alert("로그인이 필요합니다.");
-		        </sec:authorize>
+				});
+				
+				// 바로 구매 버튼
+				$(".buynow").on("click", function(){
+					
+					let bookCount = $(".quantity").val();
+					
+					$(".order_form").find("input[name='orders[0].bookCount']").val(bookCount);
+					
+					$(".order_form").submit();
+				
+				});
 				
 			});
-			
-			// 바로 구매 버튼
-			$(".buynow").on("click", function(){
-				
-				let bookCount = $(".quantity").val();
-				
-				$(".order_form").find("input[name='orders[0].bookCount']").val(bookCount);
-				
-				$(".order_form").submit();
-			
-			});
-			
-		});
-	</script>
-    
-    <title>도서 상세 페이지</title>
+		</script>
+	    
+	    <title>도서 상세 페이지</title>
     
     </head>
     
@@ -327,6 +318,3 @@
 			
 		</div>
 		<!-- 전체 페이지 영역 끝 -->
-	</body>
-    
-</html>

@@ -64,34 +64,34 @@
 	</select>
 	
 	<select id="bestBookList" resultMap="bookMap">
-	<![CDATA[
-		SELECT * FROM (
-		    SELECT 
-		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
-		    FROM
-		        tbl_book book
-		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
-		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
-		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
-		        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
-		    ORDER BY sales DESC
-		) WHERE ROWNUM <= 20
+		<![CDATA[
+			SELECT * FROM (
+			    SELECT 
+			        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
+			    FROM
+			        tbl_book book
+			        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
+			        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+			        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+			        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
+			    ORDER BY sales DESC
+			) WHERE ROWNUM <= 20
 		]]>
 	</select>
 	
 	<select id="newBookList" resultMap="bookMap">
-	<![CDATA[
-		SELECT * FROM (
-		     SELECT 
-		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
-		    FROM
-		        tbl_book book
-		        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
-		        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
-		        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
-		        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
-		    WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
-		)
+		<![CDATA[
+			SELECT * FROM (
+			     SELECT 
+			        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
+			    FROM
+			        tbl_book book
+			        LEFT OUTER JOIN tbl_book_img img on book.bid = img.bid
+			        LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+			        LEFT OUTER JOIN tbl_author a on book.authorid = a.authorid
+			        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
+			    WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
+			)
 		]]>
 	</select>
 
@@ -154,19 +154,18 @@
 	</select>
 	
 	<select id="getBestTotalCount" resultType="int">
-    <![CDATA[
-        SELECT COUNT(*)
-        FROM (
-            SELECT 
-                book.bid
-            FROM
-                tbl_book book
-                LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
-            ORDER BY sales DESC
-        ) 
-        WHERE ROWNUM <= 20
-    ]]>
-    
+		<![CDATA[
+		    SELECT COUNT(*)
+		    FROM (
+		        SELECT 
+		            book.bid
+		        FROM
+		            tbl_book book
+		            LEFT OUTER JOIN tbl_book_sales sales on book.bid = sales.bid
+		        ORDER BY sales DESC
+		    ) 
+		    WHERE ROWNUM <= 20
+		]]>
 	</select>
 
 		<!-- 페이징 처리된 도서 목록 가져오기 -->
@@ -196,14 +195,14 @@
 			<!-- 페이징 처리된 도서 목록 가져오기 -->
 	<select id="getNewTotalCount" resultType="int">
 	    <![CDATA[
-	    SELECT COUNT(*)
-        FROM (
-            SELECT 
-                book.bid
-            FROM
-                tbl_book book
-            WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
-        )  
+		    SELECT COUNT(*)
+	        FROM (
+	            SELECT 
+	                book.bid
+	            FROM
+	                tbl_book book
+	            WHERE pubdate >= TO_CHAR(SYSDATE-30,'YYYY/MM/dd')
+	        )  
 	    ]]>
 	</select>
 	

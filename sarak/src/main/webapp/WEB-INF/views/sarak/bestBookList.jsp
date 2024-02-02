@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<link rel="stylesheet" href="../../resources/dist/css/allBook.css">
 <link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
 
 <head>
@@ -14,20 +13,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+	<script type="text/javascript">
 	
-	 <script type="text/javascript">
-	 
-	 	function addToCart(bookId) {
-			
-		    var quantity = 1;    // 리스트에서 장바구니 처리 요청은 quantity를 1로 고정
-
+		function addToCart(bookId) {
+		
+	    	var quantity = 1;    // 리스트에서 장바구니 처리 요청은 quantity를 1로 고정
+	
 		    <sec:authorize access="isFullyAuthenticated()">
 		        $.ajax({
 		            type: "POST",
@@ -41,81 +34,81 @@
 		            }
 		        });
 		    </sec:authorize>
-
+	
 		    <sec:authorize access="isAnonymous()">
 		        alert("로그인이 필요합니다.");
 		    </sec:authorize>
 		}
-	 
-		$(document).ready(function() {
-				
-				var actionForm = $("#actionForm");
-				
-				// 페이징, 페이지 이동 처리
-				$(".paginate_button a").on("click", function(e) {
-					
-					e.preventDefault();
-					
-					console.log('click');
-					
-					console.log($(this).attr("href"));
-					
 	
-					actionForm.find("input[name = 'pageNum']").val($(this).attr("href"));
-					
-					actionForm.submit();
-					
-				});
+		$(document).ready(function() {
+			
+			var actionForm = $("#actionForm");
+			
+			// 페이징, 페이지 이동 처리
+			$(".paginate_button a").on("click", function(e) {
 				
-				$(".move").on("click", function(e) {
-					
-					e.preventDefault();
-					
-					actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
-					
-					actionForm.attr("action", "/sarak/bookDetail");
-					
-					actionForm.submit();
-					
-					history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
-					
-				});
+				e.preventDefault();
 				
-				$(".cart").on("click", function(e) {
-					
-			        var bookId = $(this).closest("tr").find(".bid").text();
-			        
-			        addToCart(bookId);
-			        
-			        window.location.href = "/cart/cartList";
-			        
-			    });
+				console.log('click');
 				
-				$(".buynow").on("click", function() {
-					
-					let bid = 0;
-					bid = parseInt($(".buynowBid").val());
-					console.log(bid); 
-					
-					let bookCount = 1;
-					console.log(bookCount);
-					
-					let form_contents = ''; 
-					
-					let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bid + "'>";
-					form_contents += bookId_input;
-					
-					let bookCount_input = "<input name='orders[0].bookCount' type='hidden' value='" + bookCount + "'>";
-					form_contents += bookCount_input;
-					
-					$(".order_form").append(form_contents);	
-					
-					$(".order_form").submit();
-					
-				});
+				console.log($(this).attr("href"));
+				
+	
+				actionForm.find("input[name = 'pageNum']").val($(this).attr("href"));
+				
+				actionForm.submit();
 				
 			});
-		</script>
+			
+			$(".move").on("click", function(e) {
+				
+				e.preventDefault();
+				
+				actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
+				
+				actionForm.attr("action", "/sarak/bookDetail");
+				
+				actionForm.submit();
+				
+				history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
+				
+			});
+			
+			$(".cart").on("click", function(e) {
+				
+		        var bookId = $(this).closest("tr").find(".bid").text();
+		        
+		        addToCart(bookId);
+		        
+		        window.location.href = "/cart/cartList";
+		        
+		    });
+			
+			$(".buynow").on("click", function() {
+				
+				let bid = 0;
+				bid = parseInt($(".buynowBid").val());
+				console.log(bid); 
+				
+				let bookCount = 1;
+				console.log(bookCount);
+				
+				let form_contents = ''; 
+				
+				let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bid + "'>";
+				form_contents += bookId_input;
+				
+				let bookCount_input = "<input name='orders[0].bookCount' type='hidden' value='" + bookCount + "'>";
+				form_contents += bookCount_input;
+				
+				$(".order_form").append(form_contents);	
+				
+				$(".order_form").submit();
+				
+			});
+			
+		});
+	</script>
 
     </head>
     

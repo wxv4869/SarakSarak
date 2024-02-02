@@ -27,23 +27,32 @@ import lombok.extern.log4j.Log4j;
 public class OrderController {
 	
 	private OrderService orderService;
+	
 	private MemberService memberService;
 	
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value="/order", method = RequestMethod.GET)
 	public String orderPageGET(String mid, OrderPageDTO opd, Model model, HttpServletRequest request, RedirectAttributes re) {
+		
 		log.info("mid : " + mid);
 		log.info("orders :" + opd.getOrders());
 		
 		if( memberService.get(mid)== null) {
+			
 			String uri = request.getHeader("Referer");
+			
 			re.addFlashAttribute("referer", uri);
+			
 			return "redirect:/customLogin";
 			
 		} else {
+			
 			model.addAttribute("orderList", orderService.getBooksInfo(opd.getOrders()));
+			
 			model.addAttribute("memberInfo", memberService.get(mid));
+			
 			return "/sarak/order";
+			
 		}
 		
 	}
@@ -58,17 +67,21 @@ public class OrderController {
 		orderService.order(od);
 		
 		redirectAttributes.addAttribute("orderid", od.getOrderid());
+		
 		return "redirect:/sarak/orderComplete";
+		
 	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value="/orderComplete", method = RequestMethod.GET)
 	public void orderCompeleteGET(@RequestParam("orderid") String orderid, Model model) {
 		
-		
 		model.addAttribute("orderid", orderid);
+		
 		model.addAttribute("orderItem", orderService.orderComplete(orderid));
+		
 		log.info("orderid = " + orderid);
+		
 	}
 	
 }

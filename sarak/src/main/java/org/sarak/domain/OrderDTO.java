@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class OrderDTO {
+	
 	/* 주문 번호 */
 	private String orderid;
 	
@@ -41,9 +42,13 @@ public class OrderDTO {
 	public int getOrderPriceInfo() {
 		
 			for(OrderDetailDTO order : orders) {
+				
 				totalprice += order.getTotalPrice();
+				
 			}
 			
 			return totalprice;
+			
 	}
+	
 }

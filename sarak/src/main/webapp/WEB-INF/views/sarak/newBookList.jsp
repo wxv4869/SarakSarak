@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<link rel="stylesheet" href="../../resources/dist/css/allBook.css">
 <link rel="stylesheet" href="../../resources/dist/css/bestBook.css">
 
 <head>
@@ -14,13 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 	
 	 <script type="text/javascript">
 	 
@@ -91,27 +84,22 @@
 			        
 			    });
 				
+				// 바로 구매 버튼
 				$(".buynow").on("click", function(){
-					
+					// 클릭한 바로구매 상품의 bid 가져오기
 					let bid = 0;
 					bid = parseInt($(".buynowBid").val());
-					console.log(bid);
-					
+					console.log(bid); 
 					let bookCount = 1;
 					console.log(bookCount);
-					
+					/* 상품정보 */
 					let form_contents = ''; 
-					
 					let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bid + "'>";
 					form_contents += bookId_input;
-					
 					let bookCount_input = "<input name='orders[0].bookCount' type='hidden' value='" + bookCount + "'>";
 					form_contents += bookCount_input;
-					
 					$(".order_form").append(form_contents);	
-					
 					$(".order_form").submit();
-					
 				});
 				
 			});
@@ -163,10 +151,10 @@
 										</td>
 										<td class="btn-group">
 											<div class="cartbtn">
-												<input type="button" class="cart" name="btn" value="장바구니">
+												<input type="button" class="cart" name="btn" value="장바구니"></button>
 											</div>
 											<div class="buynowbtn">
-												<input type="button" class="buynow" name="btn" value="바로구매">
+												<input type="button" class="buynow" name="btn" value="바로구매"></button>
 												<input type="hidden" class="buynowBid" name="bid" value="${newBook.bid}">
 											</div>
 										</td>

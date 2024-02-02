@@ -1,11 +1,15 @@
- .content_main{
-    min-height: 700px;
-    padding-right: 350px;
-    position: relative;
- }
- table{
- 	border-collapse: collapse;
- }
+@charset "UTF-8";
+
+.content_main {
+	min-height: 700px;
+	padding-right: 350px;
+	position: relative;
+}
+
+table {
+	border-collapse: collapse;
+}
+
 .maintitle {
 	text-align: center;
 	margin-top: 80px;
@@ -13,30 +17,34 @@
 	font-size: 26px;
 	font-weight: bold;
 } 
-div.shiptitle{
+
+div.shiptitle {
 	float: left;
 }
-tbody.shipitem{
+
+tbody.shipitem {
 	float:left;
 	margin-left: 48px;
 }
-td.shipdetailitem{
+
+td.shipdetailitem {
 	color: #6E6E6E;
 }
  
  /* 사용자 주소 정보 */
- .addressInfo_div{
- 	position: absolute;
- 	width : 54%;
- 	left: 6%;
-  	height: 85px;
-  	border: 1px solid #d8d8d8;
-  	border-radius: 8px;
+.addressInfo_div {
+	position: absolute;
+	width : 54%;
+	left: 6%;
+ 	height: 85px;
+ 	border: 1px solid #d8d8d8;
+ 	border-radius: 8px;
 	font-size: 15px;
 	font-weight: bold;
 	padding: 20px 30px 0px 30px;    /* 순서 : 상 우 하 좌 */
- }
-.orderGoods_div{
+}
+
+.orderGoods_div {
 	position: absolute;
  	width : 54%;
  	left: 6%;
@@ -48,29 +56,29 @@ td.shipdetailitem{
 	padding: 20px 30px 0px 30px;    /* 순서 : 상 우 하 좌 */
 }
 
-div.goods_kind_div hr{
+div.goods_kind_div hr {
     width: 100%;
-	
 }
 
-div.image_wrap img{
+div.image_wrap img {
 	width: 140px;
 	margin: 20px 32px 20px 0;
 }
 
-.goods_kind_div{
+.goods_kind_div {
 	font-size: 16px;
     line-height: 35px;
     margin-bottom: 16px;
 }
 
-.goods_subject_table{
+.goods_subject_table {
 	font-size: 14px;
     line-height: 20px;
     width: 100%;
     text-align: center; 
 }
-.goods_subject_table th{
+
+.goods_subject_table th {
 	text-align: center;
     color: #333;
     border-bottom: 1px solid #e7e7e7;
@@ -78,31 +86,32 @@ div.image_wrap img{
     background: #f4f9fd;
     padding: 2px 0;	 
 }
-.goods_table{
+
+.goods_table {
 	font-size: 14px;
 	line-height: 20px;
 	border-bottom: 1px solid #e7e7e7;
 }
 
-.goods_table tr{
+.goods_table tr {
 	height: 110px;
 }
-.goods_table_price_td{
+
+.goods_table_price_td {
 	text-align: left;
 }
 
-.goods_table_price_td div.price_td_bold{
+.goods_table_price_td div.price_td_bold {
 	font-weight: bold;
 	margin: 8px 0;
 }
 
-.goods_table_price_td div.price_td_normal{
+.goods_table_price_td div.price_td_normal {
 	color: #6E6E6E;
 }
 
-
 /* 주문 종합 정보 */
-.total_info_div{
+.total_info_div {
 	position:absolute;
 	top: 0;
 	right : 5%;
@@ -114,40 +123,50 @@ div.image_wrap img{
 	padding: 10px 10px 0px 10px;    /* 순서 : 상 우 하 좌 */
 	
 }
-.total_info_price_div{
+
+.total_info_price_div {
 	width: 90%;
     margin: auto;
 	position: relative;
 }
-.total_info_div ul{
+
+.total_info_div ul {
 	list-style: none;
 }
-.total_info_div li{
+
+.total_info_div li {
 	text-align: right;
 	margin-top: 10px;
 	margin-bottom: 15px;
 }
-.price_span_label{
+
+.price_span_label {
 	float: left;
 }
-.price_total_li{
+
+.price_total_li {
 	border-top: 1px solid #ddd;
 	padding: 20px 0;
 }
-.strong_red{
+
+.strong_red {
 	color: red;
 }
-.total_price_red{
+
+.total_price_red {
 	font-size: 16px;
 }
-.total_price_label{
+
+.total_price_label {
 	margin-top: 5px;
 }
-.total_info_btn_div{
+
+.total_info_btn_div {
     text-align: center;
 	padding: 15px 12px;
 }
-.order_btn{
+
+.order_btn {
     display: inline-block;
     font-size: 16px;
     line-height: 50px;

@@ -9,6 +9,7 @@ import org.sarak.domain.Criteria;
 public interface MemberMapper {
 
 	public void register(MemberVO member) throws Exception;
+	
 	public void insertAuth(AuthVO auth);
 	
 	public MemberVO read(String mid);
@@ -18,9 +19,11 @@ public interface MemberMapper {
 	public List<MemberVO> getListWithPaging(Criteria cri);
 	
 	public int delete(String mid);
+	
 	public int deleteAuth(String mid);
 
 	public int update(MemberVO member);
+	
 	public int updateAuth(AuthVO auth);
 
 }

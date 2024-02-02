@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class OrderDetailDTO {
 	
-	
 	/* 주문 번호 */
 	private String orderid;
 	
@@ -18,6 +17,7 @@ public class OrderDetailDTO {
     private int odetailquan;
     
     private String bname;
+    
 	/* 상품 한 개 가격 */
     private int odetailprice;
    
@@ -33,5 +33,4 @@ public class OrderDetailDTO {
 		this.totalPrice = this.odetailprice * this.odetailquan;
 	}
 	
-
 }
