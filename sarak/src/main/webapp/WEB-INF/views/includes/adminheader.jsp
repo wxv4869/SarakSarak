@@ -9,7 +9,7 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	
-	    <title>사락사락 관리자 계정</title>
+	    <title>사락사락 관리자 페이지</title>
 	
 	    <!-- Bootstrap Core CSS -->
 	    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -84,50 +84,20 @@
 	                <div class="sidebar-nav navbar-collapse">
 	                    <ul class="nav" id="side-menu">
 	                        <li>
-	                            <a href="/admin/memberlist"><i class="fa fa-dashboard fa-fw"></i> 회원 관리</a>
+	                            <a href="/admin/memberlist"><i class="fa fa-users fa-fw"></i> 회원 관리</a>
 	                        </li>
 	                        <li>
-	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 도서 관리</a>
-	                            <!-- <ul class="nav nav-second-level">
-	                                <li>
-	                                    <a href="flot.html">Flot Charts</a>
-	                                </li>
-	                                <li>
-	                                    <a href="morris.html">Morris.js Charts</a>
-	                                </li>
-	                            </ul> -->
-	                            <!-- /.nav-second-level -->
+	                            <a href="/admin/authorlist"><i class="fa fa-pencil fa-fw"></i> 작가 관리</a>
 	                        </li>
 	                        <li>
-	                            <a href="#"><i class="fa fa-table fa-fw"></i> 주문 관리</a>
+	                            <a href="/admin/booklist"><i class="fa fa-book fa-fw"></i> 도서 관리</a>
 	                        </li>
 	                        <li>
-	                            <a href="#"><i class="fa fa-edit fa-fw"></i> 후기 관리</a>
+	                            <a href="/admin/orderlist"><i class="fa fa-archive fa-fw"></i> 주문 관리</a>
 	                        </li>
-	                        <li>
-	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 공지사항 관리</a>
-	                            <!-- <ul class="nav nav-second-level">
-	                                <li>
-	                                    <a href="panels-wells.html">Panels and Wells</a>
-	                                </li>
-	                                <li>
-	                                    <a href="buttons.html">Buttons</a>
-	                                </li>
-	                                <li>
-	                                    <a href="notifications.html">Notifications</a>
-	                                </li>
-	                                <li>
-	                                    <a href="typography.html">Typography</a>
-	                                </li>
-	                                <li>
-	                                    <a href="icons.html"> Icons</a>
-	                                </li>
-	                                <li>
-	                                    <a href="grid.html">Grid</a>
-	                                </li>
-	                            </ul> -->
-	                            <!-- /.nav-second-level --> 
-	                        </li>
+	                        <!-- <li>
+	                            <a href="/admin/reviewlist"><i class="fa fa-comments fa-fw"></i> 후기 관리</a>
+	                        </li> -->
 	                    </ul>
 	                </div>
 	                <!-- /.sidebar-collapse -->
