@@ -72,12 +72,15 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	
+	@Transactional
 	@Override
-	public int bookModify(BookVO bookVO) {
+	public void bookModify(BookVO bookVO) {
 		
 		log.info("(service)bookModify......");
 		
-		return adminMapper.bookModify(bookVO);
+		adminMapper.bookModify(bookVO);
+		
+		adminMapper.bookStockModify(bookVO);
 		
 	}
 	

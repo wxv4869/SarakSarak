@@ -313,9 +313,9 @@ public class AdminController {
 		
 		log.info("bookModifyPost......." + bookVO);
 		
-		int result = adminService.bookModify(bookVO);
+		adminService.bookModify(bookVO);
 		
-		rttr.addFlashAttribute("modify_result", result);
+		rttr.addFlashAttribute("modify_result", bookVO.getBid());
 		
 		return "redirect:/admin/booklist";
 		

@@ -18,7 +18,7 @@ public interface AdminService {
 	
 	public void bookInsert(BookVO bookVO);
 	
-	public int bookModify(BookVO bookVO);
+	public void bookModify(BookVO bookVO);
 	
 	public int bookDelete(int bid);
 	

@@ -145,6 +145,7 @@ $(document).ready(function() {
 		var authoridCk = false;
 		var summaryCk = false;
 		var contentsCk = false;
+		var stockCk = false;
 		
 		var bname = $("input[name='bname']").val();
 		var bprice = $("input[name='bprice']").val();
@@ -154,6 +155,7 @@ $(document).ready(function() {
 		var authorid = $("input[name='authorid']").val();
 		var summary = $(".bsm p").html();
 		var contents = $(".bct p").html();
+		var stock = $("input[name='stock']").val();
 		
 		if (bname) {
 			$("#warn_bname").css('display', 'none');
@@ -227,7 +229,16 @@ $(document).ready(function() {
 			contentsCk = false;
 		}
 		
-		if (bnameCk && bpriceCk && isbnCk && pubdateCk && publisherCk && authoridCk && summaryCk && contentsCk) {
+		if (stock != 0) {
+			$("#warn_stock").css('display', 'none');
+			stockCk = true;
+		} else {
+			alert("stock 실패");
+			$("#warn_stock").css('display', 'block');
+			stockCk = false;
+		}
+		
+		if (bnameCk && bpriceCk && isbnCk && pubdateCk && publisherCk && authoridCk && summaryCk && contentsCk && stockCk) {
 			alert("유효성 검사 통과");
 			modifyForm.append("<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'/>");
 			modifyForm.submit();
@@ -309,6 +320,12 @@ $(document).ready(function() {
 						<label>목차</label><br>
 						<textarea name="contents" id="bookContents_textarea">${book.contents}</textarea>
 						<span id="warn_contents">목차를 입력해 주세요.</span>
+					</div>
+					
+					<div class="form-group">
+						<label>재고</label>
+						<input class="form-control" name='stock' value='<c:out value="${book.stock}"/>'>
+						<span id="warn_stock">제목을 입력해 주세요.</span>
 					</div>
 					
 					<div class="btn_section">

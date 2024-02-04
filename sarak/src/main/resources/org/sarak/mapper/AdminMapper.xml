@@ -49,12 +49,17 @@
 		where bid = #{bid}
 	</update>
 	
-	<!-- 6. 도서 삭제 -->
+	<!-- 6. 재고 수정 -->
+	<update id="bookStockModify">
+		update tbl_book_stock set stock = #{stock} where bid = #{bid}
+	</update>
+	
+	<!-- 7. 도서 삭제 -->
 	<delete id="bookDelete">
 		delete from tbl_book where bid = #{bid}
 	</delete>
 	
-	<!-- 7. 주문 목록 (with 페이징) -->
+	<!-- 8. 주문 목록 (with 페이징) -->
 	<select id="orderGetList" resultType="org.sarak.domain.OrderDTO">
 		<![CDATA[
 			select orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
@@ -70,12 +75,12 @@
 		]]>
 	</select>
 	
-	<!-- 8. 주문 총 수 -->
+	<!-- 9. 주문 총 수 -->
 	<select id="orderGetTotal" resultType="int">
 		select count(*) from tbl_order
 	</select>
 	
-	<!-- 9. 주문 상태 변경 -->
+	<!-- 10. 주문 상태 변경 -->
 	<update id="orderstateUpdate">
 		update tbl_order set orderstate = #{orderstate} where orderid = #{orderid}
 	</update>
