@@ -10,19 +10,11 @@ import org.sarak.domain.Criteria;
 @Mapper
 public interface BookMapper {    // 데이터베이스에 접근하는 메서드 정의
 	
-	public void insert(BookVO book);    // 도서 추가 (관리자)
-	
-	public void insertSelectKey(BookVO book);    // 도서 추가 (자동 생성된 키 반환)
-	
 	public BookVO read(int bid);    // 도서 조회
 	
 	public BookVO readmap(int bid);    // Map을 이용한 도서 조회
 	
 	public BookVO readAllBookList();
-	
-	public int delete(int bid);    // 도서 삭제 (관리자)
-	
-	public int update(BookVO book);    // 도서 수정 (관리자)
 	
 	public List<BookVO> allBookList();    // 전체 도서 목록 가져오기
 

@@ -72,7 +72,7 @@ $(document).ready(function() {
 		
 		if (nameCheck && descCheck) {
 			
-			modifyForm.submit()
+			modifyForm.submit();
 			
 		} else {
 			
@@ -107,13 +107,13 @@ $(document).ready(function() {
 					<div class="form-group">
 						<label>작가 이름</label><br>
 						<input name='authorname' value='<c:out value="${author.authorname}"/>'>
-						<span id="warn_authorname">작가 이름을 입력 해주세요.</span>
+						<span id="warn_authorname">작가 이름을 입력해 주세요.</span>
 					</div>
 	
 					<div class="form-group">
 						<label>작가 소개글</label><br>
 						<input name='authordesc' value='<c:out value="${author.authordesc}"/>'>
-						<span id="warn_authordesc">작가 소개글을 입력 해주세요.</span>
+						<span id="warn_authordesc">작가 소개글을 입력해 주세요.</span>
 					</div>
 					
 					<div class="btn_section">

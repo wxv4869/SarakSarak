@@ -42,20 +42,6 @@ public class BookServiceImpl implements BookService {    // BookService 인터�
 	    return book;
 		
 	}
-
-	@Override
-	public boolean modify(BookVO book) {
-		
-		return false;
-		
-	}
-
-	@Override
-	public boolean remove(int bid) {
-		
-		return false;
-		
-	}
 	
 	@Override
 	public List<BookVO> allBookList(Criteria cri) {

@@ -20,10 +20,6 @@ public interface BookService {    // 비즈니스 로직
 	
 	public List<BookVO> newBookList(Criteria cri);
 	
-	public boolean modify(BookVO book);    // 도서 수정
-	
-	public boolean remove(int bid);    // 도서 삭제
-	
 	public List<BookVO> allBookList(Criteria cri);    // 전체 도서 목록
 	
 	public int getTotal(Criteria cri);    // 전체 도서 수

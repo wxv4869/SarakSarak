@@ -19,6 +19,7 @@ public class AuthorServiceImpl implements AuthorService {
 	@Setter(onMethod_ = @Autowired)
 	private AuthorMapper authorMapper;
 	
+	@Override
 	public List<AuthorVO> authorGetList(Criteria cri) {
 		
 		log.info("(service)authorGetList()........" + cri);
@@ -27,6 +28,7 @@ public class AuthorServiceImpl implements AuthorService {
 		
 	}
 	
+	@Override
 	public int authorGetTotal(Criteria cri) throws Exception {
 		
 		log.info("(service)authorGetTotal()........" + cri);
@@ -35,6 +37,7 @@ public class AuthorServiceImpl implements AuthorService {
 		
 	}
 	
+	@Override
 	public AuthorVO authorGetDetail(int authorid) throws Exception {
 		
 		log.info("(service)authorGetDetail()........" + authorid);
@@ -43,12 +46,14 @@ public class AuthorServiceImpl implements AuthorService {
 		
 	}
 	
+	@Override
 	public void authorInsert(AuthorVO authorVO) throws Exception {
 		
 		authorMapper.authorInsert(authorVO);
 		
 	}
 	
+	@Override
 	public int authorModify(AuthorVO authorVO) throws Exception {
 		
 		log.info("(service)authorModify()........" + authorVO);
@@ -57,6 +62,7 @@ public class AuthorServiceImpl implements AuthorService {
 		
 	}
 	
+	@Override
 	public int authorDelete(int authorid) {
 		
 		log.info("(service)authorDelete()........");

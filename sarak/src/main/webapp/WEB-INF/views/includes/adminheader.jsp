@@ -93,11 +93,11 @@
 	                            <a href="/admin/booklist"><i class="fa fa-book fa-fw"></i> 도서 관리</a>
 	                        </li>
 	                        <li>
+	                            <a href="/admin/uploadAjax"><i class="fa fa-photo fa-fw"></i> 도서 이미지 업로드</a>
+	                        </li>
+	                        <li>
 	                            <a href="/admin/orderlist"><i class="fa fa-archive fa-fw"></i> 주문 관리</a>
 	                        </li>
-	                        <!-- <li>
-	                            <a href="/admin/reviewlist"><i class="fa fa-comments fa-fw"></i> 후기 관리</a>
-	                        </li> -->
 	                    </ul>
 	                </div>
 	                <!-- /.sidebar-collapse -->
