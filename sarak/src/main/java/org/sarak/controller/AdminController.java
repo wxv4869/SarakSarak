@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.sarak.domain.BookAttachVO;
 import org.sarak.domain.BookVO;
 import org.sarak.domain.Criteria;
 import org.sarak.domain.MemberVO;
+import org.sarak.domain.OrderDTO;
 import org.sarak.domain.PageDTO;
 import org.sarak.mapper.BookAttachMapper;
 import org.sarak.service.AdminService;
@@ -499,6 +501,38 @@ public class AdminController {
 		
 		return result;
 		
+	}
+	
+	/* 주문 목록 페이지 */
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/orderlist")
+	public void doOrderList(Criteria cri, Model model) throws Exception {
+		
+		log.info("###### 주문 목록 페이지 진입 ######");
+		
+		List orderlist = adminService.orderGetList(cri);
+		
+		model.addAttribute("orderlist", orderlist);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, adminService.orderGetTotal(cri)));
+		
+	}
+	
+	/* 주문 상태 변경 */
+	@Secured({"ROLE_ADMIN"})
+	@PostMapping("/updateOrderState")
+	public String updateOrderStatePost(OrderDTO orderDTO, RedirectAttributes rttr) {
+		
+		log.info("updateOrderStatePost......." + orderDTO);
+	
+		orderDTO.setOrderstate("배송완료");
+		
+		int result = adminService.orderstateUpdate(orderDTO);
+		
+		rttr.addFlashAttribute("modify_result", result);
+	
+		return "redirect:/admin/orderlist";
+	    
 	}
 	
 }

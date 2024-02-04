@@ -31,7 +31,12 @@
 		values (seq_book.nextval, #{bname}, #{bprice}, #{isbn}, #{pubdate}, #{publisher}, #{authorid}, #{summary}, #{contents})
 	</insert>
 	
-	<!-- 4. 도서 정보 수정 -->
+	<!-- 4. 도서 등록과 동시에 stock 데이터 생성 -->
+	<insert id="bookStockInsert">
+        insert into tbl_book_stock (bid, stock) values (seq_book.currval, 100)
+    </insert>
+	
+	<!-- 5. 도서 정보 수정 -->
 	<update id="bookModify">
 		update tbl_book set bname = #{bname},
 							bprice = #{bprice},
@@ -44,9 +49,35 @@
 		where bid = #{bid}
 	</update>
 	
-	<!-- 5. 도서 삭제 -->
+	<!-- 6. 도서 삭제 -->
 	<delete id="bookDelete">
 		delete from tbl_book where bid = #{bid}
 	</delete>
+	
+	<!-- 7. 주문 목록 (with 페이징) -->
+	<select id="orderGetList" resultType="org.sarak.domain.OrderDTO">
+		<![CDATA[
+			select orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
+			from
+				(
+				select /*+INDEX_DESC(tbl_order pk_order)*/
+					rownum rn, orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
+				from
+					tbl_order
+				where rownum <= #{pageNum} * #{amount}
+				)
+			where rn > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 8. 주문 총 수 -->
+	<select id="orderGetTotal" resultType="int">
+		select count(*) from tbl_order
+	</select>
+	
+	<!-- 9. 주문 상태 변경 -->
+	<update id="orderstateUpdate">
+		update tbl_order set orderstate = #{orderstate} where orderid = #{orderid}
+	</update>
 
 </mapper>
