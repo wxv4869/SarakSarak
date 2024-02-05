@@ -10,9 +10,11 @@ import org.sarak.domain.AuthorVO;
 import org.sarak.domain.BookVO;
 import org.sarak.domain.Criteria;
 import org.sarak.domain.OrderDTO;
+import org.sarak.domain.OrderDetailDTO;
 import org.sarak.mapper.AdminMapper;
 import org.sarak.mapper.BookAttachMapper;
 import org.sarak.mapper.BookMapper;
+import org.sarak.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private BookAttachMapper bookAttachMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private OrderMapper orderMapper;
 	
 	@Override
 	public List<BookVO> bookGetList(Criteria cri) {
@@ -131,6 +136,15 @@ public class AdminServiceImpl implements AdminService {
 		log.info("(service)updateOrderState......");
 		
 		return adminMapper.orderstateUpdate(orderDTO);
+		
+	}
+	
+	@Override
+	public List<OrderDetailDTO> orderGetDetail(String orderid) {
+		
+		log.info("(service)orderGetDetail()........" + orderid);
+		
+		return orderMapper.orderGetDetail(orderid);
 		
 	}
 

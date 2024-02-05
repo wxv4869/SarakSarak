@@ -71,4 +71,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        o.orderid = #{orderid}
 	</select>
 	
+	<select id="orderGetDetail" resultMap="detailMap">
+		select
+			d.orderid, d.bid, d.odetailquan, d.odetailprice, d.doreview, b.bname
+		from
+			tbl_orderdetail d
+			left outer join tbl_book b on d.bid = b.bid
+		where
+			d.orderid = #{orderid}
+	</select>
+	
 </mapper>

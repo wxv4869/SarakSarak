@@ -72,19 +72,25 @@ public class AdminController {
 	// member 관련 시작
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/memberlist")
-	public void doMemberList(Model model) {
+	public void doMemberList(Criteria cri, Model model) {
 		
 		log.info("/memberlist");
 		
-		model.addAttribute("memberlist", memberService.getList());
+		List memberlist = memberService.getListWithPaging(cri);
+		
+		model.addAttribute("memberlist", memberlist);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, memberService.memberGetTotal(cri)));
 	
 	}
 	
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping({"/memberget", "/membermodify", "authmodify"})
-	public void get(@RequestParam("mid") String mid, Model model) {
+	public void get(@RequestParam("mid") String mid, Criteria cri, Model model) {
 		
 		log.info("/get");
+		
+		model.addAttribute("cri", cri);
 		
 		model.addAttribute("member", memberService.get(mid));
 	
@@ -578,6 +584,21 @@ public class AdminController {
 		model.addAttribute("orderlist", orderlist);
 		
 		model.addAttribute("pageMaker", new PageDTO(cri, adminService.orderGetTotal(cri)));
+		
+	}
+	
+	/* 주문 상세 페이지 */
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/orderget")
+	public void orderGet(@RequestParam("orderid") String orderid, Criteria cri, Model model) throws Exception {
+		
+		log.info("###### 주문 상세 페이지 orderid : " + orderid);
+		
+		List orderDetailList = adminService.orderGetDetail(orderid);
+		
+		model.addAttribute("cri", cri);
+		
+		model.addAttribute("orderdetail", orderDetailList);
 		
 	}
 	

@@ -5,6 +5,38 @@
 
 <%@include file="../includes/adminheader.jsp" %>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	var moveForm = $("#moveForm");
+	
+	/* 페이지 이동 버튼 */
+	$(".paginate_button a").on("click", function(e) {
+		
+		e.preventDefault();
+		
+		moveForm.find("input[name = 'pageNum']").val($(this).attr("href"));
+		
+		moveForm.submit();
+		
+	});
+	
+	/* 상세 페이지 이동 버튼 */
+	$(".move").on("click", function(e) {
+		
+		e.preventDefault();
+		
+		moveForm.append("<input type='hidden' name='mid' value='" + $(this).attr("href") + "'>");
+		
+		moveForm.attr("action", "/admin/memberget");
+		
+		moveForm.submit();
+		
+	});
+	
+});
+</script>
+
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">회원 목록</h1>
@@ -33,10 +65,14 @@
                                    <c:forEach items="${memberlist}" var="member">
                                 	<tr>
                                 		<td><c:out value="${member.mid }" /></td>
-                                		<td> <a href='/admin/memberget?mid=<c:out value="${member.mid }"/>'>
+                                		<td>
+                                			<!-- <a href='/admin/memberget?mid=<c:out value="${member.mid }"/>'> -->
                                 			<!-- <a class='move' href='<c:out value="${member.mid }"/>'> -->
-                                			<c:out value="${member.mname }"/></a>
+                                			<!--<c:out value="${member.mname }"/></a>-->
                                 			<!--<b>[ <c:out value="${ memberList.replyCnt}"/> ]</b> -->
+                                			<a class="move" href='<c:out value="${member.mid}"/>'>
+                               					<c:out value="${member.mname}"/>
+                               				</a>
                                 		</td>
                                 		<td><c:out value="${member.phone }" /></td>
                                 		<td><c:out value="${member.email }" /></td>
@@ -50,6 +86,29 @@
                                 </c:forEach>
 
                             </table>
+                            
+                            <!-- 페이징 영역 시작 -->
+							<div class="pull-right">
+								<ul class="pagination">
+									<c:if test="${pageMaker.prev}">
+										<li class="paginate_button previous"><a href="${pageMaker.startPage - 1}">이전</a></li>
+									</c:if>
+									
+									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+										<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+											<a href="${num}">${num}</a>
+										</li>
+									</c:forEach>
+									
+									<c:if test="${pageMaker.next}">
+										<li class="paginate_button next"><a href="${pageMaker.endPage + 1}">다음</a></li>
+									</c:if>
+								</ul>
+							</div>
+							<form id='moveForm' action="/admin/memberlist" method='get'>
+								<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+								<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+							</form>
  
                         </div>
                         <!-- /.panel-body -->

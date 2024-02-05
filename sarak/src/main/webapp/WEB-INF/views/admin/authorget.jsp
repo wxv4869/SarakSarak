@@ -35,7 +35,6 @@ $(document).ready(function() {
 	});
 	
 	/* 삭제 버튼 */
-	
 	var deleteForm = $("#deleteForm");
 	
 	$("#delete-btn").on("click", function(e) {

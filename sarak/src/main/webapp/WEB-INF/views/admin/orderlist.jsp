@@ -52,21 +52,6 @@ $(document).ready(function() {
 		
 	});
 	
-	/* 주문 상태 변경 버튼 */
-/* 	$("#update-btn").on("click", function(e) {
-		
-		e.preventDefault();
-		
-		var updateForm = $("#updateForm");
-		
-		var orderid = $(this).closest("tr").find(".orderid").text();
-		
-		updateForm.append(orderid);
-        
-        updateForm.append
-		
-	}); */
-	
 	/* 주문 상태에 따라 글자색 변경 */
 	$(".orderstate").each(function() {
 		
@@ -81,6 +66,20 @@ $(document).ready(function() {
 			$(this).css("color", "red");
 			
 		}
+		
+	});
+	
+	/* 상세 페이지 이동 버튼 */
+	$(".move").on("click", function(e) {
+		
+		e.preventDefault();
+		
+		moveForm.append("<input type='hidden' name='orderid' value='" + $(this).attr("href") + "'>");
+		
+		moveForm.attr("action", "/admin/orderget");
+		
+		moveForm.submit();
+		
 	});
 	
 });
@@ -116,7 +115,9 @@ $(document).ready(function() {
                             	<c:forEach items="${orderlist}" var="order">
                                 	<tr>
                                 		<td class="orderid">
-                                			<c:out value="${order.orderid}"/>
+                                			<a class="move" href='<c:out value="${order.orderid}"/>'>
+                                				<c:out value="${order.orderid}"/>
+                                			</a>
                                 		</td>
                                 		<td>
                                 			<c:out value="${order.mid}"/>

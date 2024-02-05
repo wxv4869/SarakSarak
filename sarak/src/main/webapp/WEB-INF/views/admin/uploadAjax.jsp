@@ -13,7 +13,7 @@
 	background-color: gray;
 }
 
-.uploadResult p {
+p {
 	font-size: 16px;
 	font-weight: bold;
 }
@@ -100,11 +100,11 @@
 					<button id='uploadBtn'>Upload</button>
 				</div>
 				
+				<p>### 방금 업로드한 파일 ###</p>
 				<div class='uploadResult'>
-					<p>### 방금 업로드한 파일 ###</p>
-						<ul>
-						
-						</ul>
+					<ul>
+					
+					</ul>
 				</div>
 				
 			</div>

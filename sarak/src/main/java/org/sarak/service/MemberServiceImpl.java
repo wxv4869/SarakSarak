@@ -3,6 +3,7 @@ package org.sarak.service;
 import java.util.List;
 
 import org.sarak.domain.AuthVO;
+import org.sarak.domain.Criteria;
 import org.sarak.domain.MemberVO;
 import org.sarak.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,23 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	@Override
+	public List<MemberVO> getListWithPaging(Criteria cri) {
+		
+		log.info("getListWithPaging...");
+		
+		return memberMapper.getListWithPaging(cri);
+		
+	}
+	
+	@Override
+	public int memberGetTotal(Criteria cri) {
+		
+		log.info("memberGetTotal..." + cri);
+		
+		return memberMapper.memberGetTotal(cri);
+		
+	}
 
 
 }

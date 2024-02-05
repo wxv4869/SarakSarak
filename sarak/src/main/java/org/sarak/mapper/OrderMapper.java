@@ -1,5 +1,7 @@
 package org.sarak.mapper;
 
+import java.util.List;
+
 import org.sarak.domain.BookSalesVO;
 import org.sarak.domain.BookStockVO;
 import org.sarak.domain.BookVO;
@@ -28,5 +30,7 @@ public interface OrderMapper {
 	public int inductSales(BookSalesVO sales);
 	
 	public OrderDTO getOrderCompleteInfo(String orderid);
+	
+	public List<OrderDetailDTO> orderGetDetail(String orderid);
 	
 }
