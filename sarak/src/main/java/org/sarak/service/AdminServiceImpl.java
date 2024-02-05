@@ -84,32 +84,26 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	
+	@Transactional
 	@Override
-	public int bookDelete(int bid) {
+	public void bookDelete(int bid) {
 		
 		log.info("(service)bookDelete......");
 		
-		return adminMapper.bookDelete(bid);
+		bookAttachMapper.deleteAll(bid);
+		
+		adminMapper.bookStockDelete(bid);
+		
+		adminMapper.bookDelete(bid);
 		
 	}
 	
 	@Override
-	public void bookImageDelete(int bid, String filename) {
+	public int deleteEachImg(String filename) {
 		
-		try {
-			
-            // tbl_book_img 테이블에서 삭제
-            bookAttachMapper.delete(bid);
-
-            // 도서 이미지 파일 삭제
-            Path filePath = Paths.get("C:\\saraksarak\\" + bid + "\\" + filename);
-            Files.deleteIfExists(filePath);
-
-        } catch (Exception e) {
-        	
-            log.error("도서 이미지 삭제 중 오류 발생 : " + e.getMessage());
-        
-        }
+		log.info("(service)deleteEachImg......");
+		
+		return adminMapper.deleteEachImg(filename);
 		
 	}
 	

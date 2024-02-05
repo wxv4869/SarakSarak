@@ -59,7 +59,12 @@
 		delete from tbl_book where bid = #{bid}
 	</delete>
 	
-	<!-- 8. 주문 목록 (with 페이징) -->
+	<!-- 8. 재고 삭제 -->
+	<delete id="bookStockDelete">
+		delete from tbl_book_stock where bid = #{bid}
+	</delete>
+	
+	<!-- 9. 주문 목록 (with 페이징) -->
 	<select id="orderGetList" resultType="org.sarak.domain.OrderDTO">
 		<![CDATA[
 			select orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
@@ -75,14 +80,19 @@
 		]]>
 	</select>
 	
-	<!-- 9. 주문 총 수 -->
+	<!-- 10. 주문 총 수 -->
 	<select id="orderGetTotal" resultType="int">
 		select count(*) from tbl_order
 	</select>
 	
-	<!-- 10. 주문 상태 변경 -->
+	<!-- 11. 주문 상태 변경 -->
 	<update id="orderstateUpdate">
 		update tbl_order set orderstate = #{orderstate} where orderid = #{orderid}
 	</update>
+	
+	<!-- 12. 도서 이미지 개별 삭제 -->
+	<delete id="deleteEachImg">
+		delete from tbl_book_img where filename = #{filename}
+	</delete>
 
 </mapper>

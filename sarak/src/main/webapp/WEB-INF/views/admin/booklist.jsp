@@ -75,7 +75,7 @@ $(document).ready(function() {
 		
 	} else if (delete_result == 2) {
 		
-		alert("해당 도서 데이터를 참조하는 도서 이미지 데이터가 존재하고 있어 삭제할 수 없습니다.");
+		alert("삭제에 실패했습니다...");
 		
 	}
 	

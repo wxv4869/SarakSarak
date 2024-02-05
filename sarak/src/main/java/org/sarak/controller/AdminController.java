@@ -3,6 +3,8 @@ package org.sarak.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,7 @@ import org.sarak.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,6 +34,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -332,7 +336,15 @@ public class AdminController {
 		
 		try {
 			
-			result = adminService.bookDelete(bid);
+			result = 1;
+			
+			List<BookAttachVO> attachList = bookService.getAttachList(bid);
+			
+			log.info(attachList);
+			
+			deleteFiles(attachList);
+			
+			adminService.bookDelete(bid);
 			
 		} catch (Exception e) {
 			
@@ -352,6 +364,37 @@ public class AdminController {
 		
 	}
 	
+	/* 도서 이미지 원본 파일 삭제 */
+	public void deleteFiles(List<BookAttachVO> attachList) {
+		
+		if (attachList == null || attachList.size() == 0) {
+			
+			return;
+			
+		}
+		
+		log.info("도서 이미지 파일 삭제...");
+		
+		log.info(attachList);
+		
+		attachList.forEach(attach -> {
+			
+			try {
+				
+				Path file = Paths.get("C:\\saraksarak\\" + attach.getUploadpath() + "\\" + attach.getFilename());
+				
+				Files.deleteIfExists(file);
+				
+			} catch (Exception e) {
+				
+				log.error("원본 파일 삭제 오류 : " + e.getMessage());
+				
+			}
+			
+		});
+		
+	}
+	
 	/* 도서 이미지 업로드 */
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/uploadAjax")
@@ -368,7 +411,7 @@ public class AdminController {
 	}
 	
 	@Secured({"ROLE_ADMIN"})
-	@PostMapping(value = "/uploadAjaxAction")
+	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BookAttachVO>> uploadAjaxPost(@RequestParam("bid") int bid, MultipartFile[] bookimg, BookAttachVO bookAttachVO) {
 		
@@ -469,12 +512,32 @@ public class AdminController {
 		
 	}
 	
-	/* 도서 이미지 삭제 */
-//	@Secured({"ROLE_ADMIN"})
-//	@PostMapping("/deleteFile")
-//	public ResponseEntity<String> deleteFile(){
-//		
-//	}
+	/* 도서 이미지 개별 삭제 */
+	@Secured({"ROLE_ADMIN"})
+	@PostMapping("/deleteEachImg")
+	public ResponseEntity<String> deleteEachImg(String filename, int bid) {
+		
+		log.info("delete imagefile : " + filename);
+		
+		try {
+			
+			String filePath = "C:\\saraksarak\\" + bid + "\\" + filename;
+			
+			Files.deleteIfExists(Paths.get(filePath));
+			
+	        adminService.deleteEachImg(filename);
+	        
+	        return new ResponseEntity<>("Success", HttpStatus.OK);
+	        
+	    } catch (Exception e) {
+	    	
+	        log.error("이미지 삭제 중 오류 발생: " + e.getMessage());
+	        
+	        return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+	        
+	    }
+		
+	}   
 	
 	/* 도서 이미지 display */
 	@GetMapping("/display")

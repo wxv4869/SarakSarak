@@ -7,6 +7,33 @@
 <%@include file="../includes/adminheader.jsp"%>
 
 <script type="text/javascript">
+/* 선택 이미지 삭제 함수 */
+function deleteImgFile(filename) {
+	
+	var bid = '<c:out value="${book.bid}"/>'
+	
+	if (confirm("정말로 삭제하시겠습니까?")) {
+		$.ajax({
+			type: "POST",
+			url: "/admin/deleteEachImg",
+			data: {
+				filename: filename,
+				bid: bid,
+				_csrf: '${_csrf.token}'
+			},
+			success: function(response) {
+				console.log(response);
+				alert("해당 이미지가 삭제되었습니다.");
+				location.reload();
+			},
+			error: function(error) {
+				console.error(error);
+				alert("해당 이미지를 삭제하는데 실패했습니다.");
+			}
+		});
+	}
+}
+
 $(document).ready(function() {
 
 	var moveForm = $("#moveForm");
@@ -44,17 +71,21 @@ $(document).ready(function() {
 		
 		e.preventDefault();
 		
-		moveForm.find("input").remove();
+		if (confirm("삭제하시면 해당 도서의 재고 데이터와 이미지 데이터도 함께 삭제되며 복구할 수 없습니다. 그래도 삭제하시겠습니까?")) {
 		
-		moveForm.append('<input type="hidden" name="bid" value="${book.bid}">');
-		
-		moveForm.append("<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'/>");
-		
-		moveForm.attr("action", "/admin/bookdelete");
-		
-		moveForm.attr("method", "post");
-		
-		moveForm.submit();
+			moveForm.find("input").remove();
+			
+			moveForm.append('<input type="hidden" name="bid" value="${book.bid}">');
+			
+			moveForm.append("<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}'/>");
+			
+			moveForm.attr("action", "/admin/bookdelete");
+			
+			moveForm.attr("method", "post");
+			
+			moveForm.submit();
+			
+		}
 		
 	});
 
@@ -130,7 +161,7 @@ $(document).ready(function() {
 						<c:if test="${fn:contains(attach.filename, 'mainimg')}">
 							<img src="<c:url value='/admin/display'/>?filename=${attach.uploadpath}/${attach.filename}" style="max-width: 20%;"/>
 							<span>(파일경로 : c:\saraksarak\<c:out value="${attach.uploadpath}"/> | 파일명 : <c:out value="${attach.filename}"/> )</span>
-							<button id="delete_mainimg">삭제하기</button>
+							<button id="delete_mainimg" onclick="deleteImgFile('<c:out value="${attach.filename}"/>')">삭제하기</button>
 						</c:if>
 					</c:forEach>
 				</div>
@@ -141,7 +172,7 @@ $(document).ready(function() {
 						<c:if test="${fn:contains(attach.filename, 'detailimg')}">
 							<img src="<c:url value='/admin/display'/>?filename=${attach.uploadpath}/${attach.filename}" style="max-width: 20%;"/>
 							<span>(파일경로 : c:\saraksarak\<c:out value="${attach.uploadpath}"/> | 파일명 : <c:out value="${attach.filename}"/> )</span>
-							<button id="delete_detailimg">삭제하기</button>
+							<button id="delete_detailimg" onclick="deleteImgFile('<c:out value="${attach.filename}"/>')">삭제하기</button>
 						</c:if>
 					</c:forEach>
 				</div>

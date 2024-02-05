@@ -29,5 +29,9 @@ public interface AdminMapper {
 	public int bookStockInsert(BookVO bookVO);    // 재고 데이터 생성
 	
 	public int bookStockModify(BookVO bookVO);    // 재고 수정
+	
+	public void bookStockDelete(int bid);    // 재고 삭제
+	
+	public int deleteEachImg(String filename);    // 도서 이미지 개별 삭제
 
 }

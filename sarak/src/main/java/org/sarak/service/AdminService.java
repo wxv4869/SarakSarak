@@ -20,14 +20,14 @@ public interface AdminService {
 	
 	public void bookModify(BookVO bookVO);
 	
-	public int bookDelete(int bid);
-	
-	public void bookImageDelete(int bid, String filename);
+	public void bookDelete(int bid);
 	
 	public List<OrderDTO> orderGetList(Criteria cri);
 	
 	public int orderGetTotal(Criteria cri);
 	
 	public int orderstateUpdate(OrderDTO orderDTO);
+	
+	public int deleteEachImg(String filename);
 
 }
