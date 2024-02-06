@@ -51,7 +51,6 @@
 						
 						<sec:authorize access="isAuthenticated()">
 							<a href="#" onclick="document.getElementById('logout').submit();">로그아웃</a>
-							<a href="">${principal.member.mname}</a> 
 						</sec:authorize>
 						
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
