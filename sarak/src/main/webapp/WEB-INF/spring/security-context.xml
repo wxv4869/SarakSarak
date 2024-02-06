@@ -19,7 +19,7 @@
 		
 		<security:access-denied-handler ref="customAccessDenied"/>
 		
-		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess" authentication-failure-url="/customLogin?error"/>
 		<security:logout logout-url="/customLogout" invalidate-session="true"/>
 		
 		<security:form-login/>

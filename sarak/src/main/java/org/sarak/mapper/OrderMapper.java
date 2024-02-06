@@ -1,6 +1,7 @@
 package org.sarak.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.sarak.domain.BookSalesVO;
 import org.sarak.domain.BookStockVO;
@@ -33,10 +34,10 @@ public interface OrderMapper {
 	public OrderDTO getOrderCompleteInfo(String orderid);
 	
 	/* 주문 상품 리스트 */
-	public List<OrderDTO> getOrderListWithPaging(Criteria cri);
+	public List<OrderDTO> getOrderListWithPaging(Map<String, Object> parameters);
 	
 	/* 주문 총 갯수 */
-	public int getOrderTotalCount(Criteria cri);
+	public int getOrderTotalCount(Map<String, Object> parameters);
 	
 	/* 주문 취소 */
 	public int orderCancel(String orderid);

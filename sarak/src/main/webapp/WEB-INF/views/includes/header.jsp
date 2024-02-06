@@ -50,12 +50,20 @@
 						</sec:authorize>
 						
 						<sec:authorize access="isAuthenticated()">
-							<a href="/customLogout">로그아웃</a> 
-							<a href="">${principal.member.mname }</a> 
+							<a href="#" onclick="document.getElementById('logout').submit();">로그아웃</a>
+							<a href="">${principal.member.mname}</a> 
+						</sec:authorize>
+						
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<a href="/index/admin">관리자 페이지</a>
 						</sec:authorize>
 						<a href="#">고객센터</a>
 					</div>
 				</div>
+				
+				<form id="logout" action="/customLogout" method="POST">
+		   			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+				</form>
 					
 				<div class="headerNav">
 					<a href="/sarak/main" class="mainHeder">

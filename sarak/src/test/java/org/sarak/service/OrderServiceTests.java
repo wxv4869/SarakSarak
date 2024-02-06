@@ -22,15 +22,19 @@ public class OrderServiceTests {
 //	@Test
 //	public void testOrderList() {
 //		
-//		orderService.getOrderList(new Criteria(2, 10)).forEach(order -> log.info(order));
+//		orderService.getOrderList(new Criteria(1, 10), "bb").forEach(order -> log.info(order));
 //		
 //	}
 	
 	@Test
 	public void testOrderCancle() {
+		
 		OrderCancelDTO dto = new OrderCancelDTO();
+		
 		dto.setMid("bb");
 		dto.setOrderid("bb_2024020132");
+		
 		orderService.orderCancel(dto);
 	}
+	
 }

@@ -48,10 +48,9 @@
 					        	<input name="remember-me" type="checkbox">
 					            <label>간편 로그인 정보 저장</label>
 					        </div>
-					        <!-- Change this to a button or input when using this as a form -->
 					    	<input class="submitBtn" type="submit" value="로그인">
 						</fieldset>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 	            </div>
 	        </div>

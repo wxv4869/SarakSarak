@@ -3,7 +3,9 @@ package org.sarak.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.sarak.domain.BookAttachVO;
 import org.sarak.domain.BookSalesVO;
@@ -84,8 +86,10 @@ public class OrderServiceImpl implements OrderService{
 		for(OrderDetailDTO odd : ord.getOrders()) {
 		
 			OrderDetailDTO orderDetail = orderMapper.getOrderInfo(odd.getBid());
+			
 			orderDetail.setOdetailquan(odd.getOdetailquan());
 			orderDetail.initSaleTotal();
+			
 			ords.add(orderDetail);
 			
 		}
@@ -97,11 +101,13 @@ public class OrderServiceImpl implements OrderService{
 		/* orderId만들기 및 OrderDTO객체 orderId에 저장 */
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("_yyyyMMddmm");
+		
 		String orderId = member.getMid() + format.format(date);
 		ord.setOrderid(orderId);
 
 		/* DB 주문, 주문 상품, 배송 정보 넣기 */ 
 		orderMapper.enrollOrder(ord);
+		
 		for(OrderDetailDTO odd : ord.getOrders()) {
 			
 			odd.setOrderid(orderId);
@@ -113,12 +119,17 @@ public class OrderServiceImpl implements OrderService{
 		for(OrderDetailDTO odd : ord.getOrders()) {
 			
 			BookVO book = bookMapper.readmap(odd.getBid());
+			
 			int bid = book.getBid();
+			
 			BookStockVO stockvo = new BookStockVO();
 			BookSalesVO salesvo = new BookSalesVO();
+			
 			int stock = book.getStock() - odd.getOdetailquan();
 			int sales = book.getSales() + odd.getOdetailquan();
+			
 			log.info(book.getStock());
+			
 			stockvo.setBid(bid);
 			stockvo.setStock(stock);
 			salesvo.setBid(bid);
@@ -160,13 +171,33 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
-	public List<OrderDTO> getOrderList(Criteria cri) {
-		return orderMapper.getOrderListWithPaging(cri);
+	public List<OrderDTO> getOrderList(Criteria cri, String mid) {
+
+	    Map<String, Object> parameters = new HashMap<>();
+	    
+	    parameters.put("pageNum", cri.getPageNum());
+	    
+	    parameters.put("amount", cri.getAmount());
+	    
+	    parameters.put("mid", mid);
+
+		return orderMapper.getOrderListWithPaging(parameters);
+
 	}
 
 	@Override
-	public int getOrderTotal(Criteria cri) {
-		return orderMapper.getOrderTotalCount(cri);
+	public int getOrderTotal(Criteria cri, String mid) {
+		
+		Map<String, Object> parameters = new HashMap<>();
+	    
+	    parameters.put("pageNum", cri.getPageNum());
+	    
+	    parameters.put("amount", cri.getAmount());
+	    
+	    parameters.put("mid", mid);
+	    
+		return orderMapper.getOrderTotalCount(parameters);
+		
 	}
 
 	@Override
@@ -180,12 +211,17 @@ public class OrderServiceImpl implements OrderService{
 		for(OrderDetailDTO ordetail : ords) {
 			
 			BookVO book = bookMapper.readmap(ordetail.getBid());
+			
 			int bid = book.getBid();
+			
 			BookStockVO stockvo = new BookStockVO();
 			BookSalesVO salesvo = new BookSalesVO();
+			
 			int stock = book.getStock() + ordetail.getOdetailquan();
 			int sales = book.getSales() - ordetail.getOdetailquan();
+			
 			log.info(book.getStock());
+			
 			stockvo.setBid(bid);
 			stockvo.setStock(stock);
 			salesvo.setBid(bid);

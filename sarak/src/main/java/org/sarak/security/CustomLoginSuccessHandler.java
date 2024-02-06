@@ -46,16 +46,23 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler{
 
 		if (roleNames.contains("ROLE_USER")) {
 			
-	    	// 이전 url로 redirect
 	    	String prevPage = (String) request.getSession().getAttribute("prevPage");
 
-	    	redirectStrategy.sendRedirect(request, response, prevPage);
-//			response.sendRedirect("/sarak/main");
-			return;
-			
+	    	if (prevPage != null && !prevPage.isEmpty()) {
+	    		
+	            redirectStrategy.sendRedirect(request, response, prevPage);
+	            
+	        } else {
+	        	
+	            response.sendRedirect("/sarak/main");
+	            
+	        }
+	    	
+	        return;
+	        
 		}
 
-		response.sendRedirect("/");
+		response.sendRedirect("/sarak/main");
 		
 	}
 

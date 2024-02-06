@@ -30,7 +30,7 @@ public class CommonController {
 	@GetMapping("/accessError")
 	public void accessDenied(Authentication auth, Model model) {
 		
-		log.info("/access Denied : " + auth);
+		log.info("access Denied : " + auth);
 		
 		if (auth != null) {
 			
@@ -45,67 +45,65 @@ public class CommonController {
 	@GetMapping("/register")
 	public void getRegister() {
 		
-		log.info("/getRegister");
+		log.info("/register");
 		
 	}
 	
 	@PostMapping("/register")
-	public String postRegister(MemberVO memberVo, AuthVO authVo) throws Exception{
+	public String postRegister(MemberVO memberVo, AuthVO authVo) throws Exception {
 		
-		log.info("register : " + memberVo);
+		
+		log.info("postRegister : " + memberVo);
 		
 		String inputPw = memberVo.getMpw();
-			
+		
 		String encodedPassword = pwdEncoder.encode(inputPw);
-			
+		
 		memberVo.setMpw(encodedPassword);
-			
+		
 		authVo.setAuth("ROLE_USER");
-			
+		
 		memberService.registerMember(memberVo, authVo);
 			
-		return "redirect:/index/main";
+		return "redirect:/sarak/main";
 		
 	}
 	
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model, HttpServletRequest request) {
 		
-		log.info("error : " + error);
-		
-		log.info("logout : " + logout);
-		
-		/* 로그인 성공 시 이전 페이지로 이동 */
-		String uri = request.getHeader("Referer");
+	    log.info("error : " + error);
+	    
+	    log.info("logout : " + logout);
+	    
+	    if (error == null && logout == null) {
+	    	
+	        String uri = request.getHeader("Referer");
+	        
+	        if (uri == null) {
+	            
+	            Map<String, ?> paramMap = RequestContextUtils.getInputFlashMap(request);
+	            
+	            uri = (String) paramMap.get("referer");
+	            
+	        }
+	        
+	        request.getSession().setAttribute("prevPage", uri);
+	        
+	    }
 
-		// 이전 uri가 null이다 -> 배포 서버에서 나타나는 오류?
-		if (uri==null) {
-			
-			// null일시 이전 페이지에서 addFlashAttribute로 보내준 uri을 저장
-			Map<String, ?> paramMap = RequestContextUtils.getInputFlashMap(request);
-			uri = (String) paramMap.get("referer");
+	    if (error != null) {
+	    	
+	        model.addAttribute("error", "Login Error Check Your Account");
+	        
+	    }
 
-			// 이전 url 정보 담기
-			request.getSession().setAttribute("prevPage", uri);
-
-		} else {
-			
-			// 이전 url 정보 담기
-			request.getSession().setAttribute("prevPage", uri);
-			
-		}
-		
-		if(error != null) {
-			
-			model.addAttribute("error", "Login Error Check Your Account");
-		
-		} 
-		
-		if(logout != null) {
-			
-			model.addAttribute("logout", "Logout!!");
-			
-		} 
+	    if (logout != null) {
+	    	
+	        model.addAttribute("logout", "Logout!!");
+	        
+	    }
+	    
 	}
 	
 	@GetMapping("/customLogout")

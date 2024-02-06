@@ -19,10 +19,10 @@ public interface OrderService {
 	public OrderDTO orderComplete(String orderid);
 	
 	/* 주문 상품 리스트 */
-	public List<OrderDTO> getOrderList(Criteria cri);
+	public List<OrderDTO> getOrderList(Criteria cri, String mid);
 	
 	/* 주문 총 개수 */
-	public int getOrderTotal(Criteria cri);
+	public int getOrderTotal(Criteria cri, String mid);
 	
 	/* 주문 취소 */
 	public void orderCancel(OrderCancelDTO ocd);

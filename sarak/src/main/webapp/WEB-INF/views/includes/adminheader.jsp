@@ -58,8 +58,12 @@
 	                        <li class="divider"></li>
 	                        <sec:authorize access="isAuthenticated()">
 		                        <li>
-		                        	<a href="/customLogout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+		                        	<a href="#" onclick="document.getElementById('logout').submit();"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+		                        	<a href="">${principal.member.mname}</a> 
 		                        </li>
+		                        <form id="logout" action="/customLogout" method="POST">
+						   			<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+								</form>
 	                        </sec:authorize>
 	                        <sec:authorize access="isAuthenticated()">
 		                        <li>
@@ -90,6 +94,9 @@
 	                        </li>
 	                        <li>
 	                            <a href="/admin/orderlist"><i class="fa fa-archive fa-fw"></i> 주문 관리</a>
+	                        </li>
+	                        <li>
+	                            <a href="/sarak/main"><i class="fa fa-external-link fa-fw"></i> 사락사락 메인 페이지</a>
 	                        </li>
 	                    </ul>
 	                </div>

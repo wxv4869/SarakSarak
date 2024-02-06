@@ -1,12 +1,15 @@
 package org.sarak.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sarak.domain.BookSalesVO;
 import org.sarak.domain.BookVO;
+import org.sarak.domain.Criteria;
 import org.sarak.domain.OrderCancelDTO;
 import org.sarak.domain.OrderDTO;
 import org.sarak.domain.OrderDetailDTO;
@@ -27,9 +30,11 @@ public class OrderMapperTests {
 	
 //	@Test
 //	public void getOrderInfoTest() {
+//		
 //		OrderDetailDTO orderInfo = orderMapper.getOrderInfo(1);
 //		
 //		log.info(orderInfo);
+//		
 //	}
 	
 //	@Test
@@ -58,15 +63,14 @@ public class OrderMapperTests {
 //		ord.setTotalprice(ord.getOrderPriceInfo());
 //	
 //		orderMapper.enrollOrder(ord);
-//		
 //			
 //	}
 	
 //	@Test
 //	public void enrollOrderItemTest() {
-		
+//		
 //		OrderDetailDTO oid = new OrderDetailDTO();
-		
+//		
 //		oid.setOdetailid(1);
 //		oid.setOrderid(3);
 //		oid.setBid(1);
@@ -75,41 +79,76 @@ public class OrderMapperTests {
 //		oid.initSaleTotal();
 //		
 //		orderMapper.enrollOrderItem(oid);
-		
-//	}	
+//		
+//	}
 	
 
 //	@Test
 //	public void deductStockTest() {
+//		
 //		BookVO book = new BookVO();
 //		
 //		book.setBid(1);
 //		book.setStock(99);
 //		
 //		orderMapper.deductStock(book);
+//		
 //	}
 	
 //	@Test
 //	public void inductSalesTest() {
+//		
 //		BookSalesVO vo = new BookSalesVO();
 //		
 //		vo.setBid(1);
 //		vo.setSales(99);
 //		
 //		orderMapper.inductSales(vo);
+//		
 //	}
 	
 //	@Test
 //	public void getOrderCompleteInfoTest() {
 //		
 //	    OrderDTO order = orderMapper.getOrderCompleteInfo("bb_2024013103");
+//	    
 //	    log.info(order);
+//	    
+//	}
+	
+//	@Test
+//	public void getOrderCancle() {
+//		
+//	    orderMapper.orderCancel("bb_2024020140");
+//	    
+//	}
+	
+//	@Test
+//	public void getOrderList() {
+//		
+//	    Criteria cri = new Criteria(1, 10); // 여기서 'pageNum' 대신에 '1'을 사용
+//
+//	    Map<String, Object> parameters = new HashMap<>();
+//	    parameters.put("pageNum", cri.getPageNum());
+//	    parameters.put("amount", cri.getAmount());
+//	    parameters.put("mid", "bb");
+//
+//	    log.info(orderMapper.getOrderListWithPaging(parameters));
+//	    
 //	}
 	
 	@Test
-	public void getOrderCancle() {
+	public void getOrderCountList() {
 		
-	    orderMapper.orderCancel("bb_2024020140");
+	    Criteria cri = new Criteria(1, 10); // 여기서 'pageNum' 대신에 '1'을 사용
+
+	    Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("pageNum", cri.getPageNum());
+	    parameters.put("amount", cri.getAmount());
+	    parameters.put("mid", "cc");
+
+	    log.info(orderMapper.getOrderTotalCount(parameters));
+	    
 	}
 	
 }
