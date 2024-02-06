@@ -21,11 +21,11 @@ section ul.banner_mask li {
     left: 100%;
 }
 
-section ul.banner_mask li img{
+section ul.banner_mask li img {
 	height: 313px;
 }
 
-section.bannerContainer label{
+section.bannerContainer label {
     float: left;
     position: relative;
     left: 50%;
@@ -43,10 +43,9 @@ section.bannerContainer label{
 
 section.bannerContainer input.banner_input1:checked ~ label.label_btn1,
 section.bannerContainer input.banner_input2:checked ~ label.label_btn2,            
-section.bannerContainer input.banner_input3:checked ~ label.label_btn3{
+section.bannerContainer input.banner_input3:checked ~ label.label_btn3 {
     background: rgba(142, 230, 219, 1);
     color: white;
-
 }
 
 section.bannerContainer input {
@@ -55,14 +54,14 @@ section.bannerContainer input {
 
 section.bannerContainer input.banner_input1:checked ~ .banner_mask li:nth-child(1),
 section.bannerContainer input.banner_input2:checked ~ .banner_mask li:nth-child(2),            
-section.bannerContainer input.banner_input3:checked ~ .banner_mask li:nth-child(3){  
+section.bannerContainer input.banner_input3:checked ~ .banner_mask li:nth-child(3) {  
     -webkit-animation: none; 
     transition: left 0.5s ease-in-out;
     left: 0;
     z-index: 10;
 }
 
-section.bannerContainer input:checked ~ .banner_mask li{
+section.bannerContainer input:checked ~ .banner_mask li {
 	-webkit-animation: slideOut 0.5s ease-in-out none;
 }
 
@@ -71,19 +70,19 @@ section.bannerContainer input:checked ~ .banner_mask li{
     100% {left: -100%;}
 }
 
-section{
+section {
 	position: relative;
 	width: 100%;
 	height: 800px;
 }
 
-section div.bestProductWapper{
+section div.bestProductWapper {
 	postion: absolute;
 	margin: 0 auto;
 	width: 85%;
 }
 
-section div.newProductWapper{
+section div.newProductWapper {
 	postion: absolute;
 	margin: 0 auto;
 	width: 85%;
@@ -99,18 +98,18 @@ section .ProductNav {
 	justify-content: flex-end;
 }
 
-section .title{
+section .title {
 	font-size: 16px;
 	font-weight: bolder;
 }
 
-section .more{
+section .more {
 	font-size: 13px;
 	text-decoration-line: underline;
 	margin-left: auto; 
 }
 
-section .productItem  {
+section .productItem {
 	position: absolute;
 	display: flex;
 	flex-flow: row;
@@ -118,13 +117,13 @@ section .productItem  {
 	align-items: center;
 }
 
-section li{
+section li {
 	height: 10px;
 	list-style: none;
 	padding-right: 42px;
 }
 
-section div ul img{
+section div ul img {
 	width: 140px;
 }
 
@@ -148,12 +147,12 @@ section a p {
 	color: #666;
 }
 
-div.more a{
+div.more a {
 	color: #000;
 	text-decoration: none;
 }
 
-div.more a:hover{
+div.more a:hover {
 	color: rgba(142, 230, 219, 1);
 	text-decoration: none;
 }

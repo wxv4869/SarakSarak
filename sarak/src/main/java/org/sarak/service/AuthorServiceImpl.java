@@ -8,7 +8,6 @@ import org.sarak.mapper.AuthorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jdk.internal.org.jline.utils.Log;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 

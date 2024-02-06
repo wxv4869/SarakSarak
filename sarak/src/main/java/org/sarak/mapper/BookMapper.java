@@ -8,7 +8,7 @@ import org.sarak.domain.BookVO;
 import org.sarak.domain.Criteria;
 
 @Mapper
-public interface BookMapper {    // 데이터베이스에 접근하는 메서드 정의
+public interface BookMapper {
 	
 	public BookVO read(int bid);    // 도서 조회
 	

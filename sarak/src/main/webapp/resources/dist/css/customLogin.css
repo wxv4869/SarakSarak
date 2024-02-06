@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 *{
 	margin: 0 auto;
 	padding:0;
@@ -15,12 +13,12 @@ div.row {
 	position: absolute;
 	width: 20%;
 	top: 50%;
-	left: 50%;
-	margin-left: -50px;    /* width의 50% */
-	margin-top: -50px;    /* height의 50% */
+	left: 45%;
+	margin-left: -50px; /* width의 50% */
+	margin-top: -50px; /* height의 50% */
 	text-align: center;
 }
-  	
+
 div.body {
 	position: absolute;
 	margin-top: 24px;
@@ -32,7 +30,7 @@ div.form-outline {
 	border-radius: 5px;
 	border: 1px solid #ccc;
 }
-
+  	
 div input.form-control {
 	text-align: left;
 	font-size: 13px;
@@ -50,14 +48,14 @@ div.checkbox {
 input.submitBtn {
 	display: inline-block;
 	border :0;
-	font-size: 16px;
-	line-height: 50px;
-	width: 100%;
-	height: 45px;
-	background-color: #8EE6DB;
-	border-radius: 8px;
-	color: #fff;
-	font-weight: bold;
+	 font-size: 16px;
+	 line-height: 50px;
+	 width: 100%;
+	 height: 45px;
+	 background-color: #8EE6DB;
+	 border-radius: 8px;
+	 color: #fff;
+	 font-weight: bold;
 }
 
 div hr {
@@ -75,7 +73,7 @@ div.registerQ {
 	position: absolute;
 	top: 85%;
 	width: 20%;
-    left: 47%;
+    left: 42%;
     font-size: 13px;
     text-align: left;
     float: left;

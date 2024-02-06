@@ -22,17 +22,18 @@ public class BookVO {
 	private Date pubdate;
 	private String publisher;
 	private int authorid;
-	private String authorname;
 	private String authordesc;
 	private String summary;
 	private String contents;
 	
+	private String authorname;
+	
 	private String mainimg;
 	private String detailimg;
 	
-	private List<BookAttachVO> attachList;
-	
 	private int sales;
 	private int stock;
+	
+	private List<BookAttachVO> attachList;
 	
 }

@@ -109,71 +109,70 @@ $(document).ready(function() {
 });
 </script>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">작가 목록</h1>
-                   	<button id="insert-btn" type="button" class="insert-btn">새 작가 등록하기</button>
-                   	
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+	    <h1 class="page-header">작가 목록</h1>
+	  	<button id="insert-btn" type="button" class="insert-btn">새 작가 등록하기</button>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
             
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table class="table table-striped table-bordered table-hover" >
-                                <thead>
-                                    <tr>
-                                        <td>작가 번호</td>
-                                        <td>작가 이름</td>
-                                    </tr>
-                                </thead>
-                            	<c:forEach items="${authorlist}" var="author">
-                                	<tr>
-                                		<td>
-                                			<c:out value="${author.authorid}"/>
-                                		</td>
-                                		<td>
-                                			<a class="move" href='<c:out value="${author.authorid}"/>'>
-                               					<c:out value="${author.authorname}"/>
-                               				</a>
-                                		</td>
-                                	</tr>
-                                </c:forEach>
-                            </table>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+		<!-- /.panel-heading -->
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover" >
+					<thead>
+						<tr>
+							<td>작가 번호</td>
+							<td>작가 이름</td>
+						</tr>
+					</thead>
+					<c:forEach items="${authorlist}" var="author">
+						<tr>
+							<td>
+								<c:out value="${author.authorid}"/>
+							</td>
+							<td>
+								<a class="move" href='<c:out value="${author.authorid}"/>'>
+									<c:out value="${author.authorname}"/>
+								</a>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
                             
-                            <!-- 페이징 영역 시작 -->
-							<div class="pull-right">
-								<ul class="pagination">
-									<c:if test="${pageMaker.prev}">
-										<li class="paginate_button previous"><a href="${pageMaker.startPage - 1}">이전</a></li>
-									</c:if>
-									
-									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-										<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active' : ''}">
-											<a href="${num}">${num}</a>
-										</li>
-									</c:forEach>
-									
-									<c:if test="${pageMaker.next}">
-										<li class="paginate_button next"><a href="${pageMaker.endPage + 1}">다음</a></li>
-									</c:if>
-								</ul>
-							</div>
-							<form id='moveForm' action="/admin/authorlist" method='get'>
-								<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-								<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-							</form>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
+                <!-- 페이징 영역 시작 -->
+				<div class="pull-right">
+					<ul class="pagination">
+						<c:if test="${pageMaker.prev}">
+							<li class="paginate_button previous"><a href="${pageMaker.startPage - 1}">이전</a></li>
+						</c:if>
+						
+						<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+							<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active' : ''}">
+								<a href="${num}">${num}</a>
+							</li>
+						</c:forEach>
+						
+						<c:if test="${pageMaker.next}">
+							<li class="paginate_button next"><a href="${pageMaker.endPage + 1}">다음</a></li>
+						</c:if>
+					</ul>
+				</div>
+				<form id='moveForm' action="/admin/authorlist" method='get'>
+					<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+					<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+				</form>
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
             
 <%@include file="../includes/adminfooter.jsp" %>

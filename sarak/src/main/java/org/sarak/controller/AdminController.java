@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,32 +22,25 @@ import org.sarak.service.AdminService;
 import org.sarak.service.AuthorService;
 import org.sarak.service.BookService;
 import org.sarak.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -66,8 +58,6 @@ public class AdminController {
 	private BookService bookService;
 	
 	private BookAttachMapper bookAttachMapper;
-	
-	private BCryptPasswordEncoder pwdEncoder;
 
 	// member 관련 시작
 	@Secured({"ROLE_ADMIN"})
@@ -101,11 +91,6 @@ public class AdminController {
 	public String modify(MemberVO member, RedirectAttributes rttr) {
 		
 		log.info("modify : " + member);
-		
-		// String inputPw = member.getMpw();
-		//		String encodedPassword = pwdEncoder.encode(inputPw);
-		//		log.info(encodedPassword);
-		//		member.setMpw(encodedPassword);
 		
 		if(memberService.modifyMember(member)) {
 			
@@ -154,7 +139,7 @@ public class AdminController {
 	@GetMapping("/authorlist")
 	public void doAuthorList(Criteria cri, Model model) throws Exception {
 		
-		log.info("###### 작가 목록 페이지 진입 ######");
+		log.info("/authorlist");
 		
 		List authorlist = authorService.authorGetList(cri);
 		
@@ -169,7 +154,7 @@ public class AdminController {
 	@GetMapping({"/authorget", "/authormodify"})
 	public void authorGet(int authorid, Criteria cri, Model model) throws Exception {
 		
-		log.info("###### 작가 상세 페이지" + authorid);
+		log.info("/authorget : " + authorid);
 		
 		model.addAttribute("cri", cri);
 		
@@ -182,6 +167,8 @@ public class AdminController {
 	@GetMapping("/authorinsert")
 	public void authorInsertGet() {
 		
+		log.info("/authorinsert");
+		
 	}
 	
 	/* 작가 등록 처리 */
@@ -189,7 +176,7 @@ public class AdminController {
 	@PostMapping("/authorinsert")
 	public String authorInsertPost(AuthorVO author, RedirectAttributes rttr) throws Exception {
 		
-		log.info("authorInsert : " + author);
+		log.info("authorinsert : " + author);
 		
 		authorService.authorInsert(author);
 		
@@ -204,7 +191,7 @@ public class AdminController {
 	@PostMapping("/authormodify")
 	public String authorModifyPost(AuthorVO author, RedirectAttributes rttr) throws Exception {
 		
-		log.info("authotModifyPost....." + author);
+		log.info("authormodify : " + author);
 		
 		int result = authorService.authorModify(author);
 		
@@ -219,7 +206,7 @@ public class AdminController {
 	@PostMapping("/authordelete")
 	public String authorDeletePost(int authorid, RedirectAttributes rttr) throws Exception {
 		
-		log.info("authorDeletePost.....");
+		log.info("authordelete : " + authorid);
 		
 		int result = 0;
 		
@@ -250,7 +237,7 @@ public class AdminController {
 	@GetMapping("/booklist")
 	public void doBookList(Criteria cri, Model model) throws Exception {
 		
-		log.info("###### 도서 목록 페이지 진입 ######");
+		log.info("/booklist");
 		
 		List booklist = adminService.bookGetList(cri);
 		
@@ -265,7 +252,7 @@ public class AdminController {
 	@GetMapping({"/bookget", "/bookmodify"})
 	public void bookGet(@RequestParam("bid") int bid, Criteria cri, Model model) throws Exception {
 		
-		log.info("###### 도서 상세 페이지" + bid);
+		log.info("/bookget" + bid);
 		
 		List<BookAttachVO> attachList = bookService.getAttachList(bid);
 		
@@ -282,6 +269,8 @@ public class AdminController {
 	@GetMapping("/bookinsert")
 	public void bookInsertGet() {
 		
+		log.info("/bookinsert");
+		
 	}
 	
 	/* 상품 등록 처리 */
@@ -289,7 +278,7 @@ public class AdminController {
 	@PostMapping("/bookinsert")
 	public String bookInsertPost(BookVO book, RedirectAttributes rttr) throws Exception {
 		
-		log.info("bookInsert : " + book);
+		log.info("bookinsert : " + book);
 		
 		adminService.bookInsert(book);
 		
@@ -304,7 +293,7 @@ public class AdminController {
 	@GetMapping("/authorPop")
 	public void authorPopGet(Criteria cri, Model model) throws Exception {
 		
-		log.info("authorPopGet.......");
+		log.info("/authorPop");
 		
 		cri.setAmount(100);
 		
@@ -321,7 +310,7 @@ public class AdminController {
 	@PostMapping("/bookmodify")
 	public String bookModifyPost(BookVO bookVO, RedirectAttributes rttr) {
 		
-		log.info("bookModifyPost......." + bookVO);
+		log.info("bookmodify : " + bookVO);
 		
 		adminService.bookModify(bookVO);
 		
@@ -336,7 +325,7 @@ public class AdminController {
 	@PostMapping("/bookdelete")
 	public String bookDeletePost(int bid, RedirectAttributes rttr) throws Exception {
 		
-		log.info("bookDeletePost.......");
+		log.info("bookdelete : " + bid);
 		
 		int result = 0;
 		
@@ -379,9 +368,7 @@ public class AdminController {
 			
 		}
 		
-		log.info("도서 이미지 파일 삭제...");
-		
-		log.info(attachList);
+		log.info("deleteFiles : " + attachList);
 		
 		attachList.forEach(attach -> {
 			
@@ -406,7 +393,7 @@ public class AdminController {
 	@GetMapping("/uploadAjax")
 	public void uploadAjax() {
 		
-		log.info("upload ajax");
+		log.info("/uploadAjax");
 		
 	}
 	
@@ -423,7 +410,7 @@ public class AdminController {
 		
 		List<BookAttachVO> list = new ArrayList<>();
 		
-		log.info("Received bid: " + bid);
+		log.info("uploadAjaxAction : " + bid);
 		
 	    log.info("Received files count: " + (bookimg != null ? bookimg.length : 0));
 		
@@ -523,7 +510,7 @@ public class AdminController {
 	@PostMapping("/deleteEachImg")
 	public ResponseEntity<String> deleteEachImg(String filename, int bid) {
 		
-		log.info("delete imagefile : " + filename);
+		log.info("deleteEachImg : " + filename);
 		
 		try {
 			
@@ -577,7 +564,7 @@ public class AdminController {
 	@GetMapping("/orderlist")
 	public void doOrderList(Criteria cri, Model model) throws Exception {
 		
-		log.info("###### 주문 목록 페이지 진입 ######");
+		log.info("/orderlist");
 		
 		List orderlist = adminService.orderGetList(cri);
 		
@@ -592,7 +579,7 @@ public class AdminController {
 	@GetMapping("/orderget")
 	public void orderGet(@RequestParam("orderid") String orderid, Criteria cri, Model model) throws Exception {
 		
-		log.info("###### 주문 상세 페이지 orderid : " + orderid);
+		log.info("/orderget : " + orderid);
 		
 		List orderDetailList = adminService.orderGetDetail(orderid);
 		
@@ -607,7 +594,7 @@ public class AdminController {
 	@PostMapping("/updateOrderState")
 	public String updateOrderStatePost(OrderDTO orderDTO, RedirectAttributes rttr) {
 		
-		log.info("updateOrderStatePost......." + orderDTO);
+		log.info("updateOrderState : " + orderDTO);
 	
 		orderDTO.setOrderstate("배송완료");
 		

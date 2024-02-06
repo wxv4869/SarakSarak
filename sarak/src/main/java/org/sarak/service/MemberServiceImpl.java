@@ -79,6 +79,15 @@ public class MemberServiceImpl implements MemberService{
 		return (memberMapper.updateAuth(auth) == 1);
 		
 	}
+	
+	@Override
+	public boolean modifyPassword(MemberVO member) {
+		
+		log.info("modify..." + member);
+		
+		return (memberMapper.updatePwd(member) == 1);
+		
+	}
 
 	@Override
 	public List<MemberVO> getListWithPaging(Criteria cri) {
@@ -97,6 +106,5 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.memberGetTotal(cri);
 		
 	}
-
 
 }

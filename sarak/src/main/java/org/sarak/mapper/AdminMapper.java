@@ -1,9 +1,7 @@
 package org.sarak.mapper;
 
 import java.util.List;
-import java.util.Map;
 
-import org.sarak.domain.BookStockVO;
 import org.sarak.domain.BookVO;
 import org.sarak.domain.Criteria;
 import org.sarak.domain.OrderDTO;

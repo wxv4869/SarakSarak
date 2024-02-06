@@ -8,7 +8,6 @@ import java.util.List;
 import org.sarak.domain.BookAttachVO;
 import org.sarak.domain.BookVO;
 import org.sarak.domain.Criteria;
-import org.sarak.domain.MemberVO;
 import org.sarak.domain.PageDTO;
 import org.sarak.mapper.BookMapper;
 import org.sarak.service.BookService;
@@ -45,7 +44,7 @@ public class BookController {
 	@GetMapping("/main")
 	public void main(Criteria cri, Model model) {
 		
-		log.info("###### 메인 페이지 진입 ######");
+		log.info("/main");
 		
 		model.addAttribute("bestBookList", bookService.bestBookList(cri));
 		
@@ -65,7 +64,7 @@ public class BookController {
 	@GetMapping("/bestBookList")
 	public String bestBook(Criteria cri, Model model) {
 		
-		log.info("###### 베스트 페이지 진입 ######");
+		log.info("/bestBookList");
 		
 		model.addAttribute("bestBookList", bookService.bestBookList(cri));
 		
@@ -85,7 +84,7 @@ public class BookController {
 	@GetMapping("/newBookList")
 	public String newBook(Criteria cri, Model model) {
 		
-		log.info("###### 신간 페이지 진입 ######");
+		log.info("/newBookList");
 		
 		model.addAttribute("newBookList", bookService.newBookList(cri));
 		
@@ -125,7 +124,7 @@ public class BookController {
 	@GetMapping("/allBookList")
 	public String allBookList(Criteria cri, Model model) {
 		
-		log.info("allBookList: " + cri);
+		log.info("/allBookList: " + cri);
 		
 		List<BookVO> allBookList = bookService.allBookList(cri);
 		
@@ -154,7 +153,7 @@ public class BookController {
 	@GetMapping("/bookDetail")
 	public String bookDetail(@RequestParam("bid") int bid, @ModelAttribute("cri") Criteria cri, Model model) {
 		
-		log.info("###### 도서 상세 페이지 진입 ######");
+		log.info("/bookDetail");
 		
 		BookVO bookVO = bookService.getMap(bid);
 		
@@ -178,7 +177,7 @@ public class BookController {
 	        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	    }
 		
-		log.info("getAttachList " + bid);
+		log.info("/getAttachList " + bid);
 		
 		List<BookAttachVO> attachList;
 		

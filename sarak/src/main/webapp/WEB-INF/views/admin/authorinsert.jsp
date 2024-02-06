@@ -17,7 +17,6 @@
 </style>
 
 <script>
-
 $(document).ready(function() {
 	
 	/* 목록 페이지 이동 버튼 */
@@ -35,7 +34,6 @@ $(document).ready(function() {
 	});
 	
 });
-
 </script>
 
 <div class="row">

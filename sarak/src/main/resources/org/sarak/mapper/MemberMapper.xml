@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sarak.mapper.MemberMapper">
 
+	<!-- 1. 회원 정보 resultMap -->
 	<resultMap type="org.sarak.domain.MemberVO" id="memberMap">
 		<id property="mid" column="mid"/>
 		<result property="mid" column="mid"/>
@@ -16,11 +17,13 @@
 		</collection>
 	</resultMap>
 	
+	<!-- 2. 회원 권한 정보 resultMap -->
 	<resultMap type="org.sarak.domain.AuthVO" id="authMap">
 		<result property="mid" column="mid"/>
 		<result property="auth" column="auth"/>
 	</resultMap>
 		
+	<!-- 3. 회원 상세 정보 -->
 	<select id="read" resultMap="memberMap">
 		SELECT 
 			mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
@@ -30,32 +33,37 @@
 			mem.mid = #{mid}
 	</select>
 	
+	<!-- 4. 회원 등록 -->
 	<insert id="register">
 		insert into tbl_member(mid, mpw, mname, phone, email, postcode, address)
 		values(#{mid}, #{mpw}, #{mname}, #{phone}, #{email}, #{postcode}, #{address})
 	</insert>
 	
+	<!-- 5. 회원 권한 등록 -->
 	<insert id="insertAuth">
 		insert into tbl_member_auth (mid, auth)
 		values (#{mid}, #{auth})
 	</insert>
-	  
+	
+	<!-- 6. 회원 목록 -->
 	<select id="getList" resultMap="memberMap">
 		SELECT 
 			mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
 		FROM
 			tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mid = auth.mid
 	</select>
-	  
+	 
+	 <!-- 7. 회원 삭제 -->
 	<delete id="delete">
 		delete from tbl_member where mid = #{mid}
 	</delete>
    
+    <!-- 8. 회원 권한 삭제 -->
 	<delete id="deleteAuth">
    		delete from tbl_member_auth where mid = #{mid}
 	</delete>
    
-	<!-- 회원정보 수정은 아직 안 됨. 권한 수정만 가능 mpw = #{mpw}, -->
+	<!-- 9. 회원 정보 수정은 아직 안 됨. 권한 수정만 가능 mpw = #{mpw} -->
 	<update id="update">
 		update tbl_member
 		set 
@@ -67,12 +75,21 @@
 		where mid = #{mid, jdbcType=VARCHAR}
 	</update>
    
+    <!-- 10. 회원 권한 수정 -->
 	<update id="updateAuth">
 		update tbl_member_auth
 		set auth = #{auth, jdbcType=VARCHAR}
 		where mid = #{mid, jdbcType=VARCHAR}
 	</update>
+	
+	<!-- 11. 회원 비밀번호 수정 -->
+	<update id="updatePwd">
+		update tbl_member
+		set mpw = #{mpw, jdbcType=VARCHAR}
+		where mid = #{mid, jdbcType=VARCHAR}
+	</update>
 
+	<!-- 12. 페이징 처리된 전체 회원 목록 -->
     <select id = "getListWithPaging" resultMap="memberMap">
     	<![CDATA[
     	 	SELECT 
@@ -89,6 +106,7 @@
     	]]>
     </select>
     
+    <!-- 13. 페이징을 위한 전체 회원의 수 -->
     <select id="memberGetTotal" resultType="int">
 		select count(*) from tbl_member
 	</select>

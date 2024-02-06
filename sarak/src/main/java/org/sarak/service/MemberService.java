@@ -16,6 +16,8 @@ public interface MemberService {
 	
 	public boolean modifyAuth(AuthVO auth);
 	
+	public boolean modifyPassword(MemberVO member);
+	
 	public boolean removeMember(String mid);
 	
 	public List<MemberVO> getList();

@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding:0;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+/* 화면 전체 렙 */
+.wrapper {
+    width: 100%;
+}
+
+/* content 랩 */
+.wrap {
+    width : 1080px;
+    margin: auto;
+}
+
+/* 관리자 페이지 상단 현페이지 정보 */
+.admin_top_wrap {
+    height:110px;
+    line-height: 110px;
+    background-color: #5080bd;
+    margin-bottom:15px;
+}
+
+.admin_top_wrap>span {
+    margin-left: 30px;
+    display:inline-block;
+    color: white;
+    font-weight: bolder;
+}
+ 
+/* 관리자 페이지 네비 영역 */
+.mypage_navi_wrap {
+    width: 20%;
+    height: 300px;
+    float:left;
+    height: 100%;
+}
+
+div.nav_title {
+	margin: 157px 0px 0px 0px;
+	display: block;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.mypage_navi_wrap li {
+    display: block;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.mypage_navi_wrap li a {
+    display: block;
+    height: 100%;
+    width: 95%;
+    margin: 0 auto;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.mypage_navi_wrap li a:link {
+	color: black;
+}
+	
+.mypage_navi_wrap li a:visited {
+	color: black;
+}
+	
+.mypage_navi_wrap li a:active {
+	color: black;
+}
+
+.mypage_navi_wrap li a:hover {
+	color: black;
+}
+ 
+/* 관리자 페이지 컨텐츠 영역 */
+.mypage_content_wrap {
+    width: 80%;
+    float:left;
+    height: 100%;
+    height: 700px;
+}
+
+/* 관리자 컨텐츠 제목 영역 */
+.mypage_content_subject {
+    text-align: center;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	font-size: 26px;
+}
+
+/* float 속성 해제 */
+.clearfix {
+    clear: both;
+}

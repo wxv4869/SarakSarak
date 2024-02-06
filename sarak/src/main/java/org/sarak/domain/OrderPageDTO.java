@@ -11,9 +11,7 @@ public class OrderPageDTO {
 	
 	@Override
 	public String toString() {
-		
 		return "OrderPageDTO [orders=" + orders + "]";
-		
 	}
 	
 }

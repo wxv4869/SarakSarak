@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sarak.domain.BookSalesVO;
 import org.sarak.domain.BookVO;
+import org.sarak.domain.OrderCancelDTO;
 import org.sarak.domain.OrderDTO;
 import org.sarak.domain.OrderDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,14 @@ public class OrderMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
 	private OrderMapper orderMapper;
-
+	
 //	@Test
 //	public void getOrderInfoTest() {
 //		OrderDetailDTO orderInfo = orderMapper.getOrderInfo(1);
 //		
 //		log.info(orderInfo);
 //	}
-
+	
 //	@Test
 //	public void enrollOrderTest() {
 //		
@@ -60,12 +61,12 @@ public class OrderMapperTests {
 //		
 //			
 //	}
-
+	
 //	@Test
 //	public void enrollOrderItemTest() {
-
+		
 //		OrderDetailDTO oid = new OrderDetailDTO();
-
+		
 //		oid.setOdetailid(1);
 //		oid.setOrderid(3);
 //		oid.setBid(1);
@@ -74,9 +75,9 @@ public class OrderMapperTests {
 //		oid.initSaleTotal();
 //		
 //		orderMapper.enrollOrderItem(oid);
-
+		
 //	}	
-
+	
 
 //	@Test
 //	public void deductStockTest() {
@@ -87,7 +88,7 @@ public class OrderMapperTests {
 //		
 //		orderMapper.deductStock(book);
 //	}
-
+	
 //	@Test
 //	public void inductSalesTest() {
 //		BookSalesVO vo = new BookSalesVO();
@@ -97,12 +98,18 @@ public class OrderMapperTests {
 //		
 //		orderMapper.inductSales(vo);
 //	}
-
+	
+//	@Test
+//	public void getOrderCompleteInfoTest() {
+//		
+//	    OrderDTO order = orderMapper.getOrderCompleteInfo("bb_2024013103");
+//	    log.info(order);
+//	}
+	
 	@Test
-	public void getOrderCompleteInfoTest() {
-
-	    OrderDTO order = orderMapper.getOrderCompleteInfo("bb_2024013103");
-	    log.info(order);
+	public void getOrderCancle() {
+		
+	    orderMapper.orderCancel("bb_2024020140");
 	}
-
+	
 }

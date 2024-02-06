@@ -5,11 +5,11 @@
 
 <%@include file="../includes/adminheader.jsp"%>
 
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">관리자 메인 페이지</h1>
-		</div>
-		<!-- /.col-lg-12 -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">관리자 메인 페이지</h1>
 	</div>
+	<!-- /.col-lg-12 -->
+</div>
 
 <%@include file="../includes/adminfooter.jsp"%>

@@ -1,0 +1,113 @@
+*{
+	margin: 0 auto;
+	padding:0;
+	border: 0;
+}
+
+div.registerContainer {
+    width: 100%;
+    height: 700px;
+}
+
+.register_content_subject {
+    text-align: center;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	font-size: 26px;
+}
+
+.register-wrap {
+	width: 50%;
+}
+
+div.profile-title {
+	width: 20%;
+	background-color: #F5F5F5;
+	float: left;
+}
+
+div.profile-title label {
+	width:100%;
+	padding: 16px 0;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	float: left;
+}
+
+div.profile-input input {
+	width: 80%;
+	border: 0;
+	background-color: #fff;
+	padding: 19px 20px;
+	border-bottom: 1px solid #ccc;
+	outline: none;
+	float: left;
+}
+
+button.profile-Modifybtn {
+	border:0;
+    display: inline-block;
+    float:right;
+    font-size: 14px;
+    line-height: 25px;
+    width: 15%;
+    height: 40px;
+    margin-right: 7%;
+    margin-top: 16px;
+    background-color: #8EE6DB;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+}
+
+button.profileModify-modifyBtn {
+	border:0;
+    display: inline-block;
+    float:right;
+    font-size: 14px;
+    line-height: 25px;
+    width: 15%;
+    height: 40px;   
+    margin-top: 86px;
+    background-color: #8EE6DB;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+}
+
+button.profilePwd-modifyBtn {
+	border:1px solid #000;
+    font-size: 14px;
+    line-height: 30px;
+    margin-left: 2%;
+    width: 25%;
+    height: 30px;   
+    background-color: #fff;
+    border-radius: 4px;
+    color: #000;
+}
+
+button.profilepwd-pwdmBtn {
+	border:0;
+    display: inline-block;
+    float:right;
+    font-size: 14px;
+    line-height: 25px;
+    width: 15%;
+    height: 40px;   
+    margin-top: 16px;
+    background-color: #8EE6DB;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+}
+
+button.btn btn-default {
+	float: right;
+	margin: 16px 0;
+}
+
+/* float 속성 해제 */
+.clearfix {
+    clear: both;
+}

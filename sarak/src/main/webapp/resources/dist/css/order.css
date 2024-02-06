@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 .content_main {
 	min-height: 700px;
 	padding-right: 350px;
@@ -8,6 +6,11 @@
 
 table {
 	border-collapse: collapse;
+}
+
+a.order_btn:hover {
+	text-decoration: none;
+	color: #fff;
 }
 
 .maintitle {
@@ -120,8 +123,7 @@ div.image_wrap img {
   	border: 1px solid #d8d8d8;
   	border-radius: 8px;
 	font-size: 15px;
-	padding: 10px 10px 0px 10px;    /* 순서 : 상 우 하 좌 */
-	
+	padding: 10px 10px 0px 10px;    /* 순서 : 상 우 하 좌 */	
 }
 
 .total_info_price_div {

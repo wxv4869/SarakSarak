@@ -9,8 +9,6 @@ import org.sarak.service.OrderService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +33,7 @@ public class OrderController {
 	public String orderPageGET(String mid, OrderPageDTO opd, Model model, HttpServletRequest request, RedirectAttributes re) {
 		
 		log.info("mid : " + mid);
+		
 		log.info("orders :" + opd.getOrders());
 		
 		if( memberService.get(mid)== null) {
@@ -58,7 +57,6 @@ public class OrderController {
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-//	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@PostMapping("/order")
 	public String orderPagePost(OrderDTO od, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		

@@ -73,7 +73,7 @@ public class CartController {
 	@RequestMapping(value = "/delete", method= {RequestMethod.GET, RequestMethod.POST})
 	public String deleteCartPost(@RequestParam("cartid") int cartid, CartDTO cartDTO) {
 		
-		log.info("####### 요청 장바구니 ID " + cartid);
+		log.info("deleteCart " + cartid);
 		
 		cartService.deleteCart(cartid);
 		

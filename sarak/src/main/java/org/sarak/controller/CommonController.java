@@ -30,7 +30,7 @@ public class CommonController {
 	@GetMapping("/accessError")
 	public void accessDenied(Authentication auth, Model model) {
 		
-		log.info("access Denied : " + auth);
+		log.info("/access Denied : " + auth);
 		
 		if (auth != null) {
 			
@@ -45,14 +45,14 @@ public class CommonController {
 	@GetMapping("/register")
 	public void getRegister() {
 		
-		log.info("get register...");
+		log.info("/getRegister");
 		
 	}
 	
 	@PostMapping("/register")
 	public String postRegister(MemberVO memberVo, AuthVO authVo) throws Exception{
 		
-		log.info("post register..." + memberVo);
+		log.info("register : " + memberVo);
 		
 		String inputPw = memberVo.getMpw();
 			
@@ -111,7 +111,7 @@ public class CommonController {
 	@GetMapping("/customLogout")
 	public void logoutGET() {
 		
-		log.info("custom logout");
+		log.info("/customLogout");
 		
 	}
 	

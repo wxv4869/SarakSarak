@@ -18,6 +18,8 @@ public interface MemberMapper {
 	
 	public List<MemberVO> getListWithPaging(Criteria cri);
 	
+	public int memberGetTotal(Criteria cri);
+	
 	public int delete(String mid);
 	
 	public int deleteAuth(String mid);
@@ -26,6 +28,6 @@ public interface MemberMapper {
 	
 	public int updateAuth(AuthVO auth);
 	
-	public int memberGetTotal(Criteria cri);
+	public int updatePwd(MemberVO member);
 
 }

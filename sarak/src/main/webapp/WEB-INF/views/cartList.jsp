@@ -8,23 +8,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Bootstrap Core CSS -->
-    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/resources/dist/css/allBook.css">
-    <link rel="stylesheet" href="/resources/dist/css/cartList.css">
-
-    <!-- Custom Fonts -->
-    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    
-    <script type="text/javascript">
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	
+	    <!-- Bootstrap Core CSS -->
+	    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	    <link rel="stylesheet" href="/resources/dist/css/allBook.css">
+	    <link rel="stylesheet" href="/resources/dist/css/cartList.css">
+	
+	    <!-- Custom Fonts -->
+	    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+	    
+	    <script type="text/javascript">
 		$(document).ready(function() {
 			
 			// 장바구니 종합 정보 구하기
@@ -127,7 +127,7 @@
 					let cartid = $(this).data("cartid");
 				
 					let quantity = $(this).parent("td").find("input").val();
-
+	
 			        // AJAX를 사용하여 서버로 데이터 전송
 			        $.ajax({
 			            type: "POST",
@@ -153,11 +153,11 @@
 			$(".btn-order").on("click", function(){
 			    	
 		        var orderForm = $("<form action='/sarak/order/' method='get' class='order_form'></form>");
-
+	
 		        var orderNumber = 0;
 		        
 		        var mid = $(".individual_memberId_input").val();
-
+	
 		        $(".td-hidden-cart-info").each(function () {
 		        	
 		            var bid = $(this).find(".individual_bookId_input").val();
@@ -165,7 +165,7 @@
 		            
 		            orderForm.append("<input type='hidden' name='orders[" + orderNumber + "].bid' value='" + bid + "'>");
 		            orderForm.append("<input type='hidden' name='orders[" + orderNumber + "].bookCount' value='" + bookCount + "'>");
-
+	
 		            orderNumber += 1;
 			        
 			    });
@@ -179,9 +179,9 @@
 			});
 			
 		});
-	</script>
-    
-	<title>장바구니 페이지</title>
+		</script>
+	
+		<title>장바구니 페이지</title>
 	
 	</head>
 	
@@ -191,7 +191,6 @@
 			<!-- 헤더 영역 시작 -->
 			<%@ include file="includes/header.jsp" %>
 			<!-- 헤더 영역 끝 -->
-			
 			<!-- 미들 영역 시작 -->
 			<div class="sarakMiddleArea">
 				<!-- 전체도서 목록 영역 -->
@@ -249,7 +248,7 @@
 												</div>
 											</td>
 										</tr>
-										
+
 										<!-- 구분 선 -->
 										<tr>
 											<td colspan="8" class="separator"></td>
@@ -282,7 +281,6 @@
 									<div class="btn-order">
 										<input type="button" class="btn-order" name="btn" value="주문하기">
 									</div>
-										
 								</div>
 							</c:if>
 						</div>
@@ -290,11 +288,9 @@
 				</div>
 			</div>
 			<!-- 미들 영역 끝 -->
-			
 			<!-- footer 영역 시작 -->
 			<%@ include file="includes/footer.jsp" %>
 			<!-- footer 영역 끝 -->
-			
 		</div>
 		<!-- 전체 페이지 영역 끝 -->
 	</body>

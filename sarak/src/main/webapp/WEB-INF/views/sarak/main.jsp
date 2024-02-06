@@ -3,7 +3,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,30 +12,27 @@
 	<link rel="stylesheet" href="../../resources/dist/css/main.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
-	
 	<script type="text/javascript">
-
-		$(document).ready(function() {
+	$(document).ready(function() {
+		
+		var actionForm = $("#actionForm");
+		
+		$(".move").on("click", function(e) {
 			
-			var actionForm = $("#actionForm");
+			e.preventDefault();
 			
-			$(".move").on("click", function(e) {
-				
-				e.preventDefault();
-				
-				actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
-				
-				actionForm.attr("action", "/sarak/bookDetail");
-				
-				actionForm.submit();
-				
-				history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
-				
-			});
+			actionForm.append("<input type='hidden' name='bid' value='" + $(this).attr("href") + "'>");
+			
+			actionForm.attr("action", "/sarak/bookDetail");
+			
+			actionForm.submit();
+			
+			history.replaceState({ page: "bookDetail", bid: bid }, "Book Detail", "/sarak/bookDetail?bid=" + bid);
 			
 		});
+		
+	});
 	</script>
-	
 </head>
 
 <div class="sarakMainWrapper">
@@ -77,46 +73,44 @@
 					<c:if test="${status.index < 5}">
 						<c:forEach items="${best.attachList}" var="attach" >
 							<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(attach.filename, '.')), 'mainimg')}">
-						   	<a class='move' href='<c:out value="${best.bid}"/>'>
-						   	<li>
-						   	<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${best.bname}"/>
-						   	</li>
-						   	</a>
+							   	<a class='move' href='<c:out value="${best.bid}"/>'>
+							   	<li>
+							   		<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${best.bname}"/>
+							   	</li>
+							   	</a>
 						   	</c:if>
 						</c:forEach>
 					</c:if>
 				</c:forEach>
 			</ul>
 		</div>
-	<div class="newProductWapper">
-		<div class="ProductNav">
-			<div class="title">이번 달 신간 도서</div>
-			<div class="more"><a href="/sarak/newBookList">더보기</a></div>
-		</div>
+		<div class="newProductWapper">
+			<div class="ProductNav">
+				<div class="title">이번 달 신간 도서</div>
+				<div class="more"><a href="/sarak/newBookList">더보기</a></div>
+			</div>
 		
-		<ul class="productItem">
-			<c:forEach items="${newBookList}" var="newBook" varStatus="status">
-				<c:if test="${status.index < 5}">
-					<c:forEach items="${newBook.attachList}" var="attach">
-						<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(attach.filename, '.')), 'mainimg')}">
-				    	<a class='move' href='<c:out value="${newBook.bid}"/>'>
-				    	<li>
-				    	<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${newBook.bname}"/>
-						</li>
-						</a>	
-						</c:if>
-					</c:forEach>
-				</c:if>
-			</c:forEach>
-		</ul>
-	</div>
+			<ul class="productItem">
+				<c:forEach items="${newBookList}" var="newBook" varStatus="status">
+					<c:if test="${status.index < 5}">
+						<c:forEach items="${newBook.attachList}" var="attach">
+							<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(attach.filename, '.')), 'mainimg')}">
+						    	<a class='move' href='<c:out value="${newBook.bid}"/>'>
+						    	<li>
+						    		<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${attach.uploadpath}/${attach.filename}'/>" alt="${newBook.bname}"/>
+								</li>
+								</a>
+							</c:if>
+						</c:forEach>
+					</c:if>
+				</c:forEach>
+			</ul>
+		</div>
 	
-							<form id='actionForm' action="/sarak/allBookList" method='get'>
-								<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-								<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-							</form>
-							<!-- 페이징 영역 끝 -->
+		<form id='actionForm' action="/sarak/allBookList" method='get'>
+			<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+			<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+		</form>
 	</section>
 	<%@include file="../includes/footer.jsp"%>
-	
 </div>

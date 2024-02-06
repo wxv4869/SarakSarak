@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sarak.mapper.BookMapper">    <!-- BookMapper interface의 메서드들에 대한 SQL 매핑 -->
 
+	<!-- 1. 도서 resultMap -->
 	<resultMap type="org.sarak.domain.BookVO" id="bookMap">
 		<id property="bid" column="bid"/>
 		<result property="bid" column="bid"/>
@@ -23,22 +24,25 @@
 		</collection>
 	</resultMap>
 	
-	<!-- 작가 이름 가져오기 -->
+	<!-- 2. authorid로 authorname 가져오기 -->
 	<select id="getAuthornameById" resultType="String">
 		select authorname from tbl_author where authorid = #{authorid}
 	</select>
 	
+	<!-- 3. 이미지 파일 resultMap -->
 	<resultMap type="org.sarak.domain.BookAttachVO" id="attachMap">
 		<result property="bid" column="bid"/>
 		<result property="filename" column="filename"/>
 		<result property="uploadpath" column="uploadpath"/>
 	</resultMap>
 	
+	<!-- 4. 판매량 resultMap -->
 	<resultMap type="org.sarak.domain.BookSalesVO" id="salseMap">
 		<id property="bid" column="bid"/>
 		<result property="sales" column="sales"/>
 	</resultMap>
 	
+	<!-- 5. bid로 도서 정보 가져오기 -->
 	<select id="readmap" resultMap="bookMap">
 		 SELECT 
 		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, book.summary, book.contents, img.filename, img.uploadpath, sales.sales, a.authorname, a.authordesc, stock.stock
@@ -52,6 +56,7 @@
 			book.bid = #{bid}
 	</select>
 	
+	<!-- 6. 도서 모든 정보 -->
 	<select id="readAllBookList" resultMap="bookMap">
 			 SELECT 
 		        book.bid, book.bname, book.bprice, book.isbn, book.pubdate, book.publisher, book.authorid, summary, contents, img.filename, img.uploadpath, sales.sales, a.authorname, stock.stock
@@ -63,6 +68,7 @@
 		        LEFT OUTER JOIN tbl_book_stock stock on book.bid = stock.bid
 	</select>
 	
+	<!-- 7. 베스트셀러 도서 -->
 	<select id="bestBookList" resultMap="bookMap">
 		<![CDATA[
 			SELECT * FROM (
@@ -79,6 +85,7 @@
 		]]>
 	</select>
 	
+	<!-- 8. 신간 도서 -->
 	<select id="newBookList" resultMap="bookMap">
 		<![CDATA[
 			SELECT * FROM (
@@ -95,19 +102,19 @@
 		]]>
 	</select>
 
-	<!-- 전체 도서 목록 가져오기 -->
+	<!-- 9. 전체 도서 -->
 	<select id="allBookList" resultType="org.sarak.domain.BookVO">
 		<![CDATA[
 			select * from tbl_book order by bid
 		]]>
 	</select>
 	
-	<!-- 전체 도서 목록을 비동기로 가져오기 -->
+	<!-- 10. 전체 도서 (비동기) -->
 	<select id="allBookListAjax" resultType="org.sarak.domain.BookVO">
 		select * from tbl_book order by bid
 	</select>
 	
-	<!-- 페이징 처리된 도서 목록 가져오기 -->
+	<!-- 11. 페이징 처리된 전체 도서 목록 -->
 	<select id="bookListWithPaging" resultType="org.sarak.domain.BookVO">
 		<![CDATA[
 			select b.bid, b.bname, b.bprice, b.isbn, b.pubdate, b.publisher, b.authorid, b.summary, b.contents, a.authorname
@@ -124,12 +131,12 @@
 		]]>
 	</select>
 	
-	<!-- 페이징을 위한 전체 도서의 수 가져오기 -->
+	<!-- 12. 페이징을 위한 전체 도서의 수 -->
 	<select id="getTotalCount" resultType="int">
 		select count(*) from tbl_book where bid > 0
 	</select>
 	
-	<!-- 페이징 처리된 도서 목록 가져오기 -->
+	<!-- 13. 페이징 처리된 베스트셀러 도서 목록 -->
 	<select id="bestBookListWithPaging" resultMap="bookMap">
 	    <![CDATA[
 	        SELECT *
@@ -153,6 +160,7 @@
 	    ]]>
 	</select>
 	
+	<!-- 14. 페이징을 위한 베스트셀러 도서의 수 -->
 	<select id="getBestTotalCount" resultType="int">
 		<![CDATA[
 		    SELECT COUNT(*)
@@ -168,7 +176,7 @@
 		]]>
 	</select>
 
-	<!-- 페이징 처리된 도서 목록 가져오기 -->
+	<!-- 15. 페이징 처리된 신간 도서 목록 -->
 	<select id="newBookListWithPaging" resultMap="bookMap">
 	    <![CDATA[
 	        SELECT *
@@ -192,7 +200,7 @@
 	    ]]>
 	</select>
 	
-	<!-- 페이징 처리된 도서 목록 가져오기 -->
+	<!-- 16. 페이징을 위한 신간 도서의 수 -->
 	<select id="getNewTotalCount" resultType="int">
 	    <![CDATA[
 		    SELECT COUNT(*)
@@ -206,7 +214,7 @@
 	    ]]>
 	</select>
 	
-	<!-- 도서 조회 -->
+	<!-- 17.bid로 도서 정보 가져오기 -->
 	<select id="read" resultType="org.sarak.domain.BookVO">
 		select * from tbl_book where bid = #{bid}
 	</select>
