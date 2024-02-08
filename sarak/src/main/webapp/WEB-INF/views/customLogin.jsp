@@ -38,7 +38,7 @@
 						     	<div class="form-group">
 						            <input class="form-control" placeholder="아이디를 입력해 주세요." name="username" type="text" autofocus>
 						        </div>
-					        	<hr>
+					        	<div class="line"></div>
 						        <div class="form-group">
 						            <input class="form-control" placeholder="비밀번호를 입력해 주세요." name="password" type="password" value="">
 								</div>
@@ -52,12 +52,12 @@
 						</fieldset>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
+					<div class="registerQ">
+						아직 회원이 아니신가요?
+						<a href="/register">회원가입</a>
+					</div>   
 	            </div>
 	        </div>
-<			<div class="registerQ">
-				아직 회원이 아니신가요?
-				<a href="/register">회원가입</a>
-			</div>          
 	    </div>
 	</body>
 </html>

@@ -7,21 +7,21 @@ div.loginContainer {
 	position: relative;
 	width: 100%;
 	height: 500px;
+	display: flex;
+	justify-content: center;
 }
   	
 div.row {
 	position: absolute;
-	width: 20%;
-	top: 50%;
-	left: 45%;
-	margin-left: -50px; /* width의 50% */
-	margin-top: -50px; /* height의 50% */
+	width: 25%;
+	top: 40%;
+	margin-top: -50px;    /* height의 50% */
 	text-align: center;
 }
 
 div.body {
 	position: absolute;
-	margin-top: 24px;
+	margin-top: 40px;
 	width: 100%;
 	text-align: left;
 }
@@ -34,35 +34,40 @@ div.form-outline {
 div input.form-control {
 	text-align: left;
 	font-size: 13px;
-	padding: 12px;
+	padding: 16px;
 	border: 0;
 	background-color: transparent;
 	outline: none;
 }
   	
 div.checkbox {
-	margin: 8px 0;
+	margin: 10px 0 30px 0;
 	font-size: 14px;
 }
   	
 input.submitBtn {
 	display: inline-block;
 	border :0;
-	 font-size: 16px;
-	 line-height: 50px;
-	 width: 100%;
-	 height: 45px;
-	 background-color: #8EE6DB;
-	 border-radius: 8px;
-	 color: #fff;
-	 font-weight: bold;
+	font-size: 16px;
+	width: 100%;
+	height: 45px;
+	background-color: #8EE6DB;
+	border-radius: 8px;
+	color: #fff;
+	font-weight: bold;
+	cursor: pointer;
 }
 
-div hr {
+.line {
+	width: auto;
 	height: 1px;
-	border: 0 none;
-	color: #ccc;
 	background-color: #ccc;
+	padding: 0;
+	margin: 0;
+}
+
+.form-group {
+	height: 45px;
 }
 
 fieldset {
@@ -71,12 +76,9 @@ fieldset {
   	
 div.registerQ {
 	position: absolute;
-	top: 85%;
-	width: 20%;
-    left: 42%;
+	margin-top: 10px;
     font-size: 13px;
     text-align: left;
-    float: left;
 }
 
 div.registerQ a {

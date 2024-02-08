@@ -102,7 +102,7 @@ Button img {
 	height: auto;
 }
 
-.change-quan-div{
+.change-quan-div {
 	position: relative;
     width: 46px;
     height: 25px;
@@ -110,7 +110,7 @@ Button img {
     margin: 5px auto;		
 }
 
-.quantity-input{
+.quantity-input {
 	position: absolute;
 	width: 30px;
     height: 25px;
@@ -122,7 +122,7 @@ Button img {
     left: 0;
 }
 
-.quantity-btn{
+.quantity-btn {
 	position: absolute;
     border: 1px solid #aaa;
     color: #3a60df;
@@ -133,12 +133,12 @@ Button img {
     vertical-align: middle;	
 }
 
-.plus-btn{
+.plus-btn {
 	top: 0;
 	right: 0;
 }
 
-.minus-btn{
+.minus-btn {
 	bottom: 0;
 	right: 0;
 }
