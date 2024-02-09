@@ -101,7 +101,7 @@ $(document).ready(function() {
 		operForm.attr("action","/admin/membermodify").submit();
 	  
 	});
-
+ 
 	$("button[data-oper='authmodify']").on("click", function(e) {
 	   
 		operForm2.attr("action","/admin/authmodify").submit();

@@ -68,7 +68,7 @@
 					<a href="/sarak/main" class="mainHeder">
 						<img id="logoimg" src="/resources/img/logo.jpg">
 					</a>
-					
+					 
 					<!-- <div class="Search">
 						<input type="text" name="pdSearch" placeholder="도서명을 입력하세요"/>
 						<button>
