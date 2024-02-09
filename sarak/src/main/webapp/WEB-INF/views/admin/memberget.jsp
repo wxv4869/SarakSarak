@@ -115,7 +115,7 @@ $(document).ready(function() {
 	});
 
 
-	$("button[data-oper='list']").on("click", function(e) ㅇ{
+	$("button[data-oper='list']").on("click", function(e) {
 	  
 		operForm.find("#mid").remove();
 		

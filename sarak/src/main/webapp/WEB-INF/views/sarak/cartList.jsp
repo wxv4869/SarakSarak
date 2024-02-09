@@ -16,7 +16,6 @@
 	
 	    <!-- Bootstrap Core CSS -->
 	    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	    <!-- <link rel="stylesheet" href="/resources/dist/css/allBook.css"> -->
 	    <link rel="stylesheet" href="/resources/dist/css/cartList.css">
 	
 	    <!-- Custom Fonts -->
@@ -189,7 +188,7 @@
 		<!-- 전체 페이지 영역 시작 -->
 		<div class="sarakMainWrapper">
 			<!-- 헤더 영역 시작 -->
-			<%@ include file="includes/header.jsp" %>
+			<%@ include file="../includes/header.jsp" %>
 			<!-- 헤더 영역 끝 -->
 			<!-- 미들 영역 시작 -->
 			<div class="sarakMiddleArea">
@@ -289,7 +288,7 @@
 			</div>
 			<!-- 미들 영역 끝 -->
 			<!-- footer 영역 시작 -->
-			<%@ include file="includes/footer.jsp" %>
+			<%@ include file="../includes/footer.jsp" %>
 			<!-- footer 영역 끝 -->
 		</div>
 		<!-- 전체 페이지 영역 끝 -->

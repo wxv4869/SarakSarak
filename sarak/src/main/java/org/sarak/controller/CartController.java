@@ -65,7 +65,7 @@ public class CartController {
 		
 		log.info(cartList);
 		
-		return "cartList";
+		return "sarak/cartList";
 		
 	}
 	

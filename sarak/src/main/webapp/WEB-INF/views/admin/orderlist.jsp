@@ -9,6 +9,7 @@
 .orderstate {
 	font-weight: 600;
 	font-style: italic;
+	text-align: center;
 }
 </style>
 
@@ -132,7 +133,7 @@ $(document).ready(function() {
                        			<c:out value="${order.orderstate}"/>
                        			<input type="hidden" value="${order.orderid}">
                        			<c:if test="${fn:contains(order.orderstate, '배송준비중')}">
-                       				<button id="update-btn" class="update-btn" onclick="updateOrderState('<c:out value="${order.orderid}"/>')">update</button>
+                       				<button id="update-btn" class="update-btn" onclick="updateOrderState('<c:out value="${order.orderid}"/>')" style="cursor: pointer; margin-left: 10px;">update</button>
                        			</c:if>
                        		</td>
                       		<td>

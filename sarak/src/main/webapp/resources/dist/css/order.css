@@ -209,4 +209,5 @@ div.image_wrap img {
     border-radius: 8px;
     color: #fff;
     font-weight: bold;
+    cursor: pointer;
 }
