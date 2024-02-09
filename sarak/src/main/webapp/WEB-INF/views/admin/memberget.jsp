@@ -45,7 +45,7 @@
 					<label>회원 주소</label>
 					<textarea class="form-control" rows="3" name='address' readonly="readonly"><c:out value="${member.address}"/></textarea>
 				</div>
-   
+  
 				<div class="form-group">
 					<label>회원 가입일</label> 
 					<input class="form-control" name='mregdate' value='<fmt:formatDate pattern="yyyy-MM-dd" value="${member.mregdate}"/>' readonly="readonly">

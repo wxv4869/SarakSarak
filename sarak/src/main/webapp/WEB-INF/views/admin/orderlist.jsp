@@ -10,7 +10,7 @@
 	font-weight: 600;
 	font-style: italic;
 	text-align: center;
-}
+} 
 </style>
 
 <script type="text/javascript">

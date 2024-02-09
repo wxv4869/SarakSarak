@@ -53,7 +53,7 @@ public class CartController {
 
 	}
 	
-	// 장바구니 목록
+	// 장바구니 목록 
 	@GetMapping("/cartList")
 	public String getCartList(Principal principal, Model model) {
 		
