@@ -199,7 +199,7 @@
 									${bookVO.publisher} | <fmt:formatDate value="${bookVO.pubdate}" pattern="yyyy년 MM월 dd일"/>
 								</div>
 								
-								<div class="btn-group">
+								<div class="btnGroup">
 									<div class="cartbtn">
 										<input type="button" class="cart" name="btn" value="장바구니">
 									</div>

@@ -102,7 +102,6 @@
 						<li><a href="/sarak/allBookList">전체도서</a></li>
 						<li><a href="/sarak/bestBookList" id="current">베스트도서</a></li>
 						<li><a href="/sarak/newBookList" id="com">신간도서</a></li>
-						<li><a href="#">공지사항</a></li>
 					</ul>
 				</div>
 			</nav>

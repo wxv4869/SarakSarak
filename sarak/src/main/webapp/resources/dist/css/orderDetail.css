@@ -31,7 +31,6 @@ div.shiptitle {
 }
 
 tbody.shipitem {
-	float:left;
 	margin-left: 48px;
 }
 
@@ -41,12 +40,11 @@ td.shipdetailitem {
  
 /* 사용자 주소 정보 */
 .addressInfo_div {
-	width : 80%;
-	margin-left: 50px;
+	width : 100%;
+	margin-left: 20px;
  	height: auto;
  	border: 1px solid #d8d8d8;
  	border-radius: 8px;
-	font-size: 15px;
 	font-weight: bold;
 }
 
@@ -56,6 +54,7 @@ td.shipdetailitem {
 
 .addressInfo_div tr {
 	height: 30px;
+	font-size: 14px;
 }
 
 .addressInfo_div td {
@@ -63,9 +62,8 @@ td.shipdetailitem {
 }
  
 .orderGoods_div {
-	width : 80%;
- 	margin-left: 50px;
- 	top: 20%;
+	width: 100%;
+ 	margin-left: 20px;
   	border: 1px solid #d8d8d8;
   	border-radius: 8px;
 	font-size: 15px;
@@ -82,11 +80,11 @@ div.goods_kind_div hr {
 div.image_wrap img {
 	width: 80px;
 	height: auto;
-	margin: 20px;
+	margin: 20px 20px 20px 10px;
 }
 
 .goods_kind_div {
-	font-size: 16px;
+	font-size: 15px;
     line-height: 35px;
     margin-bottom: 16px;
 }
@@ -123,15 +121,18 @@ div.image_wrap img {
 
 .goods_table tr {
 	height: 110px;
+	border-bottom: 1px solid #ccc;
 }
 
 .goods_table .bookinfo {
 	font-size: 13px;
+	line-height: 25px;
 }
 
 .goods_table_price_td {
 	text-align: center;
 	font-size: 13px;
+	line-height: 25px;
 }
 
 .goods_table_price_td .totalprice {
@@ -168,13 +169,12 @@ hr.goods_hr {
 .total_info_div {
 	position:absolute;
 	top: 0;
-	right : 5%;
-	width : 30%;
-	border-top-width:2px;	
+	right : 10px;
+	width : 35%;
   	border: 1px solid #d8d8d8;
   	border-radius: 8px;
 	font-size: 15px;
-	padding: 10px 10px 0px 10px;    /* 순서 : 상 우 하 좌 */
+	padding: 15px;    /* 순서 : 상 우 하 좌 */
 	
 }
 
@@ -217,7 +217,7 @@ hr.goods_hr {
 
 .total_info_btn_div {
     text-align: center;
-	padding: 15px 12px;
+	padding: 0 12px 5px 12px;
 }
 
 .order_btn {

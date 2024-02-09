@@ -82,10 +82,16 @@ $(document).ready(function() {
 });
 </script>
 
+<style>
+.insert-btn {
+	margin-bottom: 20px;
+}
+</style>
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">도서 목록</h1>
-       	<button id="insert-btn" type="button" class="insert-btn">새 도서 등록하기</button>   	
+       	<button id="insert-btn" type="button" class="insert-btn">+ 새 도서 등록하기</button>   	
 	</div>
     <!-- /.col-lg-12 -->
 </div>

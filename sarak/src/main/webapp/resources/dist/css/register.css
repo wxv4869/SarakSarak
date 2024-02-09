@@ -12,7 +12,7 @@ div.registerContainer {
 }
 
 .register-wrap {
-	width: 50%;
+	width: 100%;
 	top: 40%;
 	margin-top: -50px;    /* height의 50% */
 	text-align: center;
@@ -20,7 +20,7 @@ div.registerContainer {
 
 .register_content_subject {
     text-align: center;
-	margin-top: 150px;
+	margin-top: 120px;
 	margin-bottom: 50px;
 }
 
@@ -65,7 +65,10 @@ td input {
 }
 
 .has-feedback {
-	margin-right: 80px;
+	width: 600px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .btn-register {

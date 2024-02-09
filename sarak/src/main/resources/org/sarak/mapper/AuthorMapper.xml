@@ -6,18 +6,23 @@
 
 	<!-- 1. 작가 목록 (with 페이징) -->
 	<select id="authorGetList" resultType="org.sarak.domain.AuthorVO">
-		<![CDATA[
-			select authorid, authorname
-			from
-				(
-				select /*+INDEX_DESC(tbl_author pk_authorid)*/
-					rownum rn, authorid, authorname
-				from
-					tbl_author
-				where rownum <= #{pageNum} * #{amount}
-				)
-			where rn > (#{pageNum} - 1) * #{amount}
-		]]>
+	    <![CDATA[
+	        select authorid, authorname
+	        from (
+	            select 
+	                rownum rn, authorid, authorname
+	            from (
+	                select 
+	                    /*+INDEX_DESC(tbl_author pk_authorid)*/
+	                    authorid, authorname
+	                from 
+	                    tbl_author
+	                order by authorid desc
+	            )
+	            where rownum <= #{pageNum} * #{amount}
+	        )
+	        where rn > (#{pageNum} - 1) * #{amount}
+	    ]]>
 	</select>
 	
 	<!-- 2. 작가 총 수 -->

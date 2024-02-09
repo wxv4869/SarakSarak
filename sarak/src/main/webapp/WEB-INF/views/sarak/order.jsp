@@ -133,7 +133,7 @@
 								<tr>
 									<th>주소</th>
 									<td>
-										${memberInfo.postcode} ${memberInfo.address}	
+										[${memberInfo.postcode}] ${memberInfo.address}	
 										<input class="ordername_input" value="${memberInfo.mname}" type="hidden">
 										<input class="orderphone_input" type="hidden" value="${memberInfo.phone}">
 										<input class="orderpostcode_input" type="hidden" value="${memberInfo.postcode}">
@@ -155,8 +155,8 @@
 				<table class="goods_table">
 					<colgroup>
 						<col width="15%">
-						<col width="55%">
-						<col width="30%">
+						<col width="62%">
+						<col width="23%">
 					</colgroup>					
 					<tbody>
 						<c:forEach items="${orderList}" var="list">

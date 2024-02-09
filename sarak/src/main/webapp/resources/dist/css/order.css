@@ -42,8 +42,6 @@ td.shipdetailitem {
  	height: auto;
  	border: 1px solid #d8d8d8;
  	border-radius: 8px;
-	font-size: 15px;
-	font-weight: bold;
 }
 
 .addressInfo_input_div_1 {
@@ -52,6 +50,7 @@ td.shipdetailitem {
 
 .addressInfo_div tr {
 	height: 30px;
+	font-size: 14px;
 }
 
 .addressInfo_div td {
@@ -64,9 +63,8 @@ td.shipdetailitem {
  	top: 20%;
   	border: 1px solid #d8d8d8;
   	border-radius: 8px;
-	font-size: 15px;
-	font-weight: bold;
 	padding: 20px;
+	font-weight: bold;
 	margin-top: 30px;
 	margin-bottom: 100px;
 }
@@ -78,11 +76,11 @@ div.goods_kind_div hr {
 div.image_wrap img {
 	width: 80px;
 	height: auto;
-	margin: 20px;
+	margin: 20px 20px 20px 10px;
 }
 
 .goods_kind_div {
-	font-size: 16px;
+	font-size: 15px;
     line-height: 35px;
     margin-bottom: 16px;
 }
@@ -119,15 +117,18 @@ div.image_wrap img {
 
 .goods_table tr {
 	height: 110px;
+	border-bottom: 1px solid #ccc;
 }
 
 .goods_table .bookinfo {
 	font-size: 13px;
+	line-height: 25px;
 }
 
 .goods_table_price_td {
 	text-align: center;
 	font-size: 13px;
+	line-height: 25px;
 }
 
 .goods_table_price_td .totalprice {
@@ -152,12 +153,12 @@ div.image_wrap img {
 	position:absolute;
 	top: 0;
 	right : 5%;
-	width : 30%;
+	width : 35%;
 	border-top-width:2px;	
   	border: 1px solid #d8d8d8;
   	border-radius: 8px;
 	font-size: 15px;
-	padding: 10px 10px 0px 10px;    /* 순서 : 상 우 하 좌 */	
+	padding: 15px;    /* 순서 : 상 우 하 좌 */	
 }
 
 .total_info_price_div {
@@ -193,13 +194,9 @@ div.image_wrap img {
 	font-size: 16px;
 }
 
-.total_price_label {
-	margin-top: 5px;
-}
-
 .total_info_btn_div {
     text-align: center;
-	padding: 15px 12px;
+	padding: 0 12px 5px 12px;
 }
 
 .order_btn {

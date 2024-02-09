@@ -90,21 +90,26 @@
 	</update>
 
 	<!-- 12. 페이징 처리된 전체 회원 목록 -->
-    <select id = "getListWithPaging" resultMap="memberMap">
-    	<![CDATA[
-    	 	SELECT 
-				mid, mpw, mname, phone, email, postcode, address, mregdate, auth
-			FROM
-			(
-				select /*+INDEX_DESC(tbl_member pk_member) */
-					rownum rn, mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
-				from 
-					tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mid = auth.mid
-				where rownum <= #{pageNum} * #{amount}
-			)
-			where rn > (#{pageNum} - 1) * #{amount}
-    	]]>
-    </select>
+    <select id="getListWithPaging" resultMap="memberMap">
+	    <![CDATA[
+	        SELECT 
+	            mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+	        FROM (
+	            SELECT 
+	                rownum rn, mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+	            FROM (
+	                SELECT 
+	                    mem.mid, mpw, mname, phone, email, postcode, address, mregdate, auth
+	                FROM 
+	                    tbl_member mem 
+	                    LEFT OUTER JOIN tbl_member_auth auth ON mem.mid = auth.mid
+	                ORDER BY mregdate DESC
+	            ) mem
+	            WHERE rownum <= #{pageNum} * #{amount}
+	        )
+	        WHERE rn > (#{pageNum} - 1) * #{amount}
+	    ]]>
+	</select>
     
     <!-- 13. 페이징을 위한 전체 회원의 수 -->
     <select id="memberGetTotal" resultType="int">

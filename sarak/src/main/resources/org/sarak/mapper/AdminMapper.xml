@@ -67,16 +67,16 @@
 	<!-- 9. 주문 목록 (with 페이징) -->
 	<select id="orderGetList" resultType="org.sarak.domain.OrderDTO">
 		<![CDATA[
-			select orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
-			from
-				(
-				select /*+INDEX_DESC(tbl_order pk_order)*/
-					rownum rn, orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
-				from
-					tbl_order
-				where rownum <= #{pageNum} * #{amount}
-				)
-			where rn > (#{pageNum} - 1) * #{amount}
+			select * from (
+	            select rownum rn, orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
+	            from (
+	                select orderid, mid, orderdate, totalprice, orderstate, ordername, orderphone, orderpostcode, orderaddress
+	                from tbl_order 
+	                order by orderdate desc
+	            )
+	            where rownum <= #{pageNum} * #{amount}
+	        )
+	        where rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
 	

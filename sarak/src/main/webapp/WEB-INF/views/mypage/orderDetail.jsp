@@ -93,22 +93,24 @@
 						<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block">
 									<table>
 										<colgroup>
-											<col width="25%">
-											<col width="*">
+											<col width="30%">
+											<col width="70%">
 										</colgroup>
-										<div class="shiptitle">배송지 정보</div>
 										<tbody class="shipitem">
 											<tr>
+												<th>이름</th>
 												<td>
 													${orderItem.ordername}
 												</td>
 											</tr>
 											<tr>
+												<th>연락처</th>
 												<td>
 													${orderItem.orderphone}
 												</td>
 											</tr>
 											<tr>
+												<th>배송지</th>
 												<td class="shipdetailitem">
  													[${orderItem.orderpostcode}] ${orderItem.orderaddress}								
 												</td>
@@ -128,8 +130,8 @@
 					<table class="goods_table">
 						<colgroup>
 							<col width="15%">
-							<col width="45%">
-							<col width="40%">
+							<col width="62%">
+							<col width="23%">
 						</colgroup>					
 						<tbody>
 							<c:forEach items="${orderItem.orders}" var="ods">
@@ -140,10 +142,13 @@
 											<img src="<c:url value='/sarak/display'/>?filename=<c:out value='${ods.attachList[0].uploadpath}/${ods.attachList[0].filename}'/>" alt="표지 이미지"/>
 										</div>
 									</td>
+									<td class="bookinfo">
+										${ods.bname}<br>
+										<fmt:formatNumber value="${ods.odetailprice}" pattern="#,###원"/>
+									</td>
 									<td class="goods_table_price_td">
-										<div class="price_td_bold">${ods.bname}</div>
-										<div class="price_td_normal"><fmt:formatNumber value="${ods.odetailprice}" pattern="#,### 원" /> | 수량 ${ods.odetailquan}개</div>
-										<div class="price_td_bold"><fmt:formatNumber value="${ods.odetailprice * ods.odetailquan}" pattern="#,### 원" /></div>
+										<strong class="totalprice"><fmt:formatNumber value="${ods.odetailprice * ods.odetailquan}" pattern="#,###원" /></strong><br>
+										<span class="count">(수량 ${ods.odetailquan}개)</span>
 										<input type="hidden" class="individual_bookCount_input" value="${ods.odetailquan}">
 										<input type="hidden" class="individual_totalPrice_input" value="${ods.odetailprice * ods.odetailquan}">	
 									</td>
@@ -159,7 +164,7 @@
 						<ul>
 							<li>
 								<span class="price_span_label">상품 금액</span>
-								<span class="totalPrice_span">${orderItem.totalprice}</span>원
+								<span class="totalPrice_span"><fmt:formatNumber value="${orderItem.totalprice}" pattern="#,###원"/></span>
 							</li>
 							<li>
 								<span class="price_span_label">배송비</span>
@@ -169,8 +174,8 @@
 								<strong class="price_span_label total_price_label">최종 결제 금액</strong>
 								<strong class="strong_red">
 									<span class="total_price_red finalTotalPrice_span">
-										${orderItem.totalprice}
-									</span>원
+										<fmt:formatNumber value="${orderItem.totalprice}" pattern="#,###원"/>
+									</span>
 								</strong>
 							</li>
 						</ul>

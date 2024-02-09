@@ -16,7 +16,7 @@
 	
 	    <!-- Bootstrap Core CSS -->
 	    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	    <link rel="stylesheet" href="/resources/dist/css/allBook.css">
+	    <!-- <link rel="stylesheet" href="/resources/dist/css/allBook.css"> -->
 	    <link rel="stylesheet" href="/resources/dist/css/cartList.css">
 	
 	    <!-- Custom Fonts -->

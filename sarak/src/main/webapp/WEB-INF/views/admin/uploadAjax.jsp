@@ -73,7 +73,7 @@ p {
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">도서 이미지 업로드 페이지</h1>
+		<h1 class="page-header">도서 이미지 업로드</h1>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>

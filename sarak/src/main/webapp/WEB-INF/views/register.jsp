@@ -115,32 +115,6 @@
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
 							<button class="btn-cancel" type="button">취소</button>
 						</div>
-					
-						<%-- <div class="profile-title">
-							<label>아이디</label>
-							<label>비밀번호</label>
-							<label>이름</label>
-							<label>전화번호</label>
-							<label>이메일</label>
-							<label>우편번호</label>
-							<label>상세 주소</label>
-						</div>
-		     	 
-						<div class="profile-input">
-							<input class="profile-form-control" type="text" id="mid" name="mid" />
-							<input class="profile-form-control" type="password" id="mpw" name="mpw" />
-							<input class="profile-form-control" type="text" id="mname" name="mname" />
-							<input class="profile-form-control" type="text" id="phone" name="phone" />
-							<input class="profile-form-control" type="text" id="email" name="email" />
-							<input class="profile-form-control" type="text" id="postcode" name="postcode" />
-							<input class="profile-form-control" type="text" id="address" name="address" />
-						</div>
-												
-						<div class="form-group has-feedback">
-							<button class="profilepwd-pwdmBtn" type="submit" id="submit">회원가입</button>
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }" />
-							<button class="profilepwd-pwdmBtn" type="button">취소</button>
-						</div> --%>
 					</form>
 				</div>
 	    	</div>

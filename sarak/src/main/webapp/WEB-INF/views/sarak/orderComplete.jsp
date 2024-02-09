@@ -82,7 +82,7 @@
 								<tr>
 									<th>주소</th>
 									<td>
-										${orderItem.orderpostcode} ${orderItem.orderaddress}								
+										[${orderItem.orderpostcode}] ${orderItem.orderaddress}								
 									</td>
 								</tr>
 							</tbody>
@@ -96,11 +96,12 @@
 				<div class="goods_kind_div">
 					주문상품 <span class="goods_kind_div_kind"></span>종 <span class="goods_kind_div_count"></span>개
 				</div>
+				<div class="line"></div>
 				<table class="goods_table">
 					<colgroup>
 						<col width="15%">
-						<col width="55%">
-						<col width="30%">
+						<col width="62%">
+						<col width="23%">
 					</colgroup>					
 					<tbody>
 						<c:forEach items="${orderItem.orders}" var="ods">
@@ -133,7 +134,7 @@
 					<ul>
 						<li>
 							<span class="price_span_label">상품 금액</span>
-							<span class="totalPrice_span">${orderItem.totalprice}</span>원
+							<span class="totalPrice_span"><fmt:formatNumber value="${orderItem.totalprice}" pattern="#,###원"/></span>
 						</li>
 						<li>
 							<span class="price_span_label">배송비</span>
@@ -143,8 +144,8 @@
 							<strong class="price_span_label total_price_label">최종 결제 금액</strong>
 							<strong class="strong_red">
 								<span class="total_price_red finalTotalPrice_span">
-									${orderItem.totalprice}
-								</span>원
+									<fmt:formatNumber value="${orderItem.totalprice}" pattern="#,###원"/>
+								</span>
 							</strong>
 						</li>
 					</ul>

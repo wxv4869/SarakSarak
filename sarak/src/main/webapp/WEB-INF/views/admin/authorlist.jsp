@@ -109,10 +109,16 @@ $(document).ready(function() {
 });
 </script>
 
+<style>
+.insert-btn {
+	margin-bottom: 20px;
+}
+</style>
+
 <div class="row">
     <div class="col-lg-12">
 	    <h1 class="page-header">작가 목록</h1>
-	  	<button id="insert-btn" type="button" class="insert-btn">새 작가 등록하기</button>
+	  	<button id="insert-btn" type="button" class="insert-btn">+ 새 작가 등록하기</button>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -124,6 +130,10 @@ $(document).ready(function() {
 		<!-- /.panel-heading -->
 			<div class="panel-body">
 				<table class="table table-striped table-bordered table-hover" >
+					<colgroup>
+						<col width="10%">
+						<col width="90%">
+					</colgroup>
 					<thead>
 						<tr>
 							<td>작가 번호</td>
