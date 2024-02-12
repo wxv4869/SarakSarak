@@ -10,7 +10,6 @@
 .form-group span {	
 	display: none;
 	padding-top: 10px;
-	text-align: center;
 	color: #e05757;
 	font-weight: 300;
 }
@@ -19,6 +18,8 @@
 <script>
 $(document).ready(function() {
 	
+	var insertForm = $("#insertForm");
+	
 	/* 목록 페이지 이동 버튼 */
 	$("#cancel-btn").click(function() {
 		
@@ -26,10 +27,51 @@ $(document).ready(function() {
 		
 	});
 	
-	/* 작가 등록 버튼 */
-	$("#insert-btn").click(function() {
+	/* 등록 버튼 작동 및 유효성 검사 */
+	$(".insert-btn").click(function() {
 		
-		$("#insertForm").submit();
+		// 작가 이름과 소개가 공란이면 등록 처리하지 않음
+		var authorname = $(".form-group input[name='authorname']").val();
+		var authordesc = $(".form-group input[name='authordesc']").val();
+		
+		var nameCheck = false;
+		var descCheck = false;
+		
+		e.preventDefault();
+		
+		if (!authorname) {
+			
+			$("#warn_authorname").css("display", "block");
+			
+		} else {
+			
+			$("#warn_authorname").css("display", "none");
+			
+			nameCheck = true;
+			
+		}
+		
+		if (!authordesc) {
+			
+			$("#warn_authordesc").css("display", "block");
+			
+		} else {
+			
+			$("#warn_authordesc").css("display", "none");
+			
+			descCheck = true;
+			
+		}
+		
+		if (nameCheck && descCheck) {
+			
+			insertForm.submit();
+			
+		} else {
+			
+			return false;
+			
+		}
 		
 	});
 	

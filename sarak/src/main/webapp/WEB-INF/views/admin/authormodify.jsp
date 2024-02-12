@@ -10,7 +10,6 @@
 .form-group span {	
 	display: none;
 	padding-top: 10px;
-	text-align: center;
 	color: #e05757;
 	font-weight: 300;
 }

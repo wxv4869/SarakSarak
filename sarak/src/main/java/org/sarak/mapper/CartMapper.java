@@ -21,5 +21,7 @@ public interface CartMapper {
 	public int updateCart(CartDTO cartDTO);
 	
 	public void deleteOrderCart(CartDTO dto);
+	
+	public void deleteALlCartByMid(String mid);
 
 }

@@ -70,6 +70,8 @@ public class AdminServiceImpl implements AdminService {
 		
 		adminMapper.bookStockInsert(bookVO);
 		
+		adminMapper.bookSalesInsert(bookVO);
+		
 	}
 	
 	@Transactional
@@ -93,6 +95,8 @@ public class AdminServiceImpl implements AdminService {
 		bookAttachMapper.deleteAll(bid);
 		
 		adminMapper.bookStockDelete(bid);
+		
+		adminMapper.bookSalesDelete(bid);
 		
 		adminMapper.bookDelete(bid);
 		

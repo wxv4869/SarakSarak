@@ -94,5 +94,24 @@
 	<delete id="deleteEachImg">
 		delete from tbl_book_img where filename = #{filename}
 	</delete>
+	
+	<!-- 13. 회원의 모든 주문, 주문 상세 내역 삭제 (회원 삭제 시) -->
+	<delete id="orderDetailDeleteByOrderid">
+		delete from tbl_orderdetail where orderid = #{orderid}
+	</delete>
+	
+	<delete id="orderDeleteByMid">
+		delete from tbl_order where mid = #{mid}
+	</delete>
+	
+	<!-- 14. 도서 등록과 동시에 판매량 데이터 생성 -->
+	<insert id="bookSalesInsert">
+		insert into tbl_book_sales (bid, sales) values (seq_book.currval, 0)
+	</insert>
+	
+	<!-- 15. 판매량 삭제 -->
+	<delete id="bookSalesDelete">
+		delete from tbl_book_sales where bid = #{bid}
+	</delete>
 
 </mapper>

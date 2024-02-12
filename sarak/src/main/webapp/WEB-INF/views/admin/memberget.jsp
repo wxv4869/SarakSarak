@@ -109,8 +109,14 @@ $(document).ready(function() {
 	});
 	
 	$("button[data-oper='remove']").on("click", function(e) {
+		
+		e.preventDefault();
+		
+		if (confirm("삭제하시면 해당 회원의 주문, 장바구니 데이터도 함께 삭제되며 복구할 수 없습니다. 그래도 삭제하시겠습니까?")) {
 	   
-		operForm3.attr("action","/admin/memberremove").submit();
+			operForm3.attr("action","/admin/memberremove").submit();
+		
+		}
 	
 	});
 

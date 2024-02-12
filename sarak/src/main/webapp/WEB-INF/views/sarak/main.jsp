@@ -70,7 +70,7 @@
 			
 			<ul class="productItem">
 				<c:forEach items="${bestBookList}" var="best" varStatus="status">
-					<c:if test="${status.index < 5}">
+					<c:if test="${status.index < 6}">
 						<c:forEach items="${best.attachList}" var="attach" >
 							<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(attach.filename, '.')), 'mainimg')}">
 							   	<a class='move' href='<c:out value="${best.bid}"/>'>
@@ -92,7 +92,7 @@
 		
 			<ul class="productItem">
 				<c:forEach items="${newBookList}" var="newBook" varStatus="status">
-					<c:if test="${status.index < 5}">
+					<c:if test="${status.index < 6}">
 						<c:forEach items="${newBook.attachList}" var="attach">
 							<c:if test="${fn:contains(fn:toLowerCase(fn:substringBefore(attach.filename, '.')), 'mainimg')}">
 						    	<a class='move' href='<c:out value="${newBook.bid}"/>'>

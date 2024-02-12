@@ -5,7 +5,11 @@ import java.util.List;
 import org.sarak.domain.AuthVO;
 import org.sarak.domain.Criteria;
 import org.sarak.domain.MemberVO;
+import org.sarak.domain.OrderDTO;
+import org.sarak.mapper.AdminMapper;
+import org.sarak.mapper.CartMapper;
 import org.sarak.mapper.MemberMapper;
+import org.sarak.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +23,15 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Setter(onMethod_ = @Autowired)
 	private MemberMapper memberMapper;
+	
+	@Setter(onMethod_= @Autowired)
+	private AdminMapper adminMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private OrderMapper orderMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private CartMapper cartMapper;
 
 	@Transactional
 	@Override
@@ -51,11 +64,28 @@ public class MemberServiceImpl implements MemberService{
 		return (memberMapper.update(member) == 1) ;
 		
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean removeMember(String mid) {
 		
 		log.info("remove..." + mid);
+		
+		List<OrderDTO> orders = orderMapper.getOrderListByMid(mid);
+		
+		for (OrderDTO order : orders) {
+			
+            adminMapper.orderDetailDeleteByOrderid(order.getOrderid());
+            
+        }
+		
+		adminMapper.orderDeleteByMid(mid);
+		
+		memberMapper.deleteAuth(mid);
+		
+		cartMapper.deleteALlCartByMid(mid);
+		
+		memberMapper.delete(mid);
 		
 		return (memberMapper.deleteAuth(mid) == 1) && (memberMapper.delete(mid) == 1) ;
 	

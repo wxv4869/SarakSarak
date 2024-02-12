@@ -85,16 +85,14 @@
 		
 		$(".buynow").on("click", function() {
 			
-			let bid = 0;
-			bid = parseInt($(".buynowBid").val());
-			console.log(bid); 
+			var bookId = $(this).closest("tr").find(".bid").text();
 			
 			let bookCount = 1;
 			console.log(bookCount);
 			
 			let form_contents = ''; 
 			
-			let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bid + "'>";
+			let bookId_input = "<input name='orders[0].bid' type='hidden' value='" + bookId + "'>";
 			form_contents += bookId_input;
 			
 			let bookCount_input = "<input name='orders[0].bookCount' type='hidden' value='" + bookCount + "'>";
@@ -157,7 +155,6 @@
 									</div>
 									<div class="buynowbtn">
 										<input type="button" class="buynow" name="btn" value="바로구매">
-										<input type="hidden" class="buynowBid" name="bid" value="${bestBook.bid}">
 									</div>
 								</td>
 							</tr>

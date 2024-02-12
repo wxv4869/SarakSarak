@@ -71,7 +71,7 @@ $(document).ready(function() {
 		
 		e.preventDefault();
 		
-		if (confirm("삭제하시면 해당 도서의 재고 데이터와 이미지 데이터도 함께 삭제되며 복구할 수 없습니다. 그래도 삭제하시겠습니까?")) {
+		if (confirm("삭제하시면 해당 도서의 이미지, 재고, 판매량 데이터도 함께 삭제되며 복구할 수 없습니다. 그래도 삭제하시겠습니까?")) {
 		
 			moveForm.find("input").remove();
 			
