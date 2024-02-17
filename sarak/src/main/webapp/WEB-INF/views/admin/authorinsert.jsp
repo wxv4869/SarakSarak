@@ -16,19 +16,19 @@
 </style>
 
 <script>
-$(document).ready(function() {
+$(document).ready(function(e) {
 	
 	var insertForm = $("#insertForm");
 	
 	/* 목록 페이지 이동 버튼 */
-	$("#cancel-btn").click(function() {
+	$("#cancel-btn").click(function(e) {
 		
 		location.href="/admin/authorlist";
 		
 	});
 	
 	/* 등록 버튼 작동 및 유효성 검사 */
-	$(".insert-btn").click(function() {
+	$(".insert-btn").click(function(e) {
 		
 		// 작가 이름과 소개가 공란이면 등록 처리하지 않음
 		var authorname = $(".form-group input[name='authorname']").val();
