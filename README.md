@@ -3,7 +3,7 @@
 ## 프로젝트 소개
 <div align="center">
    <img src="https://github.com/wxv4869/SarakSarak/assets/89888817/b0077f0f-9732-40d4-880b-da4810c89f49" width="800">
-   <i> >>사락사락 메인페이지</i>
+   <i>사락사락 메인페이지</i>
 </div>
 <br>
 ‘사락사락’은 책을 <strong>온라인 서점 웹 사이트</strong>로, 도서의 상세 정보 조회와 도서 상품 구매 서비스를 제공합니다.<br>
